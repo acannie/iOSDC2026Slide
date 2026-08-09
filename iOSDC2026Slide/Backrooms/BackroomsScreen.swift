@@ -1,5 +1,5 @@
 //
-//  SfSymbolsBasicsScreen.swift
+//  BackroomsScreen.swift
 //  iOSDC2026Slide
 //
 //  Created by SASAOKA Akane on 2026/07/25.
@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-struct SfSymbolsBasicsScreen: View {
+struct BackroomsScreen: View {
     @Binding var path: NavigationPath
 
     var body: some View {
         VStack(spacing: 20) {
             Button("次へ") {
-                path.append(Destination.travelPlus)
+                path.append(Destination.conclusion)
             }
         }
-        .navigationTitle("SF Symbols 活用の基本")
+        .navigationTitle("Backrooms")
         .navigationBarBackButtonHidden(true)
     }
 }

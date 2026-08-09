@@ -15,12 +15,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack(path: $path) {
             VStack(spacing: 20) {
-                Text("ホーム画面")
-                    .font(.largeTitle)
-
-                Button("自己紹介画面へ進む") {
-                    path.append(Destination.introduction)
-                }
+                IntroductionScreen(path: $path)
             }
             .navigationDestination(for: Destination.self) { destination in
                 switch destination {
@@ -28,17 +23,23 @@ struct ContentView: View {
                     IntroductionScreen(path: $path)
                 case .background:
                     BackgroundScreen(path: $path)
+                case .aboutSfSymbols:
+                    AboutSfSymbolsScreen(path: $path)
                 case .guidelines:
                     GuidelinesScreen(path: $path)
                 case .sfSymbolBasics:
                     SfSymbolsBasicsScreen(path: $path)
-                case .useCases:
-                    UseCasesScreen(path: $path)
+                case .travelPlus:
+                    TravelPlusScreen(path: $path)
+                case .symbolKanojo:
+                    SymbolKanojoScreen(path: $path)
+                case .backrooms:
+                    BackroomsScreen(path: $path)
                 case .conclusion:
                     ConclusionScreen(path: $path)
                 }
             }
-            .navigationTitle("ホーム")
+            .navigationTitle("最初の画面")
         }
     }
 }

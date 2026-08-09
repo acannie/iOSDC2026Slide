@@ -1,5 +1,5 @@
 //
-//  UseCasesScreen.swift
+//  AboutSfSymbolsScreen.swift
 //  iOSDC2026Slide
 //
 //  Created by SASAOKA Akane on 2026/07/25.
@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-struct UseCasesScreen: View {
+struct AboutSfSymbolsScreen: View {
     @Binding var path: NavigationPath
 
     var body: some View {
         VStack(spacing: 20) {
             Button("次へ") {
-                path.append(Destination.conclusion)
+                path.append(Destination.guidelines)
             }
         }
-        .navigationTitle("活用例")
+        .navigationTitle("SF Symbols について")
         .navigationBarBackButtonHidden(true)
     }
 }

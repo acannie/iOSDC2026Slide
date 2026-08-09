@@ -12,12 +12,11 @@ struct SymbolKanojoScreen: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            Button("自己紹介画面へ戻る") {
-                if !path.isEmpty {
-                    path.removeLast()
-                }
+            Button("次へ") {
+                path.append(Destination.backrooms)
             }
         }
-        .navigationTitle("シンボルカノジョ。画面")
+        .navigationTitle("シンボルカノジョ。")
+        .navigationBarBackButtonHidden(true)
     }
 }

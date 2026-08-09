@@ -13,7 +13,7 @@ struct BackgroundScreen: View {
     var body: some View {
         VStack(spacing: 20) {
             Button("次へ") {
-                path.append(Destination.guidelines)
+                path.append(Destination.sfSymbolBasics)
             }
         }
         .navigationTitle("問題提起")

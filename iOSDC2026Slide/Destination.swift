@@ -8,8 +8,11 @@
 enum Destination: Hashable {
     case introduction
     case background
+    case aboutSfSymbols
     case guidelines
     case sfSymbolBasics
-    case useCases
+    case travelPlus
+    case symbolKanojo
+    case backrooms
     case conclusion
 }
