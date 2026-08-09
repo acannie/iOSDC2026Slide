@@ -16,6 +16,13 @@ struct GuidelinesScreen: View {
                 path.append(Destination.sfSymbolBasics)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .overlay {
+            DestinationButtonOverlayView(
+                goPreviousAction: { path.removeLast() },
+                goNextAction: { path.append(Destination.sfSymbolBasics) }
+            )
+        }
         .navigationTitle("利用規約")
         .navigationBarBackButtonHidden(true)
     }
