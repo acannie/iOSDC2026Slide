@@ -8,12 +8,6 @@
 import SwiftUI
 import SwiftData
 
-// 遷移先の識別や渡すデータをまとめた型（Hashableが必須）
-enum Destination: Hashable {
-    case introduction
-    case symbolKanojo
-}
-
 struct ContentView: View {
     // 画面の履歴（パス）を管理する状態変数
     @State private var path = NavigationPath()
@@ -32,8 +26,16 @@ struct ContentView: View {
                 switch destination {
                 case .introduction:
                     IntroductionScreen(path: $path)
-                case .symbolKanojo:
-                    SymbolKanojoScreen(path: $path)
+                case .background:
+                    BackgroundScreen(path: $path)
+                case .guidelines:
+                    GuidelinesScreen(path: $path)
+                case .sfSymbolBasics:
+                    SfSymbolsBasicsScreen(path: $path)
+                case .useCases:
+                    UseCasesScreen(path: $path)
+                case .conclusion:
+                    ConclusionScreen(path: $path)
                 }
             }
             .navigationTitle("ホーム")

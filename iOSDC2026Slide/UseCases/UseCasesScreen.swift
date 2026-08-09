@@ -1,5 +1,5 @@
 //
-//  IntroductionScreen.swift
+//  UseCasesScreen.swift
 //  iOSDC2026Slide
 //
 //  Created by SASAOKA Akane on 2026/07/25.
@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-struct IntroductionScreen: View {
+struct UseCasesScreen: View {
     @Binding var path: NavigationPath
 
     var body: some View {
         VStack(spacing: 20) {
             Button("次へ") {
-                path.append(Destination.background)
+                path.append(Destination.conclusion)
             }
         }
-        .navigationTitle("自己紹介")
+        .navigationTitle("活用例")
         .navigationBarBackButtonHidden(true)
     }
 }

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SymbolKanojoScreen: View {
-//    @Environment(\.dismiss) private var dismiss
     @Binding var path: NavigationPath
 
     var body: some View {
