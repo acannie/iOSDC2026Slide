@@ -16,6 +16,13 @@ struct TravelPlusScreen: View {
                 path.append(Destination.symbolKanojo)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .overlay {
+            DestinationButtonOverlayView(
+                goPreviousAction: { path.removeLast() },
+                goNextAction: { path.append(Destination.symbolKanojo) }
+            )
+        }
         .navigationTitle("TravelPlus")
         .navigationBarBackButtonHidden(true)
     }

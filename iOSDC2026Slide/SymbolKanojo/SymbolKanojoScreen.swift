@@ -16,6 +16,13 @@ struct SymbolKanojoScreen: View {
                 path.append(Destination.backrooms)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .overlay {
+            DestinationButtonOverlayView(
+                goPreviousAction: { path.removeLast() },
+                goNextAction: { path.append(Destination.backrooms) }
+            )
+        }
         .navigationTitle("シンボルカノジョ。")
         .navigationBarBackButtonHidden(true)
     }

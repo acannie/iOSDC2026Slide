@@ -14,6 +14,13 @@ struct ConclusionScreen: View {
         VStack(spacing: 20) {
             Text("終わり")
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .overlay {
+            DestinationButtonOverlayView(
+                goPreviousAction: { path.removeLast() },
+                goNextAction: {}
+            )
+        }
         .navigationTitle("さいごに")
         .navigationBarBackButtonHidden(true)
     }

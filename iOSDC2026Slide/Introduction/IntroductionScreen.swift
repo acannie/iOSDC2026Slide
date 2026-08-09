@@ -25,24 +25,11 @@ struct IntroductionScreen: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .overlay {
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    Button(
-                        action: {
-                            path.append(Destination.background)
-                        },
-                        label: {
-                            Rectangle()
-                                .foregroundStyle(.clear)
-                                .frame(width: 100, height: 100)
-                        }
-                    )
-                }
-            }
+            DestinationButtonOverlayView(
+                goPreviousAction: {},
+                goNextAction: { path.append(Destination.background) }
+            )
         }
-        .navigationBarTitleDisplayMode(.large)
         .navigationTitle("自己紹介")
         .navigationBarBackButtonHidden(true)
     }
