@@ -16,6 +16,13 @@ struct SfSymbolsBasicsScreen: View {
                 path.append(Destination.travelPlus)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .overlay {
+            DestinationButtonOverlayView(
+                goPreviousAction: { path.removeLast() },
+                goNextAction: { path.append(Destination.travelPlus) }
+            )
+        }
         .navigationTitle("SF Symbols 活用の基本")
         .navigationBarBackButtonHidden(true)
     }

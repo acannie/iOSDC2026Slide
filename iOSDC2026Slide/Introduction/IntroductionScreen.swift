@@ -13,8 +13,15 @@ struct IntroductionScreen: View {
     var body: some View {
         VStack(spacing: 20) {
             Button("次へ") {
-                path.append(Destination.background)
+                path.append(Destination.background) 
             }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .overlay {
+            DestinationButtonOverlayView(
+                goPreviousAction: {},
+                goNextAction: { path.append(Destination.background) }
+            )
         }
         .navigationTitle("自己紹介")
         .navigationBarBackButtonHidden(true)

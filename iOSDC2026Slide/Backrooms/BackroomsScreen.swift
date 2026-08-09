@@ -16,6 +16,13 @@ struct BackroomsScreen: View {
                 path.append(Destination.conclusion)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .overlay {
+            DestinationButtonOverlayView(
+                goPreviousAction: { path.removeLast() },
+                goNextAction: { path.append(Destination.conclusion) }
+            )
+        }
         .navigationTitle("Backrooms")
         .navigationBarBackButtonHidden(true)
     }
