@@ -14,10 +14,8 @@ struct Interpreting: View {
     var body: some View {
         VStack {
             title
-            HStack(spacing: 200) {
-                if isShowingWhole {
-                    lotus
-                }
+            HStack(spacing: 150) {
+                lotus
                 elephant
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -41,47 +39,69 @@ struct Interpreting: View {
 
     var lotus: some View {
         ZStack {
-            ForEach(Side.allCases, id: \.self) { side in
-                Image(systemName: "chart.pie.fill")
-                    .resizable()
-                    .frame(width: 50, height: 100)
-                    .foregroundColor(.lotusLeaf)
-                    .rotationEffect(.degrees(side.unit * 95), anchor: .bottom)
-            }
-            .offset(y: -10)
-            Image(systemName: "drop.fill")
+            Rectangle()
+                .fill(
+                    LinearGradient(
+                        gradient: Gradient(colors: [.cyan, .clear]),
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .frame(width: 500, height: 200)
+                .offset(y: 170)
+            Image(systemName: "chart.pie.fill")
                 .resizable()
-                .frame(width: 50, height: 100)
-                .foregroundColor(.lotus5)
-            ForEach(Side.allCases, id: \.self) { side in
+                .frame(width: 75, height: 150)
+                .foregroundColor(.lotusLeaf)
+                .rotationEffect(.degrees(-95), anchor: .bottom)
+                .offset(x: -75, y: 35)
+            Image(systemName: "chart.pie.fill")
+                .resizable()
+                .frame(width: 100, height: 50)
+                .foregroundColor(.lotusLeaf)
+                .offset(x: 160, y: 85)
+            Image(systemName: "chart.pie.fill")
+                .resizable()
+                .frame(width: 100, height: 200)
+                .foregroundColor(.lotusLeaf)
+                .rotationEffect(.degrees(95), anchor: .bottom)
+                .offset(x: 0, y: 80)
+            Group {
                 Image(systemName: "drop.fill")
                     .resizable()
-                    .frame(width: 50, height: 100)
-                    .foregroundColor(.lotus4)
-                    .rotationEffect(.degrees(side.unit * 10), anchor: .bottom)
+                    .frame(width: 100, height: 200)
+                    .foregroundColor(.lotus5)
+                ForEach(Side.allCases, id: \.self) { side in
+                    Image(systemName: "drop.fill")
+                        .resizable()
+                        .frame(width: 100, height: 200)
+                        .foregroundColor(.lotus4)
+                        .rotationEffect(.degrees(side.unit * 10), anchor: .bottom)
+                }
+                ForEach(Side.allCases, id: \.self) { side in
+                    Image(systemName: "drop.fill")
+                        .resizable()
+                        .frame(width: 100, height: 200)
+                        .foregroundColor(.lotus3)
+                        .rotationEffect(.degrees(side.unit * 20), anchor: .bottom)
+                }
+                ForEach(Side.allCases, id: \.self) { side in
+                    Image(systemName: "drop.fill")
+                        .resizable()
+                        .frame(width: 100, height: 200)
+                        .foregroundColor(.lotus2)
+                        .rotationEffect(.degrees(side.unit * 40), anchor: .bottom)
+                }
+                ForEach(Side.allCases, id: \.self) { side in
+                    Image(systemName: "drop.fill")
+                        .resizable()
+                        .frame(width: 100, height: 200)
+                        .foregroundColor(.lotus1)
+                        .rotationEffect(.degrees(side.unit * 70), anchor: .bottom)
+                        .offset(x: side.unit * -40, y: -20)
+                }
             }
-            ForEach(Side.allCases, id: \.self) { side in
-                Image(systemName: "drop.fill")
-                    .resizable()
-                    .frame(width: 50, height: 100)
-                    .foregroundColor(.lotus3)
-                    .rotationEffect(.degrees(side.unit * 20), anchor: .bottom)
-            }
-            ForEach(Side.allCases, id: \.self) { side in
-                Image(systemName: "drop.fill")
-                    .resizable()
-                    .frame(width: 50, height: 100)
-                    .foregroundColor(.lotus2)
-                    .rotationEffect(.degrees(side.unit * 40), anchor: .bottom)
-            }
-            ForEach(Side.allCases, id: \.self) { side in
-                Image(systemName: "drop.fill")
-                    .resizable()
-                    .frame(width: 40, height: 120)
-                    .foregroundColor(.lotus1)
-                    .rotationEffect(.degrees(side.unit * 70), anchor: .bottom)
-                    .offset(x: side.unit * -20, y: -10)
-            }
+            .offset(x: -60)
         }
     }
 
@@ -90,76 +110,76 @@ struct Interpreting: View {
             Image(systemName: "button.angledbottom.horizontal.right.fill")
                 .resizable()
                 .rotationEffect(.degrees(180))
-                .frame(width: 180, height: 120)
+                .frame(width: 360, height: 240)
                 .foregroundStyle(.elephantLight)
             Rectangle()
-                .frame(width: 30, height: 60)
+                .frame(width: 60, height: 120)
                 .foregroundStyle(.elephantLight)
-                .offset(x: 60, y: 80)
+                .offset(x: 120, y: 160)
             Rectangle()
-                .frame(width: 30, height: 60)
+                .frame(width: 60, height: 120)
                 .foregroundStyle(.elephantLight)
-                .offset(x: -35, y: 80)
+                .offset(x: -70, y: 160)
             Rectangle()
-                .frame(width: 30, height: 60)
+                .frame(width: 60, height: 120)
                 .foregroundStyle(.elephantLight)
-                .offset(x: -70, y: 80)
+                .offset(x: -140, y: 160)
             Rectangle()
-                .frame(width: 30, height: 40)
+                .frame(width: 60, height: 80)
                 .foregroundStyle(.elephantLight)
                 .rotationEffect(.degrees(-45))
-                .offset(x: 90, y: 50)
+                .offset(x: 180, y: 100)
             // 動く前足
-            RoundedRectangle(cornerRadius: 4)
-                .frame(width: 30, height: 40)
+            RoundedRectangle(cornerRadius: 8)
+                .frame(width: 60, height: 80)
                 .foregroundStyle(.elephantLight)
                 .rotationEffect(.degrees(15), anchor: .topTrailing)
-                .offset(x: 100, y: 70)
+                .offset(x: 200, y: 140)
             // 尾
             Text("ノ")
-                .font(.system(size: 60, weight: .bold))
+                .font(.system(size: 120, weight: .bold))
                 .foregroundStyle(.elephantLight)
                 .rotationEffect(.degrees(15), anchor: .topTrailing)
-                .offset(x: -95, y: 5)
+                .offset(x: -190, y: 10)
             // 頭
             Image(systemName: "button.angledtop.vertical.left.fill")
                 .resizable()
                 .rotationEffect(.degrees(90))
-                .frame(width: 80, height: 100)
+                .frame(width: 160, height: 200)
                 .foregroundStyle(.elephantLight)
-                .offset(x: 70, y: -20)
+                .offset(x: 140, y: -40)
             // 鼻
             Text("つ")
-                .font(.system(size: 60, weight: .black))
+                .font(.system(size: 120, weight: .black))
                 .foregroundStyle(.elephantLight)
                 .rotationEffect(.degrees(15), anchor: .topLeading)
-                .offset(x: 140, y: 20)
+                .offset(x: 280, y: 40)
             // 目
             Circle()
                 .foregroundStyle(.elephantEye)
-                .frame(width: 10, height: 10)
-                .offset(x: 80, y: -30)
+                .frame(width: 20, height: 20)
+                .offset(x: 160, y: -60)
             // 牙
             Image(systemName: "moon.fill")
                 .resizable()
                 .rotationEffect(.degrees(-30))
-                .frame(width: 40, height: 40)
+                .frame(width: 80, height: 80)
                 .foregroundStyle(.elephantFang)
-                .offset(x: 90, y: 15)
+                .offset(x: 180, y: 30)
             // 鞍
             Image(systemName: "crown.fill")
                 .resizable()
                 .rotationEffect(.degrees(165))
-                .frame(width: 80, height: 70)
+                .frame(width: 160, height: 140)
                 .foregroundStyle(.elephantSaddle)
-                .offset(x: -25, y: -15)
+                .offset(x: -50, y: -30)
             // 耳
             Image(systemName: "button.angledtop.vertical.right.fill")
                 .resizable()
-                .frame(width: 50, height: 70)
+                .frame(width: 100, height: 140)
                 .foregroundStyle(.elephantDark)
                 .rotationEffect(.degrees(180))
-                .offset(x: 25, y: -20)
+                .offset(x: 50, y: -40)
         }
     }
 }
