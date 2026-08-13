@@ -1,5 +1,5 @@
 //
-//  03_Interpreting.swift
+//  03_Combining.swift
 //  iOSDC2026Slide
 //
 //  Created by SASAOKA Akane on 2026/08/14.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct Interpreting: View {
+struct Combining: View {
     var body: some View {
-        Text("Interpreting")
+        Text("Combining")
     }
 }

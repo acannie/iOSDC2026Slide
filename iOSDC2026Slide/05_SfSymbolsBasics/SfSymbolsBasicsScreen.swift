@@ -13,8 +13,8 @@ struct SfSymbolsBasicsScreen: View {
 
     enum Page: Int, CaseIterable {
         case coloring
-        case combining
         case interpreting
+        case combining
         case animating
         case glowing
         case rotatingIn3D
@@ -23,8 +23,8 @@ struct SfSymbolsBasicsScreen: View {
         var content: some View {
             switch self {
             case .coloring: Coloring()
-            case .combining: Combining()
             case .interpreting: Interpreting()
+            case .combining: Combining()
             case .animating: Animating()
             case .glowing: Glowing()
             case .rotatingIn3D: RotatingIn3D()
