@@ -9,22 +9,35 @@ import SwiftUI
 
 struct Interpreting: View {
     let isActive: Bool
-    @State private var isShowingWhole: Bool = false
+    @State private var isShowingWholeLotus: Bool = false
+    @State private var isShowingWholeElephant: Bool = false
 
     var body: some View {
         VStack {
             title
-            HStack(spacing: 150) {
-                lotus
-                elephant
+            ZStack {
+                HStack(spacing: 150) {
+                    lotus
+                        .opacity(isShowingWholeLotus ? 1 : 0)
+                    elephant
+                        .opacity(isShowingWholeElephant ? 1 : 0)
+                }
+                HStack(spacing: 300) {
+                    chart
+                        .onTapGesture {
+                            isShowingWholeLotus = true
+                        }
+                    tsu
+                        .onTapGesture {
+                            isShowingWholeElephant = true
+                        }
+                }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .onTapGesture {
-                isShowingWhole = true
-            }
         }
         .onChange(of: isActive) {
-            isShowingWhole = false
+            isShowingWholeLotus = false
+            isShowingWholeElephant = false
         }
     }
 
@@ -35,6 +48,28 @@ struct Interpreting: View {
             Spacer()
         }
         .padding(.horizontal, 48)
+    }
+
+    var chart: some View {
+        VStack(spacing: 32) {
+            Image(systemName: "chart.pie.fill")
+                .resizable()
+                .frame(width: 300, height: 300)
+                .foregroundColor(.black)
+            Text("chart.pie.fill")
+                .font(.system(size: 50, weight: .bold))
+        }
+    }
+
+    var tsu: some View {
+        VStack(spacing: -32) {
+            Text("つ")
+                .font(.system(size: 400))
+                .foregroundColor(.black)
+            Text("ひらがな")
+                .font(.system(size: 50, weight: .bold))
+        }
+        .offset(y: -45)
     }
 
     var lotus: some View {
