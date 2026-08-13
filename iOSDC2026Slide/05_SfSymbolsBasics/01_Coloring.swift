@@ -14,7 +14,8 @@ struct Coloring: View {
     var body: some View {
         VStack {
             title
-            HStack {
+            HStack(spacing: 200) {
+                rainbow
 //                Text("Coloring \(count)")
 //                    .font(.system(size: 100))
 //                    .foregroundStyle(color(for: count))
@@ -48,6 +49,31 @@ struct Coloring: View {
 
     func color(for index: Int) -> Color {
         Color(hue: .random(in: 0...1), saturation: 1, brightness: 1)
+    }
+
+    var rainbow: some View {
+        Image(systemName: "rainbow")
+            .resizable()
+            .symbolRenderingMode(rainbowRenderingMode(for: count))
+            .foregroundStyle(rainbowColor(for: count))
+            .frame(width: 400, height: 200)
+            .animation(.easeInOut, value: rainbowColor(for: count))
+    }
+
+    func rainbowRenderingMode(for index: Int) -> SymbolRenderingMode {
+        switch count % 2 {
+        case 0: .multicolor
+        case 1: .palette
+        default: .palette
+        }
+    }
+
+    func rainbowColor(for index: Int) -> Color {
+        switch count % 2 {
+        case 0: .clear
+        case 1: .gray
+        default: .clear
+        }
     }
 
     var teddybear: some View {
