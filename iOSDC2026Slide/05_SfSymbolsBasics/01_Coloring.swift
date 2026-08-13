@@ -52,12 +52,16 @@ struct Coloring: View {
     }
 
     var rainbow: some View {
-        Image(systemName: "rainbow")
-            .resizable()
-            .symbolRenderingMode(rainbowRenderingMode(for: count))
-            .foregroundStyle(rainbowColor(for: count))
-            .frame(width: 400, height: 200)
-            .animation(.easeInOut, value: rainbowColor(for: count))
+        VStack(spacing: 32) {
+            Image(systemName: "rainbow")
+                .resizable()
+                .symbolRenderingMode(rainbowRenderingMode(for: count))
+                .foregroundStyle(rainbowColor(for: count))
+                .frame(width: 400, height: 200)
+                .animation(.easeInOut, value: rainbowColor(for: count))
+            Text("rainbow")
+                .font(.system(size: 50, weight: .bold))
+        }
     }
 
     func rainbowRenderingMode(for index: Int) -> SymbolRenderingMode {
@@ -81,37 +85,45 @@ struct Coloring: View {
         let teddybearOutlineWidth: CGFloat = 200
         let teddybearFillWidth: CGFloat = 195
         let offset: CGFloat = (teddybearOutlineWidth + teddybearFillWidth) / 4 + spacing / 2
-        return HStack(spacing: spacing) {
-            Image(systemName: "teddybear.fill")
-                .resizable()
-                .foregroundStyle(.teddybearFill)
-                .frame(width: teddybearFillWidth, height: 235)
-                .shadow(color: .teddybearFill, radius: 4)
-                .keyframeAnimator(initialValue: 0.0, repeating: true) { content, offsetValue in
-                    content
-                        .offset(x: offsetValue)
-                } keyframes: { _ in
-                    KeyframeTrack {
-                        CubicKeyframe(offset, duration: 2.0)
-                        LinearKeyframe(offset, duration: 1.0)
-                        MoveKeyframe(0.0)
+        return VStack(spacing: 32) {
+            HStack(spacing: spacing) {
+                Image(systemName: "teddybear.fill")
+                    .resizable()
+                    .foregroundStyle(.teddybearFill)
+                    .frame(width: teddybearFillWidth, height: 235)
+                    .shadow(color: .teddybearFill, radius: 4)
+                    .keyframeAnimator(initialValue: 0.0, repeating: true) { content, offsetValue in
+                        content
+                            .offset(x: offsetValue)
+                    } keyframes: { _ in
+                        KeyframeTrack {
+                            CubicKeyframe(offset, duration: 2.0)
+                            LinearKeyframe(offset, duration: 1.0)
+                            MoveKeyframe(0.0)
+                        }
                     }
-                }
-            Image(systemName: "teddybear")
-                .resizable()
-                .foregroundStyle(.teddybearOutline)
-                .frame(width: teddybearOutlineWidth, height: 240)
-                .shadow(color: .teddybearOutline, radius: 4)
-                .keyframeAnimator(initialValue: 0.0, repeating: true) { content, offsetValue in
-                    content
-                        .offset(x: -offsetValue)
-                } keyframes: { _ in
-                    KeyframeTrack {
-                        CubicKeyframe(offset, duration: 2.0)
-                        LinearKeyframe(offset, duration: 1.0)
-                        MoveKeyframe(0.0)
+                Image(systemName: "teddybear")
+                    .resizable()
+                    .foregroundStyle(.teddybearOutline)
+                    .frame(width: teddybearOutlineWidth, height: 240)
+                    .shadow(color: .teddybearOutline, radius: 4)
+                    .keyframeAnimator(initialValue: 0.0, repeating: true) { content, offsetValue in
+                        content
+                            .offset(x: -offsetValue)
+                    } keyframes: { _ in
+                        KeyframeTrack {
+                            CubicKeyframe(offset, duration: 2.0)
+                            LinearKeyframe(offset, duration: 1.0)
+                            MoveKeyframe(0.0)
+                        }
                     }
-                }
+            }
+            VStack(spacing: 12) {
+                Text("teddybear.fill")
+                    .font(.system(size: 50, weight: .bold))
+                Text("teddybear")
+                    .font(.system(size: 50, weight: .bold))
+            }
         }
     }
 }
