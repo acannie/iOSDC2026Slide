@@ -15,23 +15,27 @@ struct Interpreting: View {
     var body: some View {
         VStack {
             title
-            ZStack {
-                HStack(spacing: 150) {
+            HStack(spacing: 50) {
+                ZStack {
                     lotus
                         .opacity(isShowingWholeLotus ? 1 : 0)
-                    elephant
-                        .opacity(isShowingWholeElephant ? 1 : 0)
-                }
-                HStack(spacing: 300) {
                     chart
                         .onTapGesture {
                             isShowingWholeLotus = true
                         }
+                }
+                .frame(width: 600, height: 600)
+                .animation(.easeInOut(duration: 2), value: isShowingWholeLotus)
+                ZStack {
+                    elephant
+                        .opacity(isShowingWholeElephant ? 1 : 0)
                     tsu
                         .onTapGesture {
                             isShowingWholeElephant = true
                         }
                 }
+                .frame(width: 600, height: 600)
+                .animation(.easeInOut(duration: 2), value: isShowingWholeElephant)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
@@ -51,25 +55,57 @@ struct Interpreting: View {
     }
 
     var chart: some View {
-        VStack(spacing: 32) {
-            Image(systemName: "chart.pie.fill")
-                .resizable()
-                .frame(width: 300, height: 300)
-                .foregroundColor(.black)
+        VStack(spacing: 16) {
+            ZStack {
+                Rectangle()
+                    .fill(.clear)
+                    .frame(width: 400, height: 400)
+                Image(systemName: "chart.pie.fill")
+                    .resizable()
+                    .frame(
+                        width: isShowingWholeLotus ? 100 : 300,
+                        height: isShowingWholeLotus ? 200 : 300
+                    )
+                    .foregroundColor(isShowingWholeLotus ? .lotusLeaf : .black)
+                    .rotationEffect(
+                        .degrees(isShowingWholeLotus ? 95 : 0),
+                        anchor: .bottom
+                    )
+                    .offset(
+                        x: 0,
+                        y: isShowingWholeLotus ? 120 : 0
+                    )
+            }
             Text("chart.pie.fill")
                 .font(.system(size: 50, weight: .bold))
+                .opacity(isShowingWholeLotus ? 0 : 1)
         }
     }
 
     var tsu: some View {
-        VStack(spacing: -32) {
+        VStack(spacing: 32) {
             Text("つ")
-                .font(.system(size: 400))
-                .foregroundColor(.black)
+                .font(
+                    .system(
+                        size: isShowingWholeElephant ? 120 : 400,
+                        weight: .black
+                    )
+                )
+                .foregroundColor(isShowingWholeElephant ? .elephantLight : .black)
+                .frame(width: 400, height: 400)
+                .rotationEffect(
+                    .degrees(isShowingWholeElephant ? 15 : 0),
+                    anchor: .topLeading
+                )
+                .offset(
+                    x: isShowingWholeElephant ? 320 : 0,
+                    y: isShowingWholeElephant ? 40 : -45
+                )
             Text("ひらがな")
                 .font(.system(size: 50, weight: .bold))
+                .opacity(isShowingWholeElephant ? 0 : 1)
+                .offset(y: -45)
         }
-        .offset(y: -45)
     }
 
     var lotus: some View {
@@ -95,12 +131,12 @@ struct Interpreting: View {
                 .frame(width: 100, height: 50)
                 .foregroundColor(.lotusLeaf)
                 .offset(x: 160, y: 85)
-            Image(systemName: "chart.pie.fill")
-                .resizable()
-                .frame(width: 100, height: 200)
-                .foregroundColor(.lotusLeaf)
-                .rotationEffect(.degrees(95), anchor: .bottom)
-                .offset(x: 0, y: 80)
+//            Image(systemName: "chart.pie.fill")
+//                .resizable()
+//                .frame(width: 100, height: 200)
+//                .foregroundColor(.lotusLeaf)
+//                .rotationEffect(.degrees(95), anchor: .bottom)
+//                .offset(x: 0, y: 80)
             Group {
                 Image(systemName: "drop.fill")
                     .resizable()
@@ -184,11 +220,11 @@ struct Interpreting: View {
                 .foregroundStyle(.elephantLight)
                 .offset(x: 140, y: -40)
             // 鼻
-            Text("つ")
-                .font(.system(size: 120, weight: .black))
-                .foregroundStyle(.elephantLight)
-                .rotationEffect(.degrees(15), anchor: .topLeading)
-                .offset(x: 280, y: 40)
+//            Text("つ")
+//                .font(.system(size: 120, weight: .black))
+//                .foregroundStyle(.elephantLight)
+//                .rotationEffect(.degrees(15), anchor: .topLeading)
+//                .offset(x: 280, y: 40)
             // 目
             Circle()
                 .foregroundStyle(.elephantEye)
