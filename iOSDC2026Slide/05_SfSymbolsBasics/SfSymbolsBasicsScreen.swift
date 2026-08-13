@@ -9,18 +9,54 @@ import SwiftUI
 
 struct SfSymbolsBasicsScreen: View {
     @Binding var path: NavigationPath
+    @State var currentPage: Int = 0
+
+    enum Page: Int, CaseIterable {
+        case coloring
+        case combining
+        case interpreting
+        case animating
+        case glowing
+        case rotatingIn3D
+
+        @ViewBuilder
+        var content: some View {
+            switch self {
+            case .coloring: Coloring()
+            case .combining: Combining()
+            case .interpreting: Interpreting()
+            case .animating: Animating()
+            case .glowing: Glowing()
+            case .rotatingIn3D: RotatingIn3D()
+            }
+        }
+    }
 
     var body: some View {
-        VStack(spacing: 20) {
-            Button("次へ") {
-                path.append(Destination.travelPlus)
+        ZStack {
+            ForEach(Page.allCases, id: \.self) { page in
+                page.content
+                    .opacity(currentPage == page.rawValue ? 1 : 0)
+                    .animation(.easeInOut, value: currentPage)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .overlay {
             DestinationButtonOverlayView(
-                goPreviousAction: { path.removeLast() },
-                goNextAction: { path.append(Destination.travelPlus) }
+                goPreviousAction: {
+                    if currentPage > 0 {
+                        currentPage -= 1
+                    } else {
+                        path.removeLast()
+                    }
+                },
+                goNextAction: {
+                    if currentPage < Page.allCases.count - 1 {
+                        currentPage += 1
+                    } else {
+                        path.append(Destination.travelPlus)
+                    }
+                }
             )
         }
         .navigationTitle("SF Symbols 活用の基本")
