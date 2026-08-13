@@ -16,10 +16,6 @@ struct Coloring: View {
             title
             HStack(spacing: 200) {
                 rainbow
-//                Text("Coloring \(count)")
-//                    .font(.system(size: 100))
-//                    .foregroundStyle(color(for: count))
-//                    .animation(.easeInOut, value: count)
                 teddybear
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -45,10 +41,6 @@ struct Coloring: View {
             Spacer()
         }
         .padding(.horizontal, 48)
-    }
-
-    func color(for index: Int) -> Color {
-        Color(hue: .random(in: 0...1), saturation: 1, brightness: 1)
     }
 
     var rainbow: some View {
