@@ -18,24 +18,12 @@ struct SfSymbolsBasicsScreen: View {
         case animating
         case glowing
         case rotatingIn3D
-
-        @ViewBuilder
-        var content: some View {
-            switch self {
-            case .coloring: Coloring()
-            case .interpreting: Interpreting()
-            case .combining: Combining()
-            case .animating: Animating()
-            case .glowing: Glowing()
-            case .rotatingIn3D: RotatingIn3D()
-            }
-        }
     }
 
     var body: some View {
         ZStack {
             ForEach(Page.allCases, id: \.self) { page in
-                page.content
+                pageContent(for: page)
                     .opacity(currentPage == page.rawValue ? 1 : 0)
                     .animation(.easeInOut, value: currentPage)
             }
@@ -61,5 +49,17 @@ struct SfSymbolsBasicsScreen: View {
         }
         .navigationTitle("SF Symbols 活用の基本")
         .navigationBarBackButtonHidden(true)
+    }
+
+    @ViewBuilder
+    func pageContent(for page: Page) -> some View {
+        switch page {
+        case .coloring: Coloring()
+        case .interpreting: Interpreting(isActive: currentPage == page.rawValue)
+        case .combining: Combining()
+        case .animating: Animating()
+        case .glowing: Glowing()
+        case .rotatingIn3D: RotatingIn3D()
+        }
     }
 }
