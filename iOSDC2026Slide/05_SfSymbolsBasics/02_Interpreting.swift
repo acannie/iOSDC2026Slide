@@ -25,10 +25,12 @@ struct Interpreting: View {
                         }
                 }
                 .frame(width: 600, height: 600)
+                .offset(y: -50)
                 .animation(.easeInOut(duration: 2), value: isShowingWholeLotus)
                 ZStack {
                     elephant
                         .opacity(isShowingWholeElephant ? 1 : 0)
+                        .offset(x: -50, y: -50)
                     tsu
                         .onTapGesture {
                             isShowingWholeElephant = true
@@ -98,8 +100,8 @@ struct Interpreting: View {
                     anchor: .topLeading
                 )
                 .offset(
-                    x: isShowingWholeElephant ? 320 : 0,
-                    y: isShowingWholeElephant ? 40 : -45
+                    x: isShowingWholeElephant ? 270 : 0,
+                    y: isShowingWholeElephant ? -10 : -45
                 )
             Text("ひらがな")
                 .font(.system(size: 50, weight: .bold))
