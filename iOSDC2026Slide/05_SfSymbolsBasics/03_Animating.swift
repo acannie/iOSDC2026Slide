@@ -1,5 +1,5 @@
 //
-//  06_RotatingIn3D.swift
+//  03_Animating.swift
 //  iOSDC2026Slide
 //
 //  Created by SASAOKA Akane on 2026/08/14.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct RotatingIn3D: View {
+struct Animating: View {
     var body: some View {
-        Text("RotatingIn3D")
+        Text("Animating")
     }
 }

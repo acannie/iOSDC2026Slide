@@ -13,8 +13,7 @@ struct SfSymbolsBasicsScreen: View {
 
     enum Page: Int, CaseIterable {
         case coloring
-        case interpreting
-        case combining
+        case interpretingAndCombining
         case animating
         case glowing
         case rotatingIn3D
@@ -54,12 +53,16 @@ struct SfSymbolsBasicsScreen: View {
     @ViewBuilder
     func pageContent(for page: Page) -> some View {
         switch page {
-        case .coloring: Coloring()
-        case .interpreting: Interpreting(isActive: currentPage == page.rawValue)
-        case .combining: Combining()
-        case .animating: Animating()
-        case .glowing: Glowing()
-        case .rotatingIn3D: RotatingIn3D()
+        case .coloring:
+            Coloring()
+        case .interpretingAndCombining:
+            InterpretingAndCombining(isActive: currentPage == page.rawValue)
+        case .animating:
+            Animating()
+        case .glowing:
+            Glowing()
+        case .rotatingIn3D:
+            RotatingIn3D()
         }
     }
 }

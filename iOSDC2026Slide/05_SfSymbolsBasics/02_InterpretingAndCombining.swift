@@ -1,5 +1,5 @@
 //
-//  02_Interpreting.swift
+//  02_InterpretingAndCombining.swift
 //  iOSDC2026Slide
 //
 //  Created by SASAOKA Akane on 2026/08/14.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Interpreting: View {
+struct InterpretingAndCombining: View {
     let isActive: Bool
     @State private var isShowingWholeLotus: Bool = false
     @State private var isShowingWholeElephant: Bool = false
@@ -49,7 +49,7 @@ struct Interpreting: View {
 
     var title: some View {
         HStack {
-            Text("解釈する")
+            Text("解釈する・組み合わせる")
                 .font(.system(size: 100))
             Spacer()
         }
