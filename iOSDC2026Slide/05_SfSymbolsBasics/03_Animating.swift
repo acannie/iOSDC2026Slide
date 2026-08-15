@@ -167,7 +167,7 @@ struct Animating: View {
 
     var title: some View {
         HStack {
-            Text("アニメーションさせる")
+            Text("うごかす")
                 .font(.system(size: 100))
             Spacer()
         }

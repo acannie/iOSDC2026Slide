@@ -49,7 +49,7 @@ struct InterpretingAndCombining: View {
 
     var title: some View {
         HStack {
-            Text("解釈する・組み合わせる")
+            Text("解釈する／組み合わせる")
                 .font(.system(size: 100))
             Spacer()
         }
