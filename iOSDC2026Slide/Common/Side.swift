@@ -7,9 +7,11 @@
 
 import CoreFoundation
 
-enum Side: CaseIterable {
+enum Side: CaseIterable, Identifiable {
     case left
     case right
+
+    var id: Self { self }
 
     var unit: CGFloat {
         switch self {

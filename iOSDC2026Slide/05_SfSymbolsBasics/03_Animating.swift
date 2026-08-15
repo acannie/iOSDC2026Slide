@@ -103,14 +103,14 @@ struct Animating: View {
                 }
             }
 
-            var eyeAngle: Angle {
+            func eyeAngle(side: Side) -> Angle {
                 switch self {
                 case .neutral, .surprise, .dissatisfaction, .sleepy:
-                        .zero
+                    .zero
                 case .anger:
-                    Angle(degrees: -10.0)
+                    Angle(degrees: side.unit * -10.0)
                 case .sadness, .smile:
-                    Angle(degrees: 5.0)
+                    Angle(degrees: side.unit * 5.0)
                 }
             }
 
@@ -129,14 +129,14 @@ struct Animating: View {
                 }
             }
 
-            func eyebrowAngle(_ angle: Angle) -> Angle {
+            func eyebrowAngle(_ angle: Angle, side: Side) -> Angle {
                 switch self {
                 case .neutral, .surprise, .smile:
                     angle
                 case .anger:
-                    angle + Angle(degrees: 15.0)
+                    angle + Angle(degrees: side.unit * 15.0)
                 case .sadness, .sleepy, .dissatisfaction:
-                    angle + Angle(degrees: -10.0)
+                    angle + Angle(degrees: side.unit * -10.0)
                 }
             }
 
@@ -172,98 +172,101 @@ struct Animating: View {
         let originalIrisOffset = CGPoint(x: 325, y: -250)
         return VStack(spacing: 32) {
             ZStack {
-                // 白目
-                Image(systemName: "button.angledbottom.horizontal.right.fill")
-                    .resizable()
-                    .foregroundStyle(.whiteOfEyes)
-                    .rotationEffect(
-                        Angle(degrees: 20.0) + expression.eyeAngle
-                    )
-                    .frame(width: 350, height: 300.0 + expression.eyeHeight)
-                    .offset(x: 350, y: -250)
-                // 黒目
-                ZStack {
-                    Image(systemName: "circle.fill")
+                ForEach(Side.allCases) { side in
+                    // 白目
+                    Image(systemName: "button.angledbottom.horizontal.right.fill")
                         .resizable()
-                        .foregroundStyle(
-                            LinearGradient(
-                                gradient: Gradient(colors: [.irisMiddle, .irisLight]),
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
+                        .foregroundStyle(.whiteOfEyes)
+                        .rotationEffect(
+                            Angle(degrees: side.unit * 20.0) + expression.eyeAngle(side: side)
                         )
-                        .frame(width: 250, height: 275)
-                    Image(systemName: "person.crop.circle.fill")
-                        .resizable()
-                        .foregroundStyle(
-                            LinearGradient(
-                                gradient: Gradient(colors: [.irisMiddle, .irisLight]),
-                                startPoint: .top,
-                                endPoint: .bottom
+                        .frame(width: 350, height: 300.0 + expression.eyeHeight)
+                        .offset(x: side.unit * 350, y: -250)
+                    // 黒目
+                    ZStack {
+                        Image(systemName: "circle.fill")
+                            .resizable()
+                            .foregroundStyle(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [.irisMiddle, .irisLight]),
+                                    startPoint: .top,
+                                    endPoint: .bottom
+                                )
                             )
-                        )
-                        .symbolRenderingMode(.multicolor)
-                        .frame(width: 250, height: 275)
-                }
-                .offset(
-                    x: originalIrisOffset.x + expression.irisPosition.irisOffset.x,
-                    y: originalIrisOffset.y + expression.irisPosition.irisOffset.y
-                )
-                // アイライン
-                Image(systemName: "phone.down.fill")
-                    .resizable()
-                    .foregroundStyle(.eyelash)
-                    .rotationEffect(
-                        Angle(degrees: 7.0) + expression.eyeAngle
-                    )
-                    .frame(width: 475, height: 90)
-                    .offset(x: 400, y: -375 + expression.upperEyelashesOffsetY)
-                // 二重線
-                Image(systemName: "button.angledtop.vertical.right.fill")
-                    .resizable()
-                    .foregroundStyle(.skinDark)
-                    .rotationEffect(
-                        Angle(degrees: 275) + expression.eyeAngle
-                    )
-                    .frame(width: 15, height: 350)
-                    .offset(x: 400, y: -425 + expression.upperEyelashesOffsetY)
-                // 上まつ毛
-                Image(systemName: "line.3.horizontal.decrease")
-                    .resizable()
-                    .foregroundStyle(.eyelash)
-                    .rotationEffect(
-                        Angle(degrees: 95) + expression.eyeAngle
-                    )
-                    .frame(width: 75, height: 125)
-                    .offset(x: 450, y: -425 + expression.upperEyelashesOffsetY)
-                // 下まつ毛
-                Image(systemName: "line.3.horizontal.decrease")
-                    .resizable()
-                    .foregroundStyle(.eyelash)
-                    .rotationEffect(.degrees(80))
-                    .frame(width: 25, height: 125)
-                    .offset(x: 425, y: -125 + expression.lowerEyelashesOffsetY)
-                // 眉毛
-                Image(systemName: "button.angledtop.vertical.left.fill")
-                    .resizable()
-                    .foregroundStyle(.eyebrow)
-                    .rotationEffect(expression.eyebrowAngle(
-                        Angle(degrees: 95)
-                    ))
-                    .frame(width: 25, height: 350)
+                            .frame(width: 250, height: 275)
+                        Image(systemName: "person.crop.circle.fill")
+                            .resizable()
+                            .foregroundStyle(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [.irisMiddle, .irisLight]),
+                                    startPoint: .top,
+                                    endPoint: .bottom
+                                )
+                            )
+                            .symbolRenderingMode(.multicolor)
+                            .frame(width: 250, height: 275)
+                    }
                     .offset(
-                        x: 350,
-                        y: expression.eyebrowOffsetY(-550)
+                        x: side.unit * (originalIrisOffset.x + expression.irisPosition.irisOffset.x),
+                        y: originalIrisOffset.y + expression.irisPosition.irisOffset.y
                     )
+                    // アイライン
+                    Image(systemName: "phone.down.fill")
+                        .resizable()
+                        .foregroundStyle(.eyelash)
+                        .rotationEffect(
+                            Angle(degrees: side.unit * 7.0) + expression.eyeAngle(side: side)
+                        )
+                        .frame(width: 475, height: 90)
+                        .offset(x: side.unit * 400, y: -375 + expression.upperEyelashesOffsetY)
+                    // 二重線
+                    Image(systemName: "button.angledtop.vertical.right.fill")
+                        .resizable()
+                        .foregroundStyle(.skinDark)
+                        .rotationEffect(
+                            Angle(degrees: side.unit * 275) + expression.eyeAngle(side: side)
+                        )
+                        .frame(width: 15, height: 350)
+                        .offset(x: side.unit * 400, y: -425 + expression.upperEyelashesOffsetY)
+                    // 上まつ毛
+                    Image(systemName: "line.3.horizontal.decrease")
+                        .resizable()
+                        .foregroundStyle(.eyelash)
+                        .rotationEffect(
+                            Angle(degrees: side.unit * 95) + expression.eyeAngle(side: side)
+                        )
+                        .frame(width: 75, height: 125)
+                        .offset(x: side.unit * 450, y: -425 + expression.upperEyelashesOffsetY)
+                    // 下まつ毛
+                    Image(systemName: "line.3.horizontal.decrease")
+                        .resizable()
+                        .foregroundStyle(.eyelash)
+                        .rotationEffect(.degrees(side.unit * 80))
+                        .frame(width: 25, height: 125)
+                        .offset(x: side.unit * 425, y: -125 + expression.lowerEyelashesOffsetY)
+                    // 眉毛
+                    Image(systemName: "button.angledtop.vertical.left.fill")
+                        .resizable()
+                        .foregroundStyle(.eyebrow)
+                        .rotationEffect(expression.eyebrowAngle(
+                            Angle(degrees: side.unit * 95),
+                            side: side
+                        ))
+                        .frame(width: 25, height: 350)
+                        .offset(
+                            x: side.unit * 350,
+                            y: expression.eyebrowOffsetY(-550)
+                        )
+                }
+                .offset(x: 0, y: 300)
             }
-            .offset(x: -350, y: 300)
         }
         .animation(.easeInOut, value: count)
         .background(
             Ellipse()
                 .fill(.skin)
-                .frame(width: 600, height: 700)
-                .offset(x: 20, y: -30)
+                .frame(width: 2400, height: 700)
+                .offset(x: 0, y: -30)
                 .blur(radius: 16.0)
         )
     }
