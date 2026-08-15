@@ -270,8 +270,8 @@ struct Animating: View {
                             KeyframeTrack {
                                 LinearKeyframe(yOffset, duration: delay)
                                 LinearKeyframe(yOffset, duration: 2.0)
-                                CubicKeyframe(170 + yOffset, duration: 2.0)
-                                LinearKeyframe(170 + yOffset, duration: 1.0)
+                                CubicKeyframe(190 - yOffset, duration: 2.0)
+                                LinearKeyframe(190 - yOffset, duration: 1.0)
                                 MoveKeyframe(0.0)
                             }
                         }
