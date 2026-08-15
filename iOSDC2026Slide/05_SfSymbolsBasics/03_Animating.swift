@@ -137,8 +137,9 @@ struct Animating: View {
     var body: some View {
         VStack {
             title
-            HStack(spacing: 50) {
-//                creamSoda
+            HStack(spacing: 100) {
+                creamSoda
+                    .padding(.leading, 100)
                 eye
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -175,14 +176,15 @@ struct Animating: View {
 
     var creamSoda: some View {
         VStack(spacing: 32) {
-            Image(systemName: "glass")
-            Text("クリームソーダ")
-                .font(.system(size: 50, weight: .bold))
+            Image(systemName: "wineglass")
+                .resizable()
+                .frame(width: 300, height: 500)
         }
     }
 
     var eye: some View {
-        let originalIrisOffset = CGPoint(x: 325, y: -250)
+        let scale: CGFloat = 0.4
+        let originalIrisOffset = CGPoint(x: 325 * scale, y: -250 * scale)
         return VStack(spacing: 32) {
             ZStack {
                 ForEach(Side.allCases) { side in
@@ -197,8 +199,8 @@ struct Animating: View {
                             )
                         )
                         .rotationEffect(.degrees(side.unit * 7) + expression.eyeAngle(side: side))
-                        .frame(width: 400, height: 200)
-                        .offset(x: side.unit * 390, y: -400 + expression.upperEyelashesOffsetY)
+                        .frame(width: 400 * scale, height: 200 * scale)
+                        .offset(x: side.unit * 390 * scale, y: -400 * scale + expression.upperEyelashesOffsetY * scale)
                     // 白目
                     Image(systemName: "button.angledbottom.horizontal.right.fill")
                         .resizable()
@@ -206,8 +208,8 @@ struct Animating: View {
                         .rotationEffect(
                             Angle(degrees: side.unit * 20.0) + expression.whiteEyeAngle(side: side)
                         )
-                        .frame(width: 350, height: 300.0 + expression.eyeHeight)
-                        .offset(x: side.unit * 350, y: -250)
+                        .frame(width: 350 * scale, height: 300.0 * scale + expression.eyeHeight * scale)
+                        .offset(x: side.unit * 350 * scale, y: -250 * scale)
                     // 黒目
                     ZStack {
                         Image(systemName: "circle.fill")
@@ -219,7 +221,7 @@ struct Animating: View {
                                     endPoint: .bottom
                                 )
                             )
-                            .frame(width: 250, height: 275)
+                            .frame(width: 250 * scale, height: 275 * scale)
                         Image(systemName: "person.crop.circle.fill")
                             .resizable()
                             .foregroundStyle(
@@ -230,11 +232,11 @@ struct Animating: View {
                                 )
                             )
                             .symbolRenderingMode(.multicolor)
-                            .frame(width: 250, height: 275)
+                            .frame(width: 250 * scale, height: 275 * scale)
                     }
                     .offset(
-                        x: side.unit * (originalIrisOffset.x + side.unit * expression.irisPosition.irisOffset.x),
-                        y: originalIrisOffset.y + expression.irisPosition.irisOffset.y
+                        x: side.unit * (originalIrisOffset.x + side.unit * expression.irisPosition.irisOffset.x * scale),
+                        y: originalIrisOffset.y + expression.irisPosition.irisOffset.y * scale
                     )
                     // アイライン
                     Image(systemName: "phone.down.fill")
@@ -243,8 +245,8 @@ struct Animating: View {
                         .rotationEffect(
                             Angle(degrees: side.unit * 7.0) + expression.eyeAngle(side: side)
                         )
-                        .frame(width: 475, height: 90)
-                        .offset(x: side.unit * 400, y: -375 + expression.upperEyelashesOffsetY)
+                        .frame(width: 475 * scale, height: 90 * scale)
+                        .offset(x: side.unit * 400 * scale, y: -375  * scale + expression.upperEyelashesOffsetY * scale)
                     // 上まつ毛
                     Image(systemName: "line.3.horizontal.decrease")
                         .resizable()
@@ -252,15 +254,15 @@ struct Animating: View {
                         .rotationEffect(
                             Angle(degrees: side.unit * 95) + expression.eyeAngle(side: side)
                         )
-                        .frame(width: 75, height: 125)
-                        .offset(x: side.unit * 450, y: -425 + expression.upperEyelashesOffsetY)
+                        .frame(width: 75 * scale, height: 125 * scale)
+                        .offset(x: side.unit * 450 * scale, y: -425 * scale + expression.upperEyelashesOffsetY * scale)
                     // 下まつ毛
                     Image(systemName: "line.3.horizontal.decrease")
                         .resizable()
                         .foregroundStyle(.eyelash)
                         .rotationEffect(.degrees(side.unit * 80))
-                        .frame(width: 25, height: 125)
-                        .offset(x: side.unit * 425, y: -125 + expression.lowerEyelashesOffsetY)
+                        .frame(width: 25 * scale, height: 125 * scale)
+                        .offset(x: side.unit * 425 * scale, y: -125 * scale + expression.lowerEyelashesOffsetY * scale)
                     // 眉毛
                     Image(
                         systemName: side == .left
@@ -273,22 +275,23 @@ struct Animating: View {
                         Angle(degrees: side.unit * 95),
                         side: side
                     ))
-                    .frame(width: 25, height: 350)
+                    .frame(width: 25 * scale, height: 350 * scale)
                     .offset(
-                        x: side.unit * 350,
-                        y: expression.eyebrowOffsetY(-550)
+                        x: side.unit * 350 * scale,
+                        y: expression.eyebrowOffsetY(-550 * scale)
                     )
                 }
-                .offset(x: 0, y: 300)
+                .offset(x: 0, y: 300 * scale)
             }
         }
         .animation(.easeInOut, value: count)
         .background(
             Ellipse()
                 .fill(.skin)
-                .frame(width: 2400, height: 700)
-                .offset(x: 0, y: -30)
+                .frame(width: 1600 * scale, height: 1000 * scale)
+                .offset(x: 0, y: -30 * scale)
                 .blur(radius: 16.0)
         )
+        .frame(width: 1600 * scale + 100, height: 1000 * scale + 100)
     }
 }
