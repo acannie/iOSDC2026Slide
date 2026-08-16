@@ -8,19 +8,26 @@
 import SwiftUI
 
 struct RotatingIn3D: View {
+    let isActive: Bool
+
     var body: some View {
-        VStack {
-            title
-            HStack {
+        HStack {
+            VStack(alignment: .leading) {
+                title
+                Spacer()
                 CubeView()
+                Spacer()
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            Spacer()
+            FanView(isActive: isActive)
         }
+        .padding(.horizontal, 100)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
     var title: some View {
         HStack {
-            Text("回す")
+            Text("まわす")
                 .font(.system(size: 100))
             Spacer()
         }

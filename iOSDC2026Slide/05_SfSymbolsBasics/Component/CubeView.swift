@@ -61,8 +61,8 @@ struct CubeView: View {
         Double(Int(degrees) % 360)
     }
 
-    func degrees(of square: Face) -> Double {
-        CGFloat(count) * 10 + square.angle
+    func degrees(of face: Face) -> Double {
+        CGFloat(count) * 10 + face.angle
     }
 
     func rank(of face: Face) -> Double {
