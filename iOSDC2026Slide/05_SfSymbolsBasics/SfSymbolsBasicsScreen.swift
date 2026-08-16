@@ -60,7 +60,7 @@ struct SfSymbolsBasicsScreen: View {
         case .animating:
             Animating(isActive: currentPage == page.rawValue)
         case .glowing:
-            Glowing()
+            Glowing(isActive: currentPage == page.rawValue)
         case .rotatingIn3D:
             RotatingIn3D()
         }
