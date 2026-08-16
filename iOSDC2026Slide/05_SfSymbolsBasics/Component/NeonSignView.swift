@@ -21,21 +21,8 @@ struct NeonSignView: View {
                 .offset(x: 130)
             drink
                 .offset(x: 270)
-            Group {
-                Image(systemName: "microphone")
-                    .resizable()
-                    .fontWeight(.semibold)
-                    .foregroundStyle(.yellow)
-                    .frame(width: 50, height: 70)
-                    .shadow(color: .yellow, radius: 5)
-                    .blur(radius: 1)
-                Image(systemName: "microphone")
-                    .resizable()
-                    .fontWeight(.light)
-                    .foregroundStyle(.neonWhite)
-                    .frame(width: 45, height: 65)
-            }
-            .offset(x: 200, y: 15)
+            microphone
+                .offset(x: 200, y: 15)
             waves
                 .offset(x: 200, y: 80)
             iosdc
@@ -222,6 +209,23 @@ struct NeonSignView: View {
                     .frame(width: 35)
             }
             .offset(x: -30, y: -50)
+        }
+    }
+
+    var microphone: some View {
+        ZStack {
+            Image(systemName: "microphone")
+                .resizable()
+                .fontWeight(.semibold)
+                .foregroundStyle(.yellow)
+                .frame(width: 50, height: 70)
+                .shadow(color: .yellow, radius: 5)
+                .blur(radius: 1)
+            Image(systemName: "microphone")
+                .resizable()
+                .fontWeight(.light)
+                .foregroundStyle(.neonWhite)
+                .frame(width: 45, height: 65)
         }
     }
 
