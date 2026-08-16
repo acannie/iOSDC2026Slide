@@ -28,6 +28,8 @@ struct NeonSignView: View {
             iosdc
               .offset(x: -60)
         }
+        .offset(x: -55)
+        .frame(width: 540, height: 320)
     }
 
     var circle: some View {
@@ -268,5 +270,4 @@ struct NeonSignView: View {
             }
         }
     }
-
 }

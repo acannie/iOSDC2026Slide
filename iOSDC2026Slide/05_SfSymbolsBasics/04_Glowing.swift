@@ -14,8 +14,9 @@ struct Glowing: View {
     var body: some View {
         VStack {
             title
-            HStack(spacing: 50) {
+            HStack(spacing: 100) {
                 NeonSignView(count: count)
+                MarqueeSignView()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
