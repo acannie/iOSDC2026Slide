@@ -46,7 +46,6 @@ struct SfSymbolsBasicsScreen: View {
                 }
             )
         }
-        .navigationTitle("SF Symbols 活用の基本")
         .navigationBarBackButtonHidden(true)
     }
 
@@ -60,7 +59,7 @@ struct SfSymbolsBasicsScreen: View {
         case .animating:
             Animating(isActive: currentPage == page.rawValue)
         case .glowing:
-            Glowing(isActive: currentPage == page.rawValue)
+            FontsAndGlowing(isActive: currentPage == page.rawValue)
         case .rotatingIn3D:
             RotatingIn3D(isActive: currentPage == page.rawValue)
         }

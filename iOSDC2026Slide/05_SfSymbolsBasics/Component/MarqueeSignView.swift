@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MarqueeSignView: View {
+    let isDay: Bool
     @State private var count: Int = 0
 
     var body: some View {

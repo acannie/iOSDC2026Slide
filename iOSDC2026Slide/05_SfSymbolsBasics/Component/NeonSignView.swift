@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct NeonSignView: View {
-    let count: Int
+    let isDay: Bool
+    @State private var count: Int = 0
 
     var opacity: CGFloat {
         count % 3 == 2 ? 0 : 1
@@ -26,10 +27,16 @@ struct NeonSignView: View {
             waves
                 .offset(x: 200, y: 80)
             iosdc
-              .offset(x: -60)
+                .offset(x: -60)
         }
         .offset(x: -55)
         .frame(width: 540, height: 320)
+        .task {
+            while true {
+                try? await Task.sleep(for: .seconds(1))
+                count += 1
+            }
+        }
     }
 
     var circle: some View {
