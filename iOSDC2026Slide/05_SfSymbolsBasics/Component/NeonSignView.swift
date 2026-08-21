@@ -161,7 +161,7 @@ struct NeonSignView: View {
                 Text("ノ")
                     .font(.system(size: 80, weight: .bold, design: .rounded))
                     .foregroundStyle(.neonOrange)
-                    .shadow(color: .cyan, radius: 5)
+                    .shadow(color: .neonOrange, radius: 5)
                     .blur(radius: 1)
                 Text("ノ")
                     .font(.system(size: 80, weight: .light, design: .rounded))
@@ -194,8 +194,8 @@ struct NeonSignView: View {
             Group {
                 Text("へ")
                     .font(.system(size: 60, weight: .bold, design: .rounded))
-                    .foregroundStyle(.neonPurple)
-                    .shadow(color: .neonPurple, radius: 5)
+                    .foregroundStyle(.yellow)
+                    .shadow(color: .yellow, radius: 5)
                     .blur(radius: 1)
                 Text("へ")
                     .font(.system(size: 58, weight: .medium, design: .rounded))
@@ -203,19 +203,19 @@ struct NeonSignView: View {
             }
             .rotation3DEffect(.degrees(180), axis: (0, 1, 0))
             .rotationEffect(.degrees(-35))
-            .offset(x: 10, y: -65)
+            .offset(x: 10, y: -66)
             // レモン
             Group {
                 Circle()
                     .trim(from: 0.3, to: 0.97)
-                    .stroke(.yellow, lineWidth: 5)
+                    .stroke(.yellow, lineWidth: 7)
                     .frame(width: 40)
-                    .shadow(color: .neonPurple, radius: 5)
+                    .shadow(color: .yellow, radius: 5)
                     .blur(radius: 1)
                 Circle()
                     .trim(from: 0.3, to: 0.97)
                     .stroke(.neonWhite, lineWidth: 5)
-                    .frame(width: 35)
+                    .frame(width: 40)
             }
             .offset(x: -30, y: -50)
         }
@@ -253,7 +253,7 @@ struct NeonSignView: View {
                         .resizable()
                         .fontWeight(.regular)
                         .foregroundStyle(.neonWhite)
-                        .frame(width: 120, height: 50)
+                        .frame(width: 120, height: 48)
                 }
             }
         }
