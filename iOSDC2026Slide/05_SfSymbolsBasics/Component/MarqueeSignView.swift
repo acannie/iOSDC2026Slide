@@ -10,6 +10,7 @@ import SwiftUI
 struct MarqueeSignView: View {
     let isDay: Bool
     @State private var count: Int = 0
+    @State private var isLighting: Bool = false
 
     var body: some View {
         ZStack {
@@ -21,6 +22,19 @@ struct MarqueeSignView: View {
             while true {
                 try? await Task.sleep(for: .seconds(0.1))
                 count += 1
+            }
+        }
+        .onChange(of: isDay) {
+            Task {
+                if isDay {
+                    withAnimation(.easeInOut) {
+                        isLighting = false
+                    }
+                } else {
+                    withAnimation(.easeInOut) {
+                        isLighting = true
+                    }
+                }
             }
         }
     }
@@ -40,11 +54,11 @@ struct MarqueeSignView: View {
             ZStack {
                 Text(char)
                     .font(.system(size: iosdcJapanFontSize, design: .monospaced))
-                    .foregroundStyle(.marqueeSignBlueText)
+                    .foregroundStyle(isDay ? .marqueeSignLightBlueText : .marqueeSignDarkBlueText)
                     .offset(x: 2, y: 2)
                 Text(char)
                     .font(.system(size: iosdcJapanFontSize, design: .monospaced))
-                    .foregroundStyle(.marqueeSignRedText)
+                    .foregroundStyle(isDay ? .marqueeSignLightRedText : .marqueeSignDarkRedText)
             }
         }
         return ZStack {
@@ -70,21 +84,21 @@ struct MarqueeSignView: View {
             // 2026
             Text("𝟐𝟎𝟐𝟔")
                 .font(.system(size: 50))
-                .foregroundStyle(.marqueeSignRedText)
+                .foregroundStyle(isDay ? .marqueeSignLightRedText : .marqueeSignDarkRedText)
                 .offset(y: 50)
                 .offset(x: -10)
             // 唐草模様
             ForEach(Side.allCases) { side in
                 VStack(spacing: 16) {
                     Text("S")
-                        .foregroundStyle(.marqueeSignBrownDecoration)
+                        .foregroundStyle(isDay ? .marqueeSignLightBrownDecoration : .marqueeSignDarkBrownDecoration)
                         .scaleEffect(y: 3)
                     Text("S")
-                        .foregroundStyle(.marqueeSignBrownDecoration)
+                        .foregroundStyle(isDay ? .marqueeSignLightBrownDecoration : .marqueeSignDarkBrownDecoration)
                         .scaleEffect(y: 3)
                         .rotation3DEffect(.degrees(180), axis: (1, 0, 0))
                     Text("S")
-                        .foregroundStyle(.marqueeSignBrownDecoration)
+                        .foregroundStyle(isDay ? .marqueeSignLightBrownDecoration : .marqueeSignDarkBrownDecoration)
                         .scaleEffect(y: 3)
                 }
                 .rotationEffect(.degrees(side.unit * 115))
@@ -96,10 +110,10 @@ struct MarqueeSignView: View {
         .background(
             ZStack {
                 Rectangle()
-                    .fill(.marqueeSignBackgroundShadow)
+                    .fill(isDay ? .marqueeSignLightBackgroundShadow : .marqueeSignDarkBackgroundShadow)
                     .offset(x: 8, y: 8)
                 Rectangle()
-                    .fill(.marqueeSignBackground)
+                    .fill(isDay ? .marqueeSignLightBackground : .marqueeSignDarkBackground)
             }
         )
     }
@@ -107,20 +121,20 @@ struct MarqueeSignView: View {
     var bulbs: some View {
         var lightingBlub: some View {
             Circle()
-                .foregroundStyle(.marqueeSignLigntningBulb)
+                .foregroundStyle(.marqueeSignLightingBulb)
                 .frame(width: 20)
-                .shadow(color: .marqueeSignLigntningBulbShadow, radius: 10)
+                .shadow(color: .marqueeSignLightingBulbShadow, radius: 10)
         }
         var unlightingBlub: some View {
             Circle()
-                .foregroundStyle(.marqueeSignUnligntingBulb)
+                .foregroundStyle(isDay ? .marqueeSignLightUnligntingBulb : .marqueeSignDarkUnligntingBulb)
                 .frame(width: 20)
         }
         return VStack(spacing: 4) {
             // 上行
             HStack(spacing: 4) {
                 ForEach(0..<20) { index in
-                    if (count + index) % 4 == 0 {
+                    if !isLighting || (count + index) % 4 == 0 {
                         unlightingBlub
                     } else {
                         lightingBlub
@@ -131,7 +145,7 @@ struct MarqueeSignView: View {
                 // 左列
                 VStack(spacing: 4) {
                     ForEach(0..<6) { index in
-                        if (count - index) % 4 == 1 {
+                        if !isLighting || (count - index) % 4 == 1 {
                             unlightingBlub
                         } else {
                             lightingBlub
@@ -142,7 +156,7 @@ struct MarqueeSignView: View {
                 // 右列
                 VStack(spacing: 4) {
                     ForEach(0..<6) { index in
-                        if (count + index) % 4 == 0 {
+                        if !isLighting || (count + index) % 4 == 0 {
                             unlightingBlub
                         } else {
                             lightingBlub
@@ -153,7 +167,7 @@ struct MarqueeSignView: View {
             // 下行
             HStack(spacing: 4) {
                 ForEach(0..<20) { index in
-                    if (-count + index + 3) % 4 == 0 {
+                    if !isLighting || (-count + index + 3) % 4 == 0 {
                         unlightingBlub
                     } else {
                         lightingBlub
