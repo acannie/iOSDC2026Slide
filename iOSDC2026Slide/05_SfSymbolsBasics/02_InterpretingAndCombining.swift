@@ -19,6 +19,7 @@ struct InterpretingAndCombining: View {
                 ZStack {
                     lotus
                         .opacity(isShowingWholeLotus ? 1 : 0)
+                        .animation(.easeInOut(duration: 1.5).delay(0.5), value: isShowingWholeLotus)
                     chart
                         .onTapGesture {
                             isShowingWholeLotus = true
@@ -26,18 +27,17 @@ struct InterpretingAndCombining: View {
                 }
                 .frame(width: 600, height: 600)
                 .offset(y: -50)
-                .animation(.easeInOut(duration: 2), value: isShowingWholeLotus)
                 ZStack {
                     elephant
                         .opacity(isShowingWholeElephant ? 1 : 0)
                         .offset(x: -50, y: -50)
+                        .animation(.easeInOut(duration: 1.5).delay(0.5), value: isShowingWholeElephant)
                     tsu
                         .onTapGesture {
                             isShowingWholeElephant = true
                         }
                 }
                 .frame(width: 600, height: 600)
-                .animation(.easeInOut(duration: 2), value: isShowingWholeElephant)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
@@ -78,9 +78,11 @@ struct InterpretingAndCombining: View {
                         y: isShowingWholeLotus ? 120 : 0
                     )
             }
+            .animation(.easeInOut(duration: 2), value: isShowingWholeLotus)
             Text("chart.pie.fill")
                 .font(.system(size: 50, weight: .bold))
                 .opacity(isShowingWholeLotus ? 0 : 1)
+                .animation(.easeInOut(duration: 0.5), value: isShowingWholeLotus)
         }
     }
 
@@ -103,10 +105,12 @@ struct InterpretingAndCombining: View {
                     x: isShowingWholeElephant ? 270 : 0,
                     y: isShowingWholeElephant ? -10 : -45
                 )
+                .animation(.easeInOut(duration: 2), value: isShowingWholeElephant)
             Text("ひらがな")
                 .font(.system(size: 50, weight: .bold))
                 .opacity(isShowingWholeElephant ? 0 : 1)
                 .offset(y: -45)
+                .animation(.easeInOut(duration: 0.5), value: isShowingWholeElephant)
         }
     }
 
