@@ -39,7 +39,6 @@ struct ContentView: View {
                     ConclusionScreen(path: $path)
                 }
             }
-            .navigationTitle("最初の画面")
         }
     }
 }
