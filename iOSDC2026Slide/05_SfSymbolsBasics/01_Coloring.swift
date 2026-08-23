@@ -83,7 +83,6 @@ struct Coloring: View {
                     .resizable()
                     .foregroundStyle(.teddybearFill)
                     .frame(width: teddybearFillWidth, height: 235)
-                    .shadow(color: .teddybearFill, radius: 4)
                     .keyframeAnimator(initialValue: 0.0, repeating: true) { content, offsetValue in
                         content
                             .offset(x: offsetValue)
@@ -98,7 +97,6 @@ struct Coloring: View {
                     .resizable()
                     .foregroundStyle(.teddybearOutline)
                     .frame(width: teddybearOutlineWidth, height: 240)
-                    .shadow(color: .teddybearOutline, radius: 4)
                     .keyframeAnimator(initialValue: 0.0, repeating: true) { content, offsetValue in
                         content
                             .offset(x: -offsetValue)
