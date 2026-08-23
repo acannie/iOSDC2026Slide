@@ -9,21 +9,55 @@ import SwiftUI
 
 struct BackgroundScreen: View {
     @Binding var path: NavigationPath
+    @State var currentPage: Int = 0
+
+    enum Page: Int, CaseIterable {
+        case question
+        case suggestion
+        case lastImage
+    }
 
     var body: some View {
-        VStack(spacing: 20) {
-            Button("次へ") {
-                path.append(Destination.aboutSfSymbols)
+        ZStack {
+            ForEach(Page.allCases, id: \.self) { page in
+                pageContent(for: page)
+                    .opacity(currentPage == page.rawValue ? 1 : 0)
+                    .animation(.easeInOut, value: currentPage)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .overlay {
             DestinationButtonOverlayView(
-                goPreviousAction: { path.removeLast() },
-                goNextAction: { path.append(Destination.aboutSfSymbols) }
+                goPreviousAction: {
+                    if currentPage > 0 {
+                        currentPage -= 1
+                    } else {
+                        path.removeLast()
+                    }
+                },
+                goNextAction: {
+                    if currentPage < Page.allCases.count - 1 {
+                        currentPage += 1
+                    } else {
+                        path.append(Destination.aboutSfSymbols)
+                    }
+                }
             )
         }
-        .navigationTitle("問題提起")
         .navigationBarBackButtonHidden(true)
+    }
+}
+
+private extension BackgroundScreen {
+    @ViewBuilder
+    func pageContent(for page: Page) -> some View {
+        switch page {
+        case .question:
+            Question()
+        case .suggestion:
+            Suggestion()
+        case .lastImage:
+            LastImage()
+        }
     }
 }
