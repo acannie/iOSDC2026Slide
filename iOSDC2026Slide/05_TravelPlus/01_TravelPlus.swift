@@ -12,7 +12,7 @@ struct TravelPlus: View {
         HStack {
             VStack(alignment: .leading, spacing: 64) {
                 title
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 32) {
                     ForEach(StrongPoint.allCases, id: \.self) { strongPoint in
                         item(strongPoint)
                     }
