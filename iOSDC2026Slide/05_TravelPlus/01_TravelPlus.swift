@@ -58,10 +58,15 @@ private extension TravelPlus {
     }
 
     var smartphone: some View {
-        RoundedRectangle(cornerRadius: 64)
-            .fill(.clear)
-            .stroke(.black, lineWidth: 20)
-            .frame(width: 400, height: 850)
+        ZStack {
+            TopScreenView(vm: .init())
+                .frame(width: 400, height: 850)
+                .clipShape(RoundedRectangle(cornerRadius: 64))
+            RoundedRectangle(cornerRadius: 64)
+                .fill(.clear)
+                .stroke(.black, lineWidth: 20)
+                .frame(width: 400, height: 850)
+        }
     }
 
     func item(_ strongPoint: StrongPoint) -> some View {
