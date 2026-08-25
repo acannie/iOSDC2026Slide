@@ -1,5 +1,5 @@
 //
-//  BackgroundScreen.swift
+//  SummaryScreen.swift
 //  iOSDC2026Slide
 //
 //  Created by SASAOKA Akane on 2026/08/10.
@@ -7,14 +7,13 @@
 
 import SwiftUI
 
-struct BackgroundScreen: View {
+struct SummaryScreen: View {
     @Binding var path: NavigationPath
     @State var currentPage: Int = 0
 
     enum Page: Int, CaseIterable {
-        case question
-        case suggestion
-        case lastImage
+        case comparingWithAi
+        case resourceCount
     }
 
     var body: some View {
@@ -39,7 +38,7 @@ struct BackgroundScreen: View {
                     if currentPage < Page.allCases.count - 1 {
                         currentPage += 1
                     } else {
-                        path.append(Destination.guidelines)
+                        path.append(Destination.conclusion)
                     }
                 }
             )
@@ -48,16 +47,14 @@ struct BackgroundScreen: View {
     }
 }
 
-private extension BackgroundScreen {
+private extension SummaryScreen {
     @ViewBuilder
     func pageContent(for page: Page) -> some View {
         switch page {
-        case .question:
-            Question()
-        case .suggestion:
-            Suggestion()
-        case .lastImage:
-            LastImage()
+        case .comparingWithAi:
+            ComparingWithAi()
+        case .resourceCount:
+            ResourceCount()
         }
     }
 }
