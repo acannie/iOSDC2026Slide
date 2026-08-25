@@ -10,12 +10,12 @@ import SwiftUI
 extension TopScreenView {
     var journeyBookView: some View {
         ZStack {
-            Image("mock_travel_journey_book_cover")
-                .resizable()
-                .ignoresSafeArea()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 40)
-                .clipped()
+//            Image("mock_travel_journey_book_cover")
+//                .resizable()
+//                .ignoresSafeArea()
+//                .aspectRatio(contentMode: .fill)
+//                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 40)
+//                .clipped()
             VStack {
                 HStack {
                     dismissButton
