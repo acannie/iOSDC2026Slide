@@ -9,40 +9,49 @@ import SwiftUI
 import CoreImage.CIFilterBuiltins
 
 struct Conclusion: View {
+    @State private var isCrackerPoping: Bool = false
+
     var body: some View {
         VStack(spacing: 80) {
             thankYouForListening
             HStack(alignment: .top, spacing: 128) {
                 profile
-                VStack(alignment: .leading, spacing: 64) {
+                VStack(alignment: .center, spacing: 64) {
                     sourceCodeQr
                     symbolKanojoApp
                 }
             }
+        }
+        .onAppear {
+            isCrackerPoping = true
         }
     }
 }
 
 private extension Conclusion {
     var thankYouForListening: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 20) {
             Image(systemName: "party.popper")
                 .resizable()
                 .symbolRenderingMode(.palette)
-                .foregroundStyle(.red, .blue)
+                .foregroundStyle(isCrackerPoping ? .conclusionCrackerBlue : .clear, .conclusionCrackerPink)
                 .rotation3DEffect((.degrees(180)), axis: (0, 1, 0))
                 .scaledToFit()
                 .frame(width: 60, height: 60)
-            Text("ご清聴ありがとうございました！")
-                .font(.system(size: 70, weight: .bold, design: .rounded))
+            Text("ご清聴ありがとうございました")
+                .font(.system(size: 70, weight: .heavy, design: .rounded))
                 .foregroundStyle(.conclusionTitle)
             Image(systemName: "party.popper")
                 .resizable()
                 .symbolRenderingMode(.palette)
-                .foregroundStyle(.red, .blue)
+                .foregroundStyle(isCrackerPoping ? .conclusionCrackerBlue : .clear, .conclusionCrackerPink)
                 .scaledToFit()
                 .frame(width: 60, height: 60)
         }
+        .animation(
+            .easeInOut.repeatForever(autoreverses: true),
+            value: isCrackerPoping
+        )
     }
 
     var profile: some View {
@@ -55,7 +64,7 @@ private extension Conclusion {
                 .clipShape(Circle())
                 .overlay(
                     Circle()
-                        .stroke(.commonText, lineWidth: 2)
+                        .stroke(.conclusionThumbnailBorder, lineWidth: 2)
                 )
             VStack(spacing: 4) {
                 Text("ささおか あかね")
@@ -80,7 +89,7 @@ private extension Conclusion {
 
     var sourceCodeQr: some View {
         VStack(spacing: 16) {
-            sectionTitle("ソースコードはこちら")
+            sectionTitle("スライドのソースコード")
             Image(uiImage: generateQRCode(from: "https://github.com/acannie/iOSDC2026Slide"))
                 .interpolation(.none)
                 .resizable()
@@ -90,7 +99,7 @@ private extension Conclusion {
     }
 
     var symbolKanojoApp: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .center, spacing: 16) {
             sectionTitle("配信中アプリのご案内")
             HStack(spacing: 32) {
                 BustUpKanojoView(
@@ -112,7 +121,18 @@ private extension Conclusion {
                 .frame(width: 120, height: 120)
                 .background(
                     RoundedRectangle(cornerRadius: 20)
-                        .foregroundStyle(.conclusionSymbolKanojoAppBackground)
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [
+                                    .conclusionSymbolKanojoAppBackgroundBlue,
+                                    .conclusionSymbolKanojoAppBackgroundPink,
+                                    .conclusionSymbolKanojoAppBackgroundYellow,
+                                    .conclusionSymbolKanojoAppBackgroundGreen
+                                ],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
                 )
                 VStack(alignment: .leading, spacing: 12) {
                     Text("App Store にて配信中！")
@@ -131,13 +151,13 @@ private extension Conclusion {
                     }
                 }
             }
-            .padding(.leading, 64)
+            .padding(.leading, 24)
         }
     }
 
     func sectionTitle(_ text: String) -> some View {
         Text("【\(text)】")
-            .font(.system(size: 60, weight: .semibold, design: .rounded))
+            .font(.system(size: 40, weight: .semibold, design: .rounded))
             .foregroundStyle(.commonText)
     }
 }
