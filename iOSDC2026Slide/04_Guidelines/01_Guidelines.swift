@@ -64,7 +64,8 @@ private extension Guidelines {
         var items: [String] {
             switch self {
             case .ok: [
-                "Apple製品向けアプリでの利用"
+                "Apple製品向けアプリでの利用",
+                "色や形のカスタム"
             ]
             case .ng: [
                 "アプリアイコンへの利用",
