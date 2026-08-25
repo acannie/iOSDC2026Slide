@@ -49,7 +49,7 @@ struct ComparingWithAi: View {
 }
 
 private enum GirlProducer: String, CaseIterable {
-    case akane = "ささおか\nあかね"
+    case akane = "ささおかあかね"
     case chatgpt = "ChatGPT"
     case gemini = "Gemini"
     case claude = "Claude"
@@ -83,7 +83,7 @@ private extension ComparingWithAi {
                 }
             }
             .frame(height: 300)
-            caption(producer.rawValue)
+            caption(for: producer)
         }
         .frame(width: 320)
     }
@@ -123,9 +123,9 @@ private extension ComparingWithAi {
             .scaleEffect(0.8)
     }
 
-    func caption(_ text: String) -> some View {
-        Text(text)
-            .font(.system(size: 50, weight: .semibold, design: .rounded))
+    func caption(for producer: GirlProducer) -> some View {
+        Text(producer.rawValue)
+            .font(.system(size: producer == .akane ? 30 : 50, weight: .semibold, design: .rounded))
             .foregroundStyle(.commonText)
             .multilineTextAlignment(.center)
     }
