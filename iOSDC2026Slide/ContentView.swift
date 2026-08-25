@@ -23,8 +23,6 @@ struct ContentView: View {
                     IntroductionScreen(path: $path)
                 case .background:
                     BackgroundScreen(path: $path)
-                case .aboutSfSymbols:
-                    AboutSfSymbolsScreen(path: $path)
                 case .guidelines:
                     GuidelinesScreen(path: $path)
                 case .sfSymbolBasics:
@@ -33,8 +31,8 @@ struct ContentView: View {
                     TravelPlusScreen(path: $path)
                 case .symbolKanojo:
                     SymbolKanojoScreen(path: $path)
-                case .backrooms:
-                    BackroomsScreen(path: $path)
+                case .summary:
+                    SummaryScreen(path: $path)
                 case .conclusion:
                     ConclusionScreen(path: $path)
                 }

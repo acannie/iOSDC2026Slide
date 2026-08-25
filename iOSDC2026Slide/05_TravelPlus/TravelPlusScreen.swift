@@ -9,11 +9,18 @@ import SwiftUI
 
 struct TravelPlusScreen: View {
     @Binding var path: NavigationPath
+    @State var currentPage: Int = 0
+
+    enum Page: Int, CaseIterable {
+        case travelPlus
+    }
 
     var body: some View {
-        VStack(spacing: 20) {
-            Button("次へ") {
-                path.append(Destination.symbolKanojo)
+        ZStack {
+            ForEach(Page.allCases, id: \.self) { page in
+                pageContent(for: page)
+                    .opacity(currentPage == page.rawValue ? 1 : 0)
+                    .animation(.easeInOut, value: currentPage)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -25,5 +32,15 @@ struct TravelPlusScreen: View {
         }
         .navigationTitle("TravelPlus")
         .navigationBarBackButtonHidden(true)
+    }
+}
+
+private extension TravelPlusScreen {
+    @ViewBuilder
+    func pageContent(for page: Page) -> some View {
+        switch page {
+        case .travelPlus:
+            TravelPlus()
+        }
     }
 }
