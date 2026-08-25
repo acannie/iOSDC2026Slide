@@ -15,8 +15,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack(path: $path) {
             VStack(spacing: 20) {
-//                IntroductionScreen(path: $path)
-                SummaryScreen(path: $path)
+                IntroductionScreen(path: $path)
             }
             .navigationDestination(for: Destination.self) { destination in
                 switch destination {
