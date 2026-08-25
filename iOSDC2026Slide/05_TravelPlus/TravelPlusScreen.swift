@@ -30,7 +30,6 @@ struct TravelPlusScreen: View {
                 goNextAction: { path.append(Destination.symbolKanojo) }
             )
         }
-        .navigationTitle("TravelPlus")
         .navigationBarBackButtonHidden(true)
     }
 }
