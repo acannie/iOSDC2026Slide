@@ -13,7 +13,12 @@ struct RotatingIn3D: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                title
+                HStack {
+                    title
+                    Spacer()
+                }
+                .padding(.leading, 64)
+                .padding(.top, 64)
                 Spacer()
                 CubeView()
                 Spacer()
@@ -26,11 +31,8 @@ struct RotatingIn3D: View {
     }
 
     var title: some View {
-        HStack {
-            Text("まわす")
-                .font(.system(size: 100))
-            Spacer()
-        }
-        .padding(.horizontal, 48)
+        Text("まわす")
+            .font(.system(size: 80, weight: .bold, design: .rounded))
+            .foregroundStyle(.introductionText)
     }
 }

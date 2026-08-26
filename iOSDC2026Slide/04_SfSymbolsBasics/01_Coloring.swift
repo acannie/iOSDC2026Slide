@@ -13,7 +13,12 @@ struct Coloring: View {
 
     var body: some View {
         VStack {
-            title
+            HStack {
+                title
+                Spacer()
+            }
+            .padding(.leading, 64)
+            .padding(.top, 64)
             HStack(spacing: 200) {
                 rainbow
                 teddybear
@@ -35,12 +40,9 @@ struct Coloring: View {
     }
 
     var title: some View {
-        HStack {
-            Text("着色する")
-                .font(.system(size: 100))
-            Spacer()
-        }
-        .padding(.horizontal, 48)
+        Text("着色する")
+            .font(.system(size: 80, weight: .bold, design: .rounded))
+            .foregroundStyle(.introductionText)
     }
 
     var rainbow: some View {
