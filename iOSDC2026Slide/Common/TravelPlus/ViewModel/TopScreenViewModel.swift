@@ -10,7 +10,7 @@ import Combine
 
 final class TopScreenViewModel: ObservableObject {
     @Published private var userId: UUID
-    @Published var selectedLanguage: Language?
+    @Published var selectedLanguage: Language? = .ja
     @Published var selectedDeparture: City?
     @Published var selectedDestination: City?
     @Published var selectedMbti: MBTI = .e
