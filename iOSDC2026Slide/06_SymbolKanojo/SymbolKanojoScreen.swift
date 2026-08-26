@@ -30,7 +30,6 @@ struct SymbolKanojoScreen: View {
                 goNextAction: { path.append(Destination.summary) }
             )
         }
-        .navigationTitle("シンボルカノジョ。")
         .navigationBarBackButtonHidden(true)
     }
 }
