@@ -14,7 +14,12 @@ struct InterpretingAndCombining: View {
 
     var body: some View {
         VStack {
-            title
+            HStack {
+                title
+                Spacer()
+            }
+            .padding(.leading, 64)
+            .padding(.top, 64)
             HStack(spacing: 50) {
                 ZStack {
                     lotus
@@ -48,12 +53,9 @@ struct InterpretingAndCombining: View {
     }
 
     var title: some View {
-        HStack {
-            Text("解釈する／組み合わせる")
-                .font(.system(size: 100))
-            Spacer()
-        }
-        .padding(.horizontal, 48)
+        Text("解釈する／組み合わせる")
+            .font(.system(size: 80, weight: .bold, design: .rounded))
+            .foregroundStyle(.introductionText)
     }
 
     var chart: some View {

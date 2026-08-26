@@ -15,7 +15,12 @@ struct FontsAndGlowing: View {
 
     var body: some View {
         VStack {
-            title
+            HStack {
+                title
+                Spacer()
+            }
+            .padding(.leading, 64)
+            .padding(.top, 64)
             HStack(spacing: 100) {
                 NeonSignView(isDay: isDay)
                 MarqueeSignView(isDay: isDay)
@@ -43,13 +48,9 @@ struct FontsAndGlowing: View {
     }
 
     var title: some View {
-        HStack {
-            Text(isDay ? "字体を活用する" : "光らせる")
-                .font(.system(size: 100))
-                .foregroundStyle(isDay ? .black : .white)
-            Spacer()
-        }
-        .padding(.horizontal, 48)
+        Text(isDay ? "字体を活用する" : "光らせる")
+            .font(.system(size: 80, weight: .bold, design: .rounded))
+            .foregroundStyle(isDay ? .black : .white)
     }
 
     var toggleDayAndNightButton: some View {
