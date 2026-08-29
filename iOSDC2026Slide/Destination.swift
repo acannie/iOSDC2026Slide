@@ -12,6 +12,5 @@ enum Destination: Hashable {
     case sfSymbolBasics
     case travelPlus
     case symbolKanojo
-    case summary
     case conclusion
 }

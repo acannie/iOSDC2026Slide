@@ -31,8 +31,6 @@ struct ContentView: View {
                     TravelPlusScreen(path: $path)
                 case .symbolKanojo:
                     SymbolKanojoScreen(path: $path)
-                case .summary:
-                    SummaryScreen(path: $path)
                 case .conclusion:
                     ConclusionScreen(path: $path)
                 }
