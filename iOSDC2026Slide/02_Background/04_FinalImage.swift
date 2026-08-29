@@ -1,13 +1,13 @@
 //
-//  03_LastImage.swift
+//  04_FinalImage.swift
 //  iOSDC2026Slide
 //
-//  Created by SASAOKA Akane on 2026/08/24.
+//  Created by SASAOKA Akane on 2026/08/29.
 //
 
 import SwiftUI
 
-struct LastImage: View {
+struct FinalImage: View {
     @State private var isShowingOnlyImage: Bool = false
 
     var body: some View {
@@ -34,7 +34,7 @@ struct LastImage: View {
     }
 }
 
-private extension LastImage {
+private extension FinalImage {
     var showingOnlyImageButton: some View {
         Button(action: {
             isShowingOnlyImage.toggle()
@@ -145,7 +145,7 @@ private extension LastImage {
     }
 }
 
-private extension LastImage {
+private extension FinalImage {
     var title: some View {
         Text("先ほどの自己紹介スライド……")
             .font(.system(size: 80, weight: .bold, design: .rounded))

@@ -14,7 +14,8 @@ struct BackgroundScreen: View {
     enum Page: Int, CaseIterable {
         case question
         case suggestion
-        case lastImage
+        case guidelines
+        case finalImage
     }
 
     var body: some View {
@@ -39,7 +40,7 @@ struct BackgroundScreen: View {
                     if currentPage < Page.allCases.count - 1 {
                         currentPage += 1
                     } else {
-                        path.append(Destination.guidelines)
+                        path.append(Destination.sfSymbolBasics)
                     }
                 }
             )
@@ -56,8 +57,10 @@ private extension BackgroundScreen {
             Question()
         case .suggestion:
             Suggestion()
-        case .lastImage:
-            LastImage()
+        case .guidelines:
+            Guidelines()
+        case .finalImage:
+            FinalImage()
         }
     }
 }

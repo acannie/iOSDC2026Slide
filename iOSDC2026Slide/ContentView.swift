@@ -23,8 +23,6 @@ struct ContentView: View {
                     IntroductionScreen(path: $path)
                 case .background:
                     BackgroundScreen(path: $path)
-                case .guidelines:
-                    GuidelinesScreen(path: $path)
                 case .sfSymbolBasics:
                     SfSymbolsBasicsScreen(path: $path)
                 case .travelPlus:
