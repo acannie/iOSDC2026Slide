@@ -147,7 +147,7 @@ private extension FinalImage {
 
 private extension FinalImage {
     var title: some View {
-        Text("先ほどの自己紹介スライド……")
+        Text("先ほどの画像……")
             .font(.system(size: 80, weight: .bold, design: .rounded))
             .foregroundStyle(.introductionText)
     }
