@@ -13,10 +13,10 @@ struct FinalImage: View {
     var body: some View {
         ZStack {
             Introduction(slideType: .finalImageScreen)
-            .overlay {
-                Color.black.opacity(isShowingOnlyImage ? 0.7 : 0)
-                    .ignoresSafeArea(.all)
-            }
+                .overlay {
+                    Color.black.opacity(isShowingOnlyImage ? 0.7 : 0)
+                        .ignoresSafeArea(.all)
+                }
             Introduction(slideType: .onlyImage)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
