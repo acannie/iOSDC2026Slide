@@ -1,5 +1,5 @@
 //
-//  02_Suggestion.swift
+//  02_AppleDesignResource.swift
 //  iOSDC2026Slide
 //
 //  Created by SASAOKA Akane on 2026/08/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Suggestion: View {
+struct AppleDesignResource: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -33,9 +33,9 @@ struct Suggestion: View {
     }
 }
 
-private extension Suggestion {
+private extension AppleDesignResource {
     var title: some View {
-        Text("Appleの標準リソース")
+        Text("Appleのデザインリソース")
             .font(.system(size: 80, weight: .bold, design: .rounded))
             .foregroundStyle(.commonText)
     }
