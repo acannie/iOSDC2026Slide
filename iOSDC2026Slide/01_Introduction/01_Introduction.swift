@@ -30,6 +30,7 @@ struct Introduction: View {
                 image
                     .overlay {
                         decoration
+                            .opacity(slideType == .onlyImage ? 0 : 1)
                     }
                 VStack(spacing: 20) {
                     ForEach(Profile.allCases, id: \.self) { profile in
