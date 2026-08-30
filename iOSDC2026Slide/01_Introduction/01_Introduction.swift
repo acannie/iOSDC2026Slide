@@ -33,12 +33,7 @@ struct Introduction: View {
                     }
                 VStack(spacing: 20) {
                     ForEach(Profile.allCases, id: \.self) { profile in
-                        profileCard(
-                            iconName: profile.iconName,
-                            title: profile.title,
-                            body: profile.body,
-                            color: profile.color
-                        )
+                        profileCard(profile)
                     }
                 }
                 .padding(.trailing, 64)
@@ -108,24 +103,19 @@ private extension Introduction {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
-    func profileCard(
-        iconName: String,
-        title: String,
-        body: String,
-        color: Color
-    ) -> some View {
+    func profileCard(_ profile: Profile) -> some View {
         HStack(spacing: 28) {
-            Image(systemName: iconName)
+            Image(systemName: profile.iconName)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 72, height: 72)
-                .foregroundStyle(color)
+                .foregroundStyle(profile.color)
             VStack(alignment: .leading) {
-                Text(title)
+                Text(profile.title)
                     .font(.system(size: 32, weight: .semibold, design: .rounded))
                     .foregroundStyle(.introductionText)
                     .padding(.leading, 2)
-                Text(body)
+                Text(profile.body)
                     .font(.system(size: 40, weight: .bold, design: .rounded))
                     .foregroundStyle(.introductionText)
             }
@@ -136,7 +126,7 @@ private extension Introduction {
         .background {
             ZStack {
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(color)
+                    .fill(profile.color)
                     .shadow(color: .black.opacity(0.2), radius: 2, x: 2, y: 2)
                 RoundedRectangle(cornerRadius: 14)
                     .fill(.introductionBackground)
