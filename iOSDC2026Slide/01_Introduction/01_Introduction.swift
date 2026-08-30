@@ -8,31 +8,42 @@
 import SwiftUI
 
 struct Introduction: View {
+    let slideType: SlideType
+
+    enum SlideType {
+        case introductionScreen
+        case finalImageScreen
+        case onlyImage
+    }
+
+    init(slideType: SlideType = .introductionScreen) {
+        self.slideType = slideType
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 80) {
             title
                 .padding(.leading, 64)
                 .padding(.top, 64)
+                .opacity(slideType == .onlyImage ? 0 : 1)
             HStack(spacing: 20) {
                 image
                     .overlay {
                         decoration
+                            .opacity(slideType == .onlyImage ? 0 : 1)
                     }
                 VStack(spacing: 20) {
                     ForEach(Profile.allCases, id: \.self) { profile in
-                        profileCard(
-                            iconName: profile.iconName,
-                            title: profile.title,
-                            body: profile.body,
-                            color: profile.color
-                        )
+                        profileCard(profile)
                     }
                 }
                 .padding(.trailing, 64)
+                .opacity(slideType == .onlyImage ? 0 : 1)
             }
             .padding(.vertical, 64)
             Spacer()
         }
+        .background(slideType == .onlyImage ? .clear : .introductionBackground)
     }
 }
 
@@ -81,7 +92,7 @@ private enum Profile: CaseIterable {
 
 private extension Introduction {
     var title: some View {
-        Text("自己紹介")
+        Text(slideType == .introductionScreen ? "自己紹介" : "先ほどの自己紹介スライド……")
             .font(.system(size: 80, weight: .bold, design: .rounded))
             .foregroundStyle(.introductionText)
     }
@@ -93,24 +104,19 @@ private extension Introduction {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
-    func profileCard(
-        iconName: String,
-        title: String,
-        body: String,
-        color: Color
-    ) -> some View {
+    func profileCard(_ profile: Profile) -> some View {
         HStack(spacing: 28) {
-            Image(systemName: iconName)
+            Image(systemName: profile.iconName)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 72, height: 72)
-                .foregroundStyle(color)
+                .foregroundStyle(profile.color)
             VStack(alignment: .leading) {
-                Text(title)
+                Text(profile.title)
                     .font(.system(size: 32, weight: .semibold, design: .rounded))
                     .foregroundStyle(.introductionText)
                     .padding(.leading, 2)
-                Text(body)
+                Text(profile.body)
                     .font(.system(size: 40, weight: .bold, design: .rounded))
                     .foregroundStyle(.introductionText)
             }
@@ -121,7 +127,7 @@ private extension Introduction {
         .background {
             ZStack {
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(color)
+                    .fill(profile.color)
                     .shadow(color: .black.opacity(0.2), radius: 2, x: 2, y: 2)
                 RoundedRectangle(cornerRadius: 14)
                     .fill(.introductionBackground)

@@ -24,7 +24,6 @@ struct IntroductionScreen: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.introductionBackground)
         .overlay {
             DestinationButtonOverlayView(
                 goPreviousAction: {},
