@@ -27,7 +27,7 @@ struct SymbolKanojoScreen: View {
         .overlay {
             DestinationButtonOverlayView(
                 goPreviousAction: { path.removeLast() },
-                goNextAction: { path.append(Destination.summary) }
+                goNextAction: { path.append(Destination.conclusion) }
             )
         }
         .navigationBarBackButtonHidden(true)

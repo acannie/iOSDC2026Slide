@@ -1,8 +1,8 @@
 //
-//  01_Guidelines.swift
+//  04_Guidelines.swift
 //  iOSDC2026Slide
 //
-//  Created by SASAOKA Akane on 2026/08/25.
+//  Created by SASAOKA Akane on 2026/08/29.
 //
 
 import SwiftUI
