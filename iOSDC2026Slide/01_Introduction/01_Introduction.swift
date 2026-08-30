@@ -8,11 +8,24 @@
 import SwiftUI
 
 struct Introduction: View {
+    let slideType: SlideType
+
+    enum SlideType {
+        case introductionScreen
+        case finalImageScreen
+        case onlyImage
+    }
+
+    init(slideType: SlideType = .introductionScreen) {
+        self.slideType = slideType
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 80) {
             title
                 .padding(.leading, 64)
                 .padding(.top, 64)
+                .opacity(slideType == .onlyImage ? 0 : 1)
             HStack(spacing: 20) {
                 image
                     .overlay {
@@ -29,10 +42,12 @@ struct Introduction: View {
                     }
                 }
                 .padding(.trailing, 64)
+                .opacity(slideType == .onlyImage ? 0 : 1)
             }
             .padding(.vertical, 64)
             Spacer()
         }
+        .background(slideType == .onlyImage ? .clear : .introductionBackground)
     }
 }
 
@@ -81,7 +96,7 @@ private enum Profile: CaseIterable {
 
 private extension Introduction {
     var title: some View {
-        Text("自己紹介")
+        Text(slideType == .introductionScreen ? "自己紹介" : "先ほどの自己紹介スライド……")
             .font(.system(size: 80, weight: .bold, design: .rounded))
             .foregroundStyle(.introductionText)
     }
