@@ -11,11 +11,158 @@ struct CreamSodaView: View {
     let isShowingGraphic: Bool
     @State private var count: Int = 0
 
+    @State private var isShowingCreamSoda: Bool = false
+
+    @Namespace private var namespace
+
     var body: some View {
+        ZStack {
+            if isShowingCreamSoda {
+                creamSoda
+            }
+            if !isShowingCreamSoda {
+                symbols
+            }
+        }
+        .frame(width: 300, height: 600)
+        .onTapGesture {
+              withAnimation(.easeOut(duration: 2)) {
+                  isShowingCreamSoda.toggle()
+              }
+        }
+        .task(id: isShowingGraphic) {
+            if isShowingGraphic {
+                while !Task.isCancelled {
+                    try? await Task.sleep(for: .seconds(1))
+                    if Task.isCancelled { break }
+                    count += 1
+                }
+            } else {
+                count = 0
+            }
+        }
+    }
+}
+
+private extension CreamSodaView {
+    enum SymbolName {
+        case wineglassFill
+        case wineglassOutline
+        case glassBottom
+        case spoonHandle
+        case spoon
+        case iceCube1
+        case iceCube2
+        case iceCube3
+        case iceCube4
+        case iceCube5
+        case iceCreamTop
+        case iceCreamBottom
+        case cherryBody
+        case cherryBranch
+    }
+
+    var symbols: some View {
+        let symbolSize: CGFloat = 100
+        return VStack {
+            HStack {
+                Image(systemName: "wineglass.fill")
+                    .resizable()
+                    .matchedGeometryEffect(id: SymbolName.wineglassFill, in: namespace)
+                    .foregroundStyle(.black)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                Image(systemName: "wineglass")
+                    .resizable()
+                    .matchedGeometryEffect(id: SymbolName.wineglassOutline, in: namespace)
+                    .foregroundStyle(.black)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                Capsule()
+                    .matchedGeometryEffect(id: SymbolName.spoon, in: namespace)
+                    .foregroundStyle(.black)
+                    .frame(width: symbolSize, height: symbolSize / 2)
+                Image(systemName: "spoon.serving")
+                    .resizable()
+                    .matchedGeometryEffect(id: SymbolName.spoonHandle, in: namespace)
+                    .foregroundStyle(.black)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+            }
+            HStack {
+                Rectangle()
+                    .foregroundStyle(.black)
+                    .matchedGeometryEffect(id: SymbolName.iceCube1, in: namespace)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                Rectangle()
+                    .foregroundStyle(.black)
+                    .matchedGeometryEffect(id: SymbolName.iceCube2, in: namespace)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                Rectangle()
+                    .foregroundStyle(.black)
+                    .matchedGeometryEffect(id: SymbolName.iceCube3, in: namespace)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                Rectangle()
+                    .foregroundStyle(.black)
+                    .matchedGeometryEffect(id: SymbolName.iceCube4, in: namespace)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+            }
+            HStack {
+                Rectangle()
+                    .foregroundStyle(.black)
+                    .matchedGeometryEffect(id: SymbolName.iceCube5, in: namespace)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                // グラスの底
+                Ellipse()
+                    .fill(.black)
+                    .matchedGeometryEffect(id: SymbolName.glassBottom, in: namespace)
+                    .foregroundStyle(.black)
+                    .frame(width: symbolSize, height: symbolSize / 2)
+                // アイスクリーム
+                Circle()
+                    .fill(.black)
+                    .matchedGeometryEffect(id: SymbolName.iceCreamTop, in: namespace)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                Ellipse()
+                    .fill(.black)
+                    .matchedGeometryEffect(id: SymbolName.iceCreamBottom, in: namespace)
+                    .frame(width: symbolSize, height: symbolSize / 2)
+            }
+            HStack {
+                // さくらんぼ
+                Circle()
+                    .fill(.black)
+                    .matchedGeometryEffect(id: SymbolName.cherryBody, in: namespace)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                Text("ノ")
+                    .matchedGeometryEffect(id: SymbolName.cherryBranch, in: namespace)
+                    .foregroundStyle(.black)
+                    .font(.system(size: 100))
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                Rectangle()
+                    .foregroundStyle(.clear)
+                    .frame(width: symbolSize, height: symbolSize)
+                Rectangle()
+                    .foregroundStyle(.clear)
+                    .frame(width: symbolSize, height: symbolSize)
+            }
+        }
+    }
+
+    var creamSoda: some View {
         ZStack {
             // メロンソーダ
             Image(systemName: "wineglass.fill")
                 .resizable()
+                .matchedGeometryEffect(id: SymbolName.wineglassFill, in: namespace)
                 .fontWeight(.thin)
                 .foregroundStyle(
                     LinearGradient(
@@ -29,11 +176,13 @@ struct CreamSodaView: View {
             ZStack {
                 Capsule()
                     .fill(.spoon)
+                    .matchedGeometryEffect(id: SymbolName.spoon, in: namespace)
                     .frame(width: 10, height: 200)
                     .rotationEffect(.degrees(170))
                     .offset(x: -22, y: -130)
                 Image(systemName: "spoon.serving")
                     .resizable()
+                    .matchedGeometryEffect(id: SymbolName.spoonHandle, in: namespace)
                     .foregroundStyle(.spoon)
                     .scaledToFit()
                     .frame(width: 30)
@@ -46,15 +195,20 @@ struct CreamSodaView: View {
             Group {
                 // 上段
                 iceCube(size: 60, angle: -30)
+                    .matchedGeometryEffect(id: SymbolName.iceCube1, in: namespace)
                     .offset(x: -80, y: -60 - iceCubePosition)
                 iceCube(size: 70, angle: -10)
+                    .matchedGeometryEffect(id: SymbolName.iceCube2, in: namespace)
                     .offset(y: -100 + iceCubePosition)
                 iceCube(size: 60, angle: 20)
+                    .matchedGeometryEffect(id: SymbolName.iceCube3, in: namespace)
                     .offset(x: 70, y: -70 - iceCubePosition)
                 // 下段
                 iceCube(size: 70, angle: 30)
+                    .matchedGeometryEffect(id: SymbolName.iceCube4, in: namespace)
                     .offset(x: -45, y: -35 + iceCubePosition)
                 iceCube(size: 80, angle: -5)
+                    .matchedGeometryEffect(id: SymbolName.iceCube5, in: namespace)
                     .offset(x: 35, y: -15 - iceCubePosition)
             }
             .animation(.easeInOut(duration: 1.0), value: iceCubePosition)
@@ -101,11 +255,13 @@ struct CreamSodaView: View {
                 Ellipse()
                     .fill(.thinMaterial)
             }
+            .matchedGeometryEffect(id: SymbolName.glassBottom, in: namespace)
             .frame(width: 200, height: 60)
             .offset(y: 205)
             // グラスの縁
             Image(systemName: "wineglass")
                 .resizable()
+                .matchedGeometryEffect(id: SymbolName.wineglassOutline, in: namespace)
                 .fontWeight(.thin)
                 .foregroundStyle(.thinMaterial)
                 .frame(width: 300, height: 500)
@@ -114,9 +270,11 @@ struct CreamSodaView: View {
                 Circle()
                     .trim(from: 0.5, to: 1.0)
                     .fill(.melonsodaIceCream)
+                    .matchedGeometryEffect(id: SymbolName.iceCreamTop, in: namespace)
                     .frame(width: 165)
                 Ellipse()
                     .fill(.melonsodaIceCream)
+                    .matchedGeometryEffect(id: SymbolName.iceCreamBottom, in: namespace)
                     .frame(width: 165, height: 30)
             }
             .offset(x: -5, y: -215)
@@ -130,26 +288,16 @@ struct CreamSodaView: View {
                             endPoint: .bottomLeading
                         )
                     )
+                    .matchedGeometryEffect(id: SymbolName.cherryBody, in: namespace)
                     .frame(width: 60)
                 Text("ノ")
+                    .matchedGeometryEffect(id: SymbolName.cherryBranch, in: namespace)
                     .font(.system(size: 120, weight: .thin))
                     .foregroundStyle(.cherryDark)
                     .rotationEffect(.degrees(180))
                     .offset(x: 35, y: -55)
             }
             .offset(x: 50, y: -290)
-        }
-        .frame(width: 300, height: 600)
-        .task(id: isShowingGraphic) {
-            if isShowingGraphic {
-                while !Task.isCancelled {
-                    try? await Task.sleep(for: .seconds(1))
-                    if Task.isCancelled { break }
-                    count += 1
-                }
-            } else {
-                count = 0
-            }
         }
     }
 }
