@@ -45,17 +45,13 @@ struct CreamSodaView: View {
 }
 
 private extension CreamSodaView {
-    enum SymbolName {
+    enum SymbolName: Hashable {
         case wineglassFill
         case wineglassOutline
         case glassBottom
         case spoonHandle
         case spoon
-        case iceCube1
-        case iceCube2
-        case iceCube3
-        case iceCube4
-        case iceCube5
+        case iceCube(Int)
         case iceCreamTop
         case iceCreamBottom
         case cherryBody
@@ -92,29 +88,29 @@ private extension CreamSodaView {
             HStack {
                 Rectangle()
                     .foregroundStyle(.symbolCreamSoda)
-                    .matchedGeometryEffect(id: SymbolName.iceCube1, in: namespace)
+                    .matchedGeometryEffect(id: SymbolName.iceCube(0), in: namespace)
                     .scaledToFit()
                     .frame(width: symbolSize, height: symbolSize)
                 Rectangle()
                     .foregroundStyle(.symbolCreamSoda)
-                    .matchedGeometryEffect(id: SymbolName.iceCube2, in: namespace)
+                    .matchedGeometryEffect(id: SymbolName.iceCube(1), in: namespace)
                     .scaledToFit()
                     .frame(width: symbolSize, height: symbolSize)
                 Rectangle()
                     .foregroundStyle(.symbolCreamSoda)
-                    .matchedGeometryEffect(id: SymbolName.iceCube3, in: namespace)
+                    .matchedGeometryEffect(id: SymbolName.iceCube(2), in: namespace)
                     .scaledToFit()
                     .frame(width: symbolSize, height: symbolSize)
                 Rectangle()
                     .foregroundStyle(.symbolCreamSoda)
-                    .matchedGeometryEffect(id: SymbolName.iceCube4, in: namespace)
+                    .matchedGeometryEffect(id: SymbolName.iceCube(3), in: namespace)
                     .scaledToFit()
                     .frame(width: symbolSize, height: symbolSize)
             }
             HStack {
                 Rectangle()
                     .foregroundStyle(.symbolCreamSoda)
-                    .matchedGeometryEffect(id: SymbolName.iceCube5, in: namespace)
+                    .matchedGeometryEffect(id: SymbolName.iceCube(4), in: namespace)
                     .scaledToFit()
                     .frame(width: symbolSize, height: symbolSize)
                 // グラスの底
@@ -194,21 +190,16 @@ private extension CreamSodaView {
             // 氷
             Group {
                 // 上段
-                iceCube(size: 60, angle: -30)
-                    .matchedGeometryEffect(id: SymbolName.iceCube1, in: namespace)
+                iceCube(size: 60, angle: -30, symbolName: .iceCube(0))
                     .offset(x: -80, y: -60 - iceCubePosition)
-                iceCube(size: 70, angle: -10)
-                    .matchedGeometryEffect(id: SymbolName.iceCube2, in: namespace)
+                iceCube(size: 70, angle: -10, symbolName: .iceCube(1))
                     .offset(y: -100 + iceCubePosition)
-                iceCube(size: 60, angle: 20)
-                    .matchedGeometryEffect(id: SymbolName.iceCube3, in: namespace)
+                iceCube(size: 60, angle: 20, symbolName: .iceCube(2))
                     .offset(x: 70, y: -70 - iceCubePosition)
                 // 下段
-                iceCube(size: 70, angle: 30)
-                    .matchedGeometryEffect(id: SymbolName.iceCube4, in: namespace)
+                iceCube(size: 70, angle: 30, symbolName: .iceCube(3))
                     .offset(x: -45, y: -35 + iceCubePosition)
-                iceCube(size: 80, angle: -5)
-                    .matchedGeometryEffect(id: SymbolName.iceCube5, in: namespace)
+                iceCube(size: 80, angle: -5, symbolName: .iceCube(4))
                     .offset(x: 35, y: -15 - iceCubePosition)
             }
             .animation(.easeInOut(duration: 1.0), value: iceCubePosition)
@@ -321,7 +312,7 @@ private extension CreamSodaView {
         }
     }
 
-    func iceCube(size: CGFloat, angle: CGFloat) -> some View {
+    func iceCube(size: CGFloat, angle: CGFloat, symbolName: SymbolName) -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
                 .fill(.ultraThinMaterial)
@@ -334,6 +325,7 @@ private extension CreamSodaView {
                         endPoint: .bottomTrailing
                     )
                 )
+                .matchedGeometryEffect(id: symbolName, in: namespace)
                 .frame(width: size - 10, height: size - 10)
         }
         .rotationEffect(.degrees(angle))
