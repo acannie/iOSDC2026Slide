@@ -11,6 +11,8 @@ struct NeonSignView: View {
     let isDay: Bool
     @State private var count: Int = 0
     @State private var isLighting: Bool = false
+    @State private var isShowingNeonSign: Bool = false
+    @Namespace private var namespace
 
     // MARK: 光の色
     var lightingWhite: Color {
@@ -71,20 +73,31 @@ struct NeonSignView: View {
 
     var body: some View {
         ZStack {
-            circle
-            palmTree
-                .offset(x: 130)
-            drink
-                .offset(x: 270)
-            microphone
-                .offset(x: 200, y: 15)
-            waves
-                .offset(x: 200, y: 80)
-            iosdc
-                .offset(x: -60)
+            if isShowingNeonSign {
+                ZStack {
+                    circle
+                    palmTree
+                        .offset(x: 130)
+                    drink
+                        .offset(x: 270)
+                    microphone
+                        .offset(x: 200, y: 15)
+                    waves
+                        .offset(x: 200, y: 80)
+                    iosdc
+                        .offset(x: -60)
+                }
+            } else {
+                symbols
+            }
         }
         .offset(x: -55)
         .frame(width: 540, height: 320)
+        .onTapGesture {
+            withAnimation(.easeOut(duration: 1)) {
+                isShowingNeonSign.toggle()
+            }
+        }
         .onChange(of: isDay) {
             Task {
                 if isDay {
@@ -119,6 +132,7 @@ struct NeonSignView: View {
                 Circle()
                     .trim(from: 0.15, to: 0.45)
                     .stroke(neonTubeMagenta, lineWidth: 10)
+                    .matchedGeometryEffect(id: SymbolName.outerCircleTop, in: namespace)
                     .frame(width: 300)
                     .shadow(color: lightingMagenta, radius: 5)
                     .shadow(color: neonTubeShadow, radius: 2, x: 1, y: 1)
@@ -130,6 +144,7 @@ struct NeonSignView: View {
                 Circle()
                     .trim(from: 0.55, to: 0.8)
                     .stroke(neonTubeMagenta, lineWidth: 10)
+                    .matchedGeometryEffect(id: SymbolName.outerCircleBottom, in: namespace)
                     .frame(width: 300)
                     .shadow(color: lightingMagenta, radius: 5)
                     .shadow(color: neonTubeShadow, radius: 2, x: 1, y: 1)
@@ -145,6 +160,7 @@ struct NeonSignView: View {
                     Circle()
                         .trim(from: 0.56, to: 0.79)
                         .stroke(neonTubeYellow, lineWidth: 10)
+                        .matchedGeometryEffect(id: SymbolName.innerCircleTop, in: namespace)
                         .frame(width: 250)
                         .shadow(color: lightingYellow, radius: 5)
                         .shadow(color: neonTubeShadow, radius: 2, x: 1, y: 1)
@@ -159,6 +175,7 @@ struct NeonSignView: View {
                         Circle()
                             .trim(from: 0.92, to: 1.0)
                             .stroke(neonTubeOrange, lineWidth: 10)
+                            .matchedGeometryEffect(id: SymbolName.innerCircleRight, in: namespace)
                             .frame(width: 250)
                             .shadow(color: lightingOrange, radius: 5)
                             .shadow(color: neonTubeShadow, radius: 2, x: 1, y: 1)
@@ -185,6 +202,7 @@ struct NeonSignView: View {
                     Circle()
                         .trim(from: 0.16, to: 0.44)
                         .stroke(neonTubeYellow, lineWidth: 10)
+                        .matchedGeometryEffect(id: SymbolName.innerCircleBottom, in: namespace)
                         .frame(width: 250)
                         .shadow(color: lightingYellow, radius: 5)
                         .shadow(color: neonTubeShadow, radius: 2, x: 1, y: 1)
@@ -198,10 +216,11 @@ struct NeonSignView: View {
     }
 
     var palmTree: some View {
-        func leaf(size: CGFloat) -> some View {
+        func leaf(size: CGFloat, symbolName: SymbolName) -> some View {
             ZStack {
                 Image(systemName: "moon")
                     .resizable()
+                    .matchedGeometryEffect(id: symbolName, in: namespace)
                     .fontWeight(.bold)
                     .foregroundStyle(neonTubeGreen)
                     .frame(width: size, height: size)
@@ -216,21 +235,22 @@ struct NeonSignView: View {
         }
         return ZStack {
             // 葉
-            leaf(size: 75)
+            leaf(size: 75, symbolName: .palmTreeLeaf1)
                 .rotationEffect(.degrees(130))
                 .offset(x: -65, y: -75)
-            leaf(size: 80)
+            leaf(size: 80, symbolName: .palmTreeLeaf2)
                 .rotationEffect(.degrees(155))
                 .offset(x: -45, y: -115)
-            leaf(size: 75)
+            leaf(size: 75, symbolName: .palmTreeLeaf3)
                 .rotationEffect(.degrees(135))
                 .offset(x: 35, y: -100)
-            leaf(size: 70)
+            leaf(size: 70, symbolName: .palmTreeLeaf4)
                 .rotationEffect(.degrees(170))
                 .offset(x: 35, y: -60)
             // 幹
             Group {
                 Text("ノ")
+                    .matchedGeometryEffect(id: SymbolName.palmTreeRight, in: namespace)
                     .font(.system(size: 80, weight: .bold, design: .rounded))
                     .foregroundStyle(neonTubeOrange)
                     .shadow(color: lightingOrange, radius: 5)
@@ -251,6 +271,7 @@ struct NeonSignView: View {
             Group {
                 Image(systemName: "wineglass")
                     .resizable()
+                    .matchedGeometryEffect(id: SymbolName.wineGlass, in: namespace)
                     .fontWeight(.bold)
                     .foregroundStyle(neonTubePurple)
                     .frame(width: 70, height: 100)
@@ -265,6 +286,7 @@ struct NeonSignView: View {
             // ストロー
             Group {
                 Text("へ")
+                    .matchedGeometryEffect(id: SymbolName.straw, in: namespace)
                     .font(.system(size: 60, weight: .bold, design: .rounded))
                     .foregroundStyle(neonTubeYellow)
                     .shadow(color: lightingYellow, radius: 5)
@@ -281,6 +303,7 @@ struct NeonSignView: View {
                 Circle()
                     .trim(from: 0.3, to: 0.97)
                     .stroke(neonTubeYellow, lineWidth: 7)
+                    .matchedGeometryEffect(id: SymbolName.lemon, in: namespace)
                     .frame(width: 40)
                     .shadow(color: lightingYellow, radius: 5)
                     .shadow(color: neonTubeShadow, radius: 2, x: 1, y: 1)
@@ -297,6 +320,7 @@ struct NeonSignView: View {
         ZStack {
             Image(systemName: "microphone")
                 .resizable()
+                .matchedGeometryEffect(id: SymbolName.microphone, in: namespace)
                 .fontWeight(.semibold)
                 .foregroundStyle(neonTubeYellow)
                 .frame(width: 50, height: 70)
@@ -312,10 +336,14 @@ struct NeonSignView: View {
 
     var waves: some View {
         HStack(spacing: 0) {
-            ForEach(0..<2) { _ in
+            ForEach(0..<2) { index in
                 ZStack {
                     Image(systemName: "water.waves")
                         .resizable()
+                        .matchedGeometryEffect(
+                            id: index == 0 ? SymbolName.waveLeft : .waveRight,
+                            in: namespace
+                        )
                         .fontWeight(.black)
                         .foregroundStyle(neonTubeBlue)
                         .frame(width: 120, height: 50)
@@ -333,6 +361,16 @@ struct NeonSignView: View {
 
     var iosdc: some View {
         let blinkLetter = "C"
+        func symbolName(_ letter: String) -> SymbolName {
+            switch letter {
+            case "i": .iosdcI
+            case "O": .iosdcO
+            case "S": .iosdcS
+            case "D": .iosdcD
+            case "C": .iosdcC
+            default: .iosdcI
+            }
+        }
         return HStack(spacing: 0) {
             ForEach(["i", "O", "S", "D", "C"], id: \.self) { letter in
                 ZStack {
@@ -349,6 +387,7 @@ struct NeonSignView: View {
                             .shadow(color: neonTubeShadow, radius: 2, x: 1, y: 1)
                             .opacity(isLighting ? 1 : 0)
                         Text(letter)
+                            .matchedGeometryEffect(id: symbolName(letter), in: namespace)
                             .font(.system(size: 100, weight: .medium, design: .rounded))
                             .foregroundStyle(neonTubeCyan)
                             .shadow(color: lightingCyan, radius: 5)
@@ -361,6 +400,181 @@ struct NeonSignView: View {
                     .opacity((letter == blinkLetter && isLighting) ? opacity : 1)
                     .animation(.spring(duration: 0.4, bounce: 0.75), value: opacity)
                 }
+            }
+        }
+    }
+}
+
+private extension NeonSignView {
+    enum SymbolName {
+        case outerCircleTop
+        case outerCircleBottom
+        case innerCircleTop
+        case innerCircleBottom
+        case innerCircleRight
+        case iosdcI
+        case iosdcO
+        case iosdcS
+        case iosdcD
+        case iosdcC
+        case palmTreeLeaf1
+        case palmTreeLeaf2
+        case palmTreeLeaf3
+        case palmTreeLeaf4
+        case palmTreeRight
+        case microphone
+        case wineGlass
+        case straw
+        case lemon
+        case waveLeft
+        case waveRight
+    }
+
+    var symbols: some View {
+        let symbolSize: CGFloat = 120
+        return VStack {
+            HStack {
+                Circle()
+                    .trim(from: 0.15, to: 0.45)
+                    .stroke(.symbolEyes, lineWidth: 10)
+                    .matchedGeometryEffect(id: SymbolName.outerCircleTop, in: namespace)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                Circle()
+                    .trim(from: 0.55, to: 0.8)
+                    .stroke(.symbolEyes, lineWidth: 10)
+                    .matchedGeometryEffect(id: SymbolName.outerCircleBottom, in: namespace)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                Circle()
+                    .trim(from: 0.56, to: 0.79)
+                    .stroke(.symbolEyes, lineWidth: 10)
+                    .matchedGeometryEffect(id: SymbolName.innerCircleTop, in: namespace)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                Circle()
+                    .trim(from: 0.92, to: 1.0)
+                    .stroke(.symbolEyes, lineWidth: 10)
+                    .matchedGeometryEffect(id: SymbolName.innerCircleRight, in: namespace)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+            }
+            HStack {
+                Circle()
+                    .trim(from: 0.16, to: 0.44)
+                    .stroke(.symbolEyes, lineWidth: 10)
+                    .matchedGeometryEffect(id: SymbolName.innerCircleBottom, in: namespace)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                Image(systemName: "moon")
+                    .resizable()
+                    .matchedGeometryEffect(id: SymbolName.palmTreeLeaf1, in: namespace)
+                    .foregroundStyle(.symbolEyes)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                    .rotationEffect(.degrees(130))
+                Image(systemName: "moon")
+                    .resizable()
+                    .matchedGeometryEffect(id: SymbolName.palmTreeLeaf2, in: namespace)
+                    .foregroundStyle(.symbolEyes)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                    .rotationEffect(.degrees(155))
+                Image(systemName: "moon")
+                    .resizable()
+                    .matchedGeometryEffect(id: SymbolName.palmTreeLeaf3, in: namespace)
+                    .foregroundStyle(.symbolEyes)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                    .rotationEffect(.degrees(135))
+            }
+            HStack {
+                Image(systemName: "moon")
+                    .resizable()
+                    .matchedGeometryEffect(id: SymbolName.palmTreeLeaf4, in: namespace)
+                    .foregroundStyle(.symbolEyes)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                    .rotationEffect(.degrees(170))
+                Text("ノ")
+                    .matchedGeometryEffect(id: SymbolName.palmTreeRight, in: namespace)
+                    .font(.system(size: 80, weight: .bold, design: .rounded))
+                    .foregroundStyle(.symbolEyes)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                Image(systemName: "wineglass")
+                    .resizable()
+                    .matchedGeometryEffect(id: SymbolName.wineGlass, in: namespace)
+                    .foregroundStyle(.symbolEyes)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                Text("へ")
+                    .matchedGeometryEffect(id: SymbolName.straw, in: namespace)
+                    .font(.system(size: 60, weight: .bold, design: .rounded))
+                    .foregroundStyle(.symbolEyes)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                    .rotationEffect(.degrees(-45))
+            }
+            HStack {
+                Circle()
+                    .trim(from: 0.3, to: 0.97)
+                    .stroke(.black, lineWidth: 7)
+                    .matchedGeometryEffect(id: SymbolName.lemon, in: namespace)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                Image(systemName: "microphone")
+                    .resizable()
+                    .matchedGeometryEffect(id: SymbolName.microphone, in: namespace)
+                    .foregroundStyle(.symbolEyes)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                Image(systemName: "water.waves")
+                    .resizable()
+                    .matchedGeometryEffect(id: SymbolName.waveLeft, in: namespace)
+                    .foregroundStyle(.symbolEyes)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                Image(systemName: "water.waves")
+                    .resizable()
+                    .matchedGeometryEffect(id: SymbolName.waveRight, in: namespace)
+                    .foregroundStyle(.symbolEyes)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+            }
+            HStack {
+                Text("i")
+                    .matchedGeometryEffect(id: SymbolName.iosdcI, in: namespace)
+                    .font(.system(size: 100, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.symbolEyes)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                Text("O")
+                    .matchedGeometryEffect(id: SymbolName.iosdcO, in: namespace)
+                    .font(.system(size: 100, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.symbolEyes)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                Text("S")
+                    .matchedGeometryEffect(id: SymbolName.iosdcS, in: namespace)
+                    .font(.system(size: 100, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.symbolEyes)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+                Text("D")
+                    .matchedGeometryEffect(id: SymbolName.iosdcD, in: namespace)
+                    .font(.system(size: 100, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.symbolEyes)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
+            }
+            HStack {
+                Text("C")
+                    .matchedGeometryEffect(id: SymbolName.iosdcC, in: namespace)
+                    .font(.system(size: 100, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.symbolEyes)
+                    .scaledToFit()
+                    .frame(width: symbolSize, height: symbolSize)
             }
         }
     }
