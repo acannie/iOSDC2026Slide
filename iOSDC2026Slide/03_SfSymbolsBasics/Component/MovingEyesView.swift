@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MovingEyesView: View {
+    let isAnimationStarted: Bool
     @State private var expression: Expression = .neutral
     @State private var count: Int = 0
 
@@ -246,20 +247,25 @@ struct MovingEyesView: View {
                 .blur(radius: 16.0)
         )
         .frame(width: 1600 * scale + 100, height: 1000 * scale + 100)
-        .task {
-            while true {
-                try? await Task.sleep(for: .seconds(1))
-                count += 1
-                while true {
-                    let randomInt = Int.random(in: 0..<Expression.allCases.count)
-                    // 目の表情を決定
-                    let rawValue = randomInt % Expression.allCases.count
-                    let newExpression = Expression(rawValue: rawValue) ?? .neutral
-                    if newExpression != expression {
-                        expression = newExpression
-                        break
+        .task(id: isAnimationStarted) {
+            if isAnimationStarted {
+                while !Task.isCancelled {
+                    try? await Task.sleep(for: .seconds(1))
+                    if Task.isCancelled { break }
+                    count += 1
+                    while true {
+                        let randomInt = Int.random(in: 0..<Expression.allCases.count)
+                        // 目の表情を決定
+                        let rawValue = randomInt % Expression.allCases.count
+                        let newExpression = Expression(rawValue: rawValue) ?? .neutral
+                        if newExpression != expression {
+                            expression = newExpression
+                            break
+                        }
                     }
                 }
+            } else {
+                count = 0
             }
         }
     }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CreamSodaView: View {
+    let isAnimationStarted: Bool
     @State private var count: Int = 0
 
     var body: some View {
@@ -63,7 +64,7 @@ struct CreamSodaView: View {
                     let delay = Double.random(in: 0..<5)
                     let yOffset = Double.random(in: 0..<40)
                     Circle()
-                        .stroke(.white)
+                        .stroke(.white.opacity(isAnimationStarted ? 1 : 0))
                         .fill(.clear)
                         .frame(width: 10)
                         .offset(x: -100 + CGFloat(index) * 7, y: 10)
@@ -139,10 +140,15 @@ struct CreamSodaView: View {
             .offset(x: 50, y: -290)
         }
         .frame(width: 300, height: 600)
-        .task {
-            while true {
-                try? await Task.sleep(for: .seconds(1))
-                count += 1
+        .task(id: isAnimationStarted) {
+            if isAnimationStarted {
+                while !Task.isCancelled {
+                    try? await Task.sleep(for: .seconds(1))
+                    if Task.isCancelled { break }
+                    count += 1
+                }
+            } else {
+                count = 0
             }
         }
     }
