@@ -9,8 +9,7 @@ import SwiftUI
 
 struct Animating: View {
     let isActive: Bool
-    @State private var isAnimationStarted: Bool = false
-    @State private var isAnimated: Bool = false
+    @State private var isShowingGraphic: Bool = false
 
     var body: some View {
         VStack {
@@ -21,9 +20,9 @@ struct Animating: View {
             .padding(.leading, 64)
             .padding(.top, 64)
             HStack(spacing: 100) {
-                CreamSodaView(isAnimationStarted: isAnimationStarted)
+                CreamSodaView(isShowingGraphic: isShowingGraphic)
                     .padding(.leading, 100)
-                MovingEyesView(isAnimationStarted: isAnimationStarted)
+                MovingEyesView(isShowingGraphic: isShowingGraphic)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
@@ -37,9 +36,6 @@ struct Animating: View {
                 }
             }
         }
-        .onChange(of: isActive) {
-            isAnimated = isActive
-        }
     }
 
     var title: some View {
@@ -50,7 +46,7 @@ struct Animating: View {
 
     var animationStartButton: some View {
         Button(action: {
-            isAnimationStarted.toggle()
+            isShowingGraphic.toggle()
         }) {
             Rectangle()
                 .foregroundStyle(.clear)
