@@ -59,85 +59,134 @@ private extension AppleDesignResource {
         }
         return VStack(spacing: 32) {
             subtitle("SF Symbols")
-            ZStack {
-                symbol("magnifyingglass", color: .blue, size: 400)
-                VStack {
-                    HStack {
+            VStack(spacing: 16) {
+                // マルチカラー
+                HStack(spacing: 16) {
+                    Image(systemName: "flag.pattern.checkered.2.crossed")
+                        .resizable()
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.red, .blue)
+                        .scaledToFit()
+                        .frame(width: 160, height: 160)
+                    Image(systemName: "rainbow")
+                        .resizable()
+                        .symbolRenderingMode(.multicolor)
+                        .scaledToFit()
+                        .frame(width: 160, height: 160)
+                }
+                // バリエーション
+                VStack(spacing: 16) {
+                    HStack(spacing: 16) {
                         symbol("powerplug", color: .red, size: 70)
                         symbol("sparkles.2", color: .yellow, size: 70)
+                        symbol("magnifyingglass", color: .blue, size: 70)
+                        symbol("phone", color: .green, size: 70)
                     }
-                    HStack {
+                    HStack(spacing: 16) {
                         symbol("cloud.sun", color: .green, size: 70)
                         symbol("balloon.2", color: .orange, size: 70)
+                        symbol("puzzlepiece", color: .red, size: 70)
+                        symbol("storefront", color: .purple, size: 70)
                     }
                 }
-                .offset(x: -50, y: -50)
+                // ウェイト比較
+                HStack(spacing: 4) {
+                    ForEach([Font.Weight.black, .bold, .medium, .light, .thin], id: \.self) { weight in
+                        symbol("umbrella", color: .blue, size: 70)
+                            .fontWeight(weight)
+                    }
+                }
+                .padding(.top, 32)
+                Spacer(minLength: 0)
+                codeSnippet([
+                    /*
+                     Image(systemName: "heart")
+                     .resizable()
+                     .foregroundStyle(.brown)
+                     .scaledToFit()
+                     .frame(width: 8, height: 8)
+                     */
+                    [
+                        (code: "Image", color: .codesnipetLightPurple),
+                        (code: "(", color: .codesnipetWhite),
+                        (code: "systemName", color: .codesnipetLightPurple),
+                        (code: ": ", color: .codesnipetWhite),
+                        (code: "\"heart\"", color: .codesnipetOrange),
+                        (code: ")", color: .codesnipetWhite),
+                    ],
+                    [
+                        (code: "    .", color: .codesnipetWhite),
+                        (code: "resizable", color: .codesnipetPurple),
+                        (code: "()", color: .codesnipetWhite)
+                    ],
+                    [
+                        (code: "    .", color: .codesnipetWhite),
+                        (code: "foregroundStyle", color: .codesnipetPurple),
+                        (code: "(.", color: .codesnipetWhite),
+                        (code: "red", color: .codesnipetPurple),
+                        (code: ")", color: .codesnipetWhite),
+                    ],
+                    [
+                        (code: "    .", color: .codesnipetWhite),
+                        (code: "scaledToFit", color: .codesnipetPurple),
+                        (code: "()", color: .codesnipetWhite)
+                    ],
+                    [
+                        (code: "    .", color: .codesnipetWhite),
+                        (code: "frame", color: .codesnipetPurple),
+                        (code: "(", color: .codesnipetWhite),
+                        (code: "width", color: .codesnipetPurple),
+                        (code: ": ", color: .codesnipetWhite),
+                        (code: "8", color: .codesnipetYellow),
+                        (code: ", ", color: .codesnipetWhite),
+                        (code: "height", color: .codesnipetPurple),
+                        (code: ": ", color: .codesnipetWhite),
+                        (code: "8", color: .codesnipetYellow),
+                        (code: ")", color: .codesnipetWhite)
+                    ],
+                ])
             }
-            Spacer(minLength: 0)
-            codeSnippet([
-                /*
-                Image(systemName: "heart")
-                    .resizable()
-                    .foregroundStyle(.brown)
-                    .scaledToFit()
-                    .frame(width: 8, height: 8)
-                */
-                [
-                    (code: "Image", color: .codesnipetLightPurple),
-                    (code: "(", color: .codesnipetWhite),
-                    (code: "systemName", color: .codesnipetLightPurple),
-                    (code: ": ", color: .codesnipetWhite),
-                    (code: "\"heart\"", color: .codesnipetOrange),
-                    (code: ")", color: .codesnipetWhite),
-                ],
-                [
-                    (code: "    .", color: .codesnipetWhite),
-                    (code: "resizable", color: .codesnipetPurple),
-                    (code: "()", color: .codesnipetWhite)
-                ],
-                [
-                    (code: "    .", color: .codesnipetWhite),
-                    (code: "foregroundStyle", color: .codesnipetPurple),
-                    (code: "(.", color: .codesnipetWhite),
-                    (code: "red", color: .codesnipetPurple),
-                    (code: ")", color: .codesnipetWhite),
-                ],
-                [
-                    (code: "    .", color: .codesnipetWhite),
-                    (code: "scaledToFit", color: .codesnipetPurple),
-                    (code: "()", color: .codesnipetWhite)
-                ],
-                [
-                    (code: "    .", color: .codesnipetWhite),
-                    (code: "frame", color: .codesnipetPurple),
-                    (code: "(", color: .codesnipetWhite),
-                    (code: "width", color: .codesnipetPurple),
-                    (code: ": ", color: .codesnipetWhite),
-                    (code: "8", color: .codesnipetYellow),
-                    (code: ", ", color: .codesnipetWhite),
-                    (code: "height", color: .codesnipetPurple),
-                    (code: ": ", color: .codesnipetWhite),
-                    (code: "8", color: .codesnipetYellow),
-                    (code: ")", color: .codesnipetWhite)
-                ],
-            ])
         }
     }
 
     var sfFonts: some View {
         VStack(spacing: 32) {
             subtitle("SF Fonts")
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .center, spacing: 16) {
+                // スタイル比較
                 Text("iOSDC")
-                    .font(.system(size: 100))
-                Text("𝐢𝐎𝐒𝐃𝐂")
-                    .font(.system(size: 100))
-                Text("iOSDC Japan 2026")
-                    .font(.system(size: 30, design: .rounded))
-                Text("iOSDC Japan 2026")
-                    .font(.system(size: 30, weight: .ultraLight))
+                    .font(.system(size: 100, weight: .bold))
+                    .foregroundStyle(.fontSample)
+                VStack(alignment: .center, spacing: 8) {
+                    HStack(alignment: .center, spacing: 32) {
+                        Text("iOSDC")
+                            .font(.system(size: 50, weight: .bold, design: .rounded))
+                            .foregroundStyle(.fontSample)
+                        Text("iOSDC")
+                            .font(.system(size: 50, weight: .bold, design: .monospaced))
+                            .foregroundStyle(.fontSample)
+                    }
+                    HStack(alignment: .center, spacing: 32) {
+                        Text("iOSDC")
+                            .font(.system(size: 50, weight: .bold, design: .serif))
+                            .foregroundStyle(.fontSample)
+                        Text("iOSDC")
+                            .font(.system(size: 50, weight: .bold))
+                            .italic()
+                            .foregroundStyle(.fontSample)
+                    }
+                }
+                // ウェイト比較
+                VStack(alignment: .center, spacing: 0) {
+                    ForEach([Font.Weight.thin, .light, .medium, .bold, .black], id: \.self) { weight in
+                        Text("iOSDC Japan 2026")
+                            .font(.system(size: 40))
+                            .fontWeight(weight)
+                            .foregroundStyle(.fontSample)
+                    }
+                }
             }
-            Spacer()
+            Spacer(minLength: 0)
             codeSnippet([
                 /*
                 Text("SF Fonts")
@@ -185,25 +234,36 @@ private extension AppleDesignResource {
                     .foregroundStyle(.commonText)
                 subtitle("Shape")
             }
-            VStack(alignment: .leading, spacing: 24) {
-                HStack(spacing: 24) {
-                    Rectangle()
-                        .foregroundStyle(.red)
-                        .frame(width: 64, height: 128)
-                    Ellipse()
-                        .stroke(.blue, lineWidth: 16)
-                        .foregroundStyle(.clear)
-                        .frame(width: 128, height: 32)
-                        .rotationEffect(.degrees(45))
-                }
-                HStack(spacing: 24) {
-                    RoundedRectangle(cornerRadius: 32)
-                        .stroke(.green, lineWidth: 16)
-                        .foregroundStyle(.clear)
-                        .frame(width: 64, height: 32)
+            VStack(alignment: .center, spacing: 32) {
+                HStack(spacing: 20) {
                     Circle()
-                        .foregroundStyle(.yellow)
-                        .frame(width: 64, height: 64)
+                        .stroke(.shapeBlue, lineWidth: 8)
+                        .frame(width: 105, height: 105)
+                    Circle()
+                        .foregroundStyle(.shapeBlue)
+                        .frame(width: 90, height: 90)
+                    Circle()
+                        .stroke(.shapeBlue, lineWidth: 16)
+                        .fill(.shapeBlue.opacity(0.2))
+                        .frame(width: 120, height: 128)
+                }
+                HStack(spacing: 40) {
+                    Rectangle()
+                        .stroke(.shapeBlue, lineWidth: 24)
+                        .fill(.shapeBlue.opacity(0.2))
+                        .frame(width: 70, height: 360)
+                    VStack(spacing: 24) {
+                        RoundedRectangle(cornerRadius: 16)
+                            .foregroundStyle(.shapeBlue)
+                            .frame(width: 240, height: 100)
+                        Capsule()
+                            .stroke(.shapeBlue, lineWidth: 8)
+                            .foregroundStyle(.clear)
+                            .frame(width: 200, height: 100)
+                        Ellipse()
+                            .foregroundStyle(.shapeBlue)
+                            .frame(width: 200, height: 100)
+                    }
                 }
             }
             Spacer(minLength: 0)
@@ -259,7 +319,7 @@ private extension AppleDesignResource {
     var divider: some View {
         Capsule()
             .fill(.guidelinesDivider)
-            .frame(width: 5, height: 750)
+            .frame(width: 5, height: 800)
     }
 
     func codeSnippet(_ codeLayouts: [[(code: String, color: Color)]]) -> some View {
