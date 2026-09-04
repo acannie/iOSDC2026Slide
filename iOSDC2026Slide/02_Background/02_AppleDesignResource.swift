@@ -14,9 +14,8 @@ struct AppleDesignResource: View {
                 title
                 Spacer()
             }
-            .padding(.leading, 64)
-            .padding(.top, 64)
-            HStack(spacing: 12) {
+            .padding(.leading, 32)
+            HStack(spacing: 16) {
                 sfSymbols
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 divider
@@ -26,9 +25,9 @@ struct AppleDesignResource: View {
                 shape
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .padding(.horizontal, 64)
-            .padding(.bottom, 64)
         }
+        .padding(.horizontal, 32)
+        .padding(.vertical, 64)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
@@ -74,12 +73,53 @@ private extension AppleDesignResource {
                 }
                 .offset(x: -50, y: -50)
             }
+            Spacer(minLength: 0)
             codeSnippet([
-                "Image(systemName: name)",
-                "\t.resizable()",
-                "\t.foregroundStyle(.brown)",
-                "\t.scaledToFit()",
-                "\t.frame(width: 32, height: 32)"
+                /*
+                Image(systemName: "heart")
+                    .resizable()
+                    .foregroundStyle(.brown)
+                    .scaledToFit()
+                    .frame(width: 8, height: 8)
+                */
+                [
+                    (code: "Image", color: .codesnipetLightPurple),
+                    (code: "(", color: .codesnipetWhite),
+                    (code: "systemName", color: .codesnipetLightPurple),
+                    (code: ": ", color: .codesnipetWhite),
+                    (code: "\"heart\"", color: .codesnipetOrange),
+                    (code: ")", color: .codesnipetWhite),
+                ],
+                [
+                    (code: "    .", color: .codesnipetWhite),
+                    (code: "resizable", color: .codesnipetPurple),
+                    (code: "()", color: .codesnipetWhite)
+                ],
+                [
+                    (code: "    .", color: .codesnipetWhite),
+                    (code: "foregroundStyle", color: .codesnipetPurple),
+                    (code: "(.", color: .codesnipetWhite),
+                    (code: "red", color: .codesnipetPurple),
+                    (code: ")", color: .codesnipetWhite),
+                ],
+                [
+                    (code: "    .", color: .codesnipetWhite),
+                    (code: "scaledToFit", color: .codesnipetPurple),
+                    (code: "()", color: .codesnipetWhite)
+                ],
+                [
+                    (code: "    .", color: .codesnipetWhite),
+                    (code: "frame", color: .codesnipetPurple),
+                    (code: "(", color: .codesnipetWhite),
+                    (code: "width", color: .codesnipetPurple),
+                    (code: ": ", color: .codesnipetWhite),
+                    (code: "8", color: .codesnipetYellow),
+                    (code: ", ", color: .codesnipetWhite),
+                    (code: "height", color: .codesnipetPurple),
+                    (code: ": ", color: .codesnipetWhite),
+                    (code: "8", color: .codesnipetYellow),
+                    (code: ")", color: .codesnipetWhite)
+                ],
             ])
         }
     }
@@ -99,8 +139,40 @@ private extension AppleDesignResource {
             }
             Spacer()
             codeSnippet([
-                "Text(\"SF Fonts\")",
-                "\t.font(\".system(size: 17, weight: .bold)\")"
+                /*
+                Text("SF Fonts")
+                    .font(.system(
+                        size: 17,
+                        weight: .bold,
+                    ))
+                */
+                [
+                    (code: "Text", color: .codesnipetLightPurple),
+                    (code: "(", color: .codesnipetWhite),
+                    (code: "\"SF Fonts\"", color: .codesnipetOrange),
+                    (code: ")", color: .codesnipetWhite),
+                ],
+                [
+                    (code: "    .", color: .codesnipetWhite),
+                    (code: "font", color: .codesnipetPurple),
+                    (code: "(.", color: .codesnipetWhite),
+                    (code: "system", color: .codesnipetPurple),
+                    (code: "(", color: .codesnipetWhite),
+                ],
+                [
+                    (code: "        size", color: .codesnipetPurple),
+                    (code: ": ", color: .codesnipetWhite),
+                    (code: "17", color: .codesnipetYellow),
+                    (code: ",", color: .codesnipetWhite),
+                ],
+                [
+                    (code: "        weight", color: .codesnipetPurple),
+                    (code: ": .", color: .codesnipetWhite),
+                    (code: "bold", color: .codesnipetYellow)
+                ],
+                [
+                    (code: "    ))", color: .codesnipetWhite),
+                ]
             ])
         }
     }
@@ -134,11 +206,52 @@ private extension AppleDesignResource {
                         .frame(width: 64, height: 64)
                 }
             }
-            Spacer()
+            Spacer(minLength: 0)
             codeSnippet([
-                "Rectangle()",
-                "\t.foregroundStyle(.red)",
-                "\t.frame(width: 128, height: 64)"
+                /*
+                Rectangle()
+                    .foregroundStyle(.red)
+                    .stroke(
+                        .blue,
+                        lineWidth: 2
+                    )
+                    .frame(width: 8, height: 4)
+                */
+                [
+                    (code: "Rectangle", color: .codesnipetLightPurple),
+                    (code: "()", color: .codesnipetWhite),
+                ],
+                [
+                    (code: "    .", color: .codesnipetWhite),
+                    (code: "foregroundStyle", color: .codesnipetPurple),
+                    (code: "(.", color: .codesnipetWhite),
+                    (code: "red", color: .codesnipetPurple),
+                    (code: ")", color: .codesnipetWhite),
+                ],
+                [
+                    (code: "    .", color: .codesnipetWhite),
+                    (code: "stroke", color: .codesnipetPurple),
+                    (code: "(.", color: .codesnipetWhite),
+                    (code: "blue", color: .codesnipetPurple),
+                    (code: ", ", color: .codesnipetWhite),
+                    (code: "lineWidth", color: .codesnipetPurple),
+                    (code: ": ", color: .codesnipetWhite),
+                    (code: "2", color: .codesnipetYellow),
+                    (code: ")", color: .codesnipetWhite)
+                ],
+                [
+                    (code: "    .", color: .codesnipetWhite),
+                    (code: "frame", color: .codesnipetPurple),
+                    (code: "(", color: .codesnipetWhite),
+                    (code: "width", color: .codesnipetPurple),
+                    (code: ": ", color: .codesnipetWhite),
+                    (code: "8", color: .codesnipetYellow),
+                    (code: ", ", color: .codesnipetWhite),
+                    (code: "height", color: .codesnipetPurple),
+                    (code: ": ", color: .codesnipetWhite),
+                    (code: "4", color: .codesnipetYellow),
+                    (code: ")", color: .codesnipetWhite)
+                ],
             ])
         }
     }
@@ -149,22 +262,29 @@ private extension AppleDesignResource {
             .frame(width: 5, height: 750)
     }
 
-    func codeSnippet(_ codes: [String]) -> some View {
+    func codeSnippet(_ codeLayouts: [[(code: String, color: Color)]]) -> some View {
         VStack(alignment: .leading) {
-            ForEach(Array(codes.enumerated()), id: \.offset) { index, code in
-                HStack(alignment: .top, spacing: 16) {
-                    Text(String(index))
-                        .font(.system(size: 18, weight: .semibold, design: .monospaced))
-                        .foregroundStyle(.white)
-                    .frame(width: 32)
-                    Text(code)
-                        .font(.system(size: 18, weight: .semibold, design: .monospaced))
-                        .foregroundStyle(.white)
-                    Spacer()
+            ForEach(codeLayouts.enumerated(), id: \.offset) { lineNumber, line in
+                HStack(spacing: 0) {
+                    Text(String(lineNumber))
+                        .font(.system(size: 17, weight: .semibold, design: .monospaced))
+                        .foregroundStyle(.codesnipetGray)
+                        .frame(width: 18)
+                        .padding(.trailing, 16)
+                    ForEach(line.enumerated(), id: \.offset) { index, codeLayout in
+                        Text(codeLayout.code)
+                            .font(.system(size: 17, weight: .semibold, design: .monospaced))
+                            .foregroundStyle(codeLayout.color)
+                    }
+                    Spacer(minLength: 0)
                 }
             }
         }
+        .frame(maxWidth: .infinity)
         .padding(16)
-        .background(.black.opacity(0.9))
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .foregroundStyle(.black.opacity(0.9))
+        )
     }
 }
