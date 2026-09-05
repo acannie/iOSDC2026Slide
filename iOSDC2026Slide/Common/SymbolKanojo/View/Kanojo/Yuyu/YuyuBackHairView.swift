@@ -28,6 +28,32 @@ struct YuyuBackHairView: BackHairView {
                     .frame(width: 200, height: 600)
                     .offset(x: side.unit * 130, y: 120)
             }
+//            // リボンで結んだ髪
+//            ForEach(Side.allCases, id: \.self) { side in
+//                Image(systemName: "moon.fill")
+//                    .resizable()
+//                    .foregroundStyle(.yuyuBackHair)
+//                    .frame(width: 100, height: 200)
+//                    .rotationEffect(.degrees(70))
+//                    .rotation3DEffect(
+//                        .degrees(side == .left ? 180 : 0),
+//                        axis: (x: 0, y: 1, z: 0)
+//                    )
+//                    .offset(x: side.unit * -150, y: -160)
+//            }
+            // リボン
+            ForEach(Side.allCases, id: \.self) { side in
+                Image(systemName: "infinity")
+                    .resizable()
+                    .foregroundStyle(.pink)
+                    .frame(width: 80, height: 30)
+                    .rotationEffect(.degrees(45))
+                    .rotation3DEffect(
+                        .degrees(side == .left ? 180 : 0),
+                        axis: (x: 0, y: 1, z: 0)
+                    )
+                    .offset(x: side.unit * 120, y: -220)
+            }
 //            ForEach(Side.allCases, id: \.self) { side in
 //                Image(systemName: "moon.fill")
 //                    .resizable()

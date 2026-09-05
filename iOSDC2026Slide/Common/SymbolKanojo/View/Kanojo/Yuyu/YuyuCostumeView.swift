@@ -13,6 +13,11 @@ struct YuyuCostumeView: CostumeView {
 
     var body: some View {
         ZStack {
+            // 首の後ろに見える襟
+            RoundedRectangle(cornerRadius: 4)
+                .foregroundStyle(.green)
+                .frame(width: 170, height: 50)
+                .offset(y: 125)
             neck
             ForEach(Side.allCases, id: \.self) { side in
                 leg(side: side)
@@ -73,11 +78,25 @@ private extension YuyuCostumeView {
     }
 
     var neck: some View {
-        Image(systemName: "arrowshape.down.fill")
-            .resizable()
-            .foregroundStyle(.yuyuNeckSkin)
-            .frame(width: 200, height: 300)
-            .offset(x: 0, y: 125)
+        ZStack {
+            Image(systemName: "arrowshape.down.fill")
+                .resizable()
+                .foregroundStyle(.yuyuNeckSkin)
+                .frame(width: 200, height: 300)
+                .offset(x: 0, y: 125)
+            ForEach(Side.allCases, id: \.self) { side in
+                Image(systemName: "righttriangle.fill")
+                    .resizable()
+                    .foregroundStyle(.yuyuNeckSkin)
+                    .frame(width: 20, height: 100)
+                    .rotationEffect(.degrees(90))
+                    .rotation3DEffect(
+                        .degrees(side == .left ? 180 : 0),
+                        axis: (x: 0, y: 1, z: 0)
+                    )
+                    .offset(x: side.unit * 80, y: 120)
+            }
+        }
     }
 
     func leg(side: Side) -> some View {
@@ -119,103 +138,147 @@ private extension YuyuCostumeView {
 
     func sailor(_ type: CostumeType.NormalCostumeType) -> some View {
         ZStack {
-            // 下半身
-            Image(systemName: "square.fill")
-                .resizable()
-                .foregroundStyle(sailorColor(type))
-                .frame(width: 130, height: 600)
-                .offset(x: 65, y: 700)
-            Image(systemName: "square.fill")
-                .resizable()
-                .foregroundStyle(sailorColor(type))
-                .frame(width: 100, height: 500)
-                .offset(x: 0, y: 700)
-            Image(systemName: "square.fill")
-                .resizable()
-                .foregroundStyle(sailorColor(type))
-                .frame(width: 80, height: 600)
-                .offset(x: -90, y: 700)
-            // 襟の続き
-            Image(systemName: "square.fill")
-                .resizable()
-                .foregroundStyle(sailorCollarColor(type))
-                .frame(width: 40, height: 530)
-                .offset(x: -60, y: 650)
-            // めくれ
-            Image(systemName: "righttriangle.fill")
-                .resizable()
-                .rotationEffect(.degrees(-90))
-                .foregroundStyle(sailorCollarColor(type))
-                .frame(width: 100, height: 100)
-                .offset(x: -25, y: 948)
             // 胴体
-            Image(systemName: "squareshape.fill")
-                .resizable()
-                .foregroundStyle(sailorColor(type))
-                .frame(width: 265, height: 320)
-                .offset(x: 0, y: 360)
-            // おはしょりに見える襟
-            Image(systemName: "square.fill")
-                .resizable()
-                .foregroundStyle(sailorCollarColor(type))
-                .frame(width: 40, height: 200)
-                .offset(x: -70, y: 420)
-            // 左肩
-            Image(systemName: "button.angledtop.vertical.right.fill")
-                .resizable()
-                .foregroundStyle(sailorColor(type))
-                .frame(width: 200, height: 300)
-                .offset(x: 120, y: 265)
-            // 右肩
-            Image(systemName: "button.angledtop.vertical.left.fill")
-                .resizable()
-                .foregroundStyle(sailorColor(type))
-                .frame(width: 200, height: 300)
-                .offset(x: -120, y: 265)
-            // 後襟
-            Image(systemName: "square.fill")
-                .resizable()
-                .foregroundStyle(sailorCollarColor(type))
-                .rotationEffect(.degrees(-30))
-                .frame(width: 40, height: 120)
-                .offset(x: -30, y: 155)
-            // 前襟
-            Image(systemName: "square.fill")
-                .resizable()
-                .foregroundStyle(sailorCollarColor(type))
-                .rotationEffect(.degrees(30))
-                .frame(width: 40, height: 270)
-                .offset(x: -15, y: 220)
-            // 帯
-            Image(systemName: "squareshape.fill")
-                .resizable()
-                .foregroundStyle(sailorObiColor(type))
-                .frame(width: 265, height: 180)
-                .offset(x: 0, y: 400)
+            RoundedRectangle(cornerRadius: 16)
+                .fill(.red)
+                .frame(width: 390, height: 300)
+                .offset(y: 330)
+            // 腕
             ForEach(Side.allCases, id: \.self) { side in
-                Image(systemName: "circle.fill")
-                    .resizable()
-                    .foregroundStyle(sailorObiageColor(type))
-                    .frame(width: 130, height: 20)
-                    .offset(x: side.unit * 65, y: 310)
+                Ellipse()
+                    .foregroundStyle(.purple)
+                    .rotationEffect(.degrees(75))
+                    .rotation3DEffect(
+                        .degrees(side == .left ? 180 : 0),
+                        axis: (x: 0, y: 1, z: 0)
+                    )
+                    .frame(width: 400, height: 150)
+                    .offset(x: side.unit * 210, y: 340)
             }
-            Image(systemName: "circle.fill")
-                .resizable()
-                .foregroundStyle(sailorObiageColor(type))
-                .frame(width: 30, height: 20)
-                .offset(x: 0, y: 310)
+            // リボン
             ForEach(Side.allCases, id: \.self) { side in
-                Image(systemName: "circle.fill")
-                    .resizable()
-                    .foregroundStyle(sailorObijimeColor2(type))
-                    .frame(width: 130, height: 10)
-                    .offset(x: side.unit * 65, y: 390)
+                Ellipse()
+                    .foregroundStyle(.green)
+                    .rotationEffect(.degrees(45))
+                    .rotation3DEffect(
+                        .degrees(side == .left ? 180 : 0),
+                        axis: (x: 0, y: 1, z: 0)
+                    )
+                    .frame(width: 200, height: 80)
+                    .offset(x: side.unit * -80, y: 260)
             }
-            Image(systemName: "link.circle.fill")
+            Ellipse()
+                .foregroundStyle(.green)
+                .frame(width: 80, height: 300)
+                .offset(y: 470)
+            RoundedRectangle(cornerRadius: 4)
+                .fill(.gray)
+                .frame(width: 70, height: 40)
+                .offset(y: 350)
+            // 襟
+            Group {
+                Image(systemName: "field.of.view.ultrawide.fill")
+                    .resizable()
+                    .foregroundStyle(.blue)
+                    .frame(width: 200, height: 150)
+                crest
+                    .frame(width: 200, height: 150)
+                    .offset(y: -30)
+            }
+            .offset(y: 240)
+            ForEach(Side.allCases, id: \.self) { side in
+                ZStack {
+                    Image(systemName: "righttriangle.fill")
+                        .resizable()
+                        .foregroundStyle(.yellow)
+                        .frame(width: 150, height: 250)
+                        .rotationEffect(.degrees(200))
+                        .rotation3DEffect(
+                            .degrees(side == .left ? 180 : 0),
+                            axis: (x: 0, y: 1, z: 0)
+                        )
+                        .offset(x: side.unit * 100, y: 230)
+                    // 上側の線
+                    Capsule()
+                        .fill(.red)
+                        .frame(width: 10, height: 250)
+                        .rotationEffect(.degrees(230))
+                        .rotation3DEffect(
+                            .degrees(side == .left ? 180 : 0),
+                            axis: (x: 0, y: 1, z: 0)
+                        )
+                        .offset(x: side.unit * 95, y: 210)
+                    // 下側の線
+                    Capsule()
+                        .fill(.red)
+                        .frame(width: 10, height: 280)
+                        .rotationEffect(.degrees(230))
+                        .rotation3DEffect(
+                            .degrees(side == .left ? 180 : 0),
+                            axis: (x: 0, y: 1, z: 0)
+                        )
+                        .offset(x: side.unit * 100, y: 230)
+                }
+            }
+        }
+    }
+
+    var crest: some View {
+        ZStack {
+            Group {
+                Ellipse()
+                    .trim(from: 0.0, to: 0.5)
+                    .fill(.black)
+                Ellipse()
+                    .stroke(.black, lineWidth: 1)
+            }
+            .frame(width: 35, height: 40)
+            ForEach(Side.allCases, id: \.self) { side in
+                Image(systemName: "crown.fill")
+                    .resizable()
+                    .foregroundStyle(.black)
+                    .frame(width: 15, height: 5)
+                    .rotationEffect(.degrees(side.unit * 15))
+                    .offset(x: side.unit * 5)
+            }
+            .offset(y: -24)
+            ForEach(Side.allCases, id: \.self) { side in
+                Image(systemName: side.isLeft ? "laurel.leading" : "laurel.trailing")
+                    .resizable()
+                    .fontWeight(.black)
+                    .foregroundStyle(.black)
+                    .frame(width: 10, height: 30)
+                    .rotationEffect(.degrees(side.unit * 20))
+                    .offset(x: side.unit * 20, y: 10)
+            }
+            Group {
+                Image(systemName: "book.fill")
+                    .resizable()
+                    .foregroundStyle(.blue)
+                    .frame(width: 20, height: 15)
+                Image(systemName: "book")
+                    .resizable()
+                    .foregroundStyle(.black)
+                    .frame(width: 19, height: 14)
+            }
+            .offset(x: -4, y: 0)
+            Group {
+                Image(systemName: "magnifyingglass")
+                    .resizable()
+                    .fontWeight(.black)
+                    .foregroundStyle(.blue)
+                    .frame(width: 16, height: 16)
+                Image(systemName: "magnifyingglass")
+                    .resizable()
+                    .foregroundStyle(.black)
+                    .frame(width: 14, height: 14)
+            }
+            .offset(x: 7, y: 7)
+            Image(systemName: "questionmark")
                 .resizable()
-                .foregroundStyle(sailorObijimeColor1(type))
-                .frame(width: 15, height: 15)
-                .offset(x: 0, y: 390)
+                .foregroundStyle(.black)
+                .frame(width: 5, height: 8)
+                .offset(y: -13)
         }
     }
 }

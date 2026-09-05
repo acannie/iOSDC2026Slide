@@ -14,6 +14,7 @@ struct SymbolKanojo: View {
         VStack {
             HStack {
                 yuyu
+                    .offset(y: -100)
                 Spacer()
             }
             .padding(.leading, 64)

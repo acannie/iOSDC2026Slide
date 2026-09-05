@@ -90,46 +90,47 @@ private extension YuyuGestureView {
     }
 
     func backhandOutFront(_ type: GestureType.BackhandOutFrontType, side: Side) -> some View {
-        let handAngle: CGFloat = switch type {
-        case .normal: -165
-        case .coverEyes: -10
-        case .coverMouth: -30
-        case .faceHoldShock: 30
-        }
-        let handPosition: CGPoint = switch type {
-        case .normal: .init(x: 80, y: 510)
-        case .coverEyes: .init(x: 60, y: -20)
-        case .coverMouth: .init(x: 0, y: 80)
-        case .faceHoldShock: .init(x: 120, y: 30)
-        }
+//        let armAngle: CGFloat = switch type {
+//        case .normal: -90
+//        case .coverEyes: -10
+//        case .coverMouth: -30
+//        case .faceHoldShock: 30
+//        }
+//        let armPosition: CGPoint = switch type {
+//        case .normal: .init(x: -200, y: 400)
+//        case .coverEyes: .init(x: 60, y: -20)
+//        case .coverMouth: .init(x: 0, y: 80)
+//        case .faceHoldShock: .init(x: 120, y: 30)
+//        }
         let handWidthScale: CGFloat = switch type {
         case .faceHoldShock: 0.5
         default: 1.0
         }
-        let kimonoAngle: CGFloat = switch type {
-        case .normal: -160
-        default: 0
-        }
-        let kimonoPosition: CGPoint = switch type {
-        case .normal: .init(x: 125, y: 400)
-        case .coverEyes: .init(x: 120, y: 260)
-        case .coverMouth: .init(x: 100, y: 350)
-        case .faceHoldShock: .init(x: 140, y: 280)
-        }
-        let kimonoWidth: CGFloat = switch type {
-        case .normal: 150
-        case .coverEyes: 200
-        case .coverMouth: 230
-        case .faceHoldShock: 160
-        }
-        let kimonoHeight: CGFloat = switch type {
-        case .normal: 210
-        case .coverEyes: 400
-        case .coverMouth: 400
-        case .faceHoldShock: 400
-        }
+//        let kimonoAngle: CGFloat = switch type {
+//        case .normal: -90
+//        default: 0
+//        }
+//        let kimonoPosition: CGPoint = switch type {
+//        case .normal: .init(x: 125, y: 400)
+//        case .coverEyes: .init(x: 120, y: 260)
+//        case .coverMouth: .init(x: 100, y: 350)
+//        case .faceHoldShock: .init(x: 140, y: 280)
+//        }
+//        let armWidth: CGFloat = switch type {
+//        case .normal: 150
+//        case .coverEyes: 200
+//        case .coverMouth: 230
+//        case .faceHoldShock: 160
+//        }
+//        let armHeight: CGFloat = switch type {
+//        case .normal: 500
+//        case .coverEyes: 400
+//        case .coverMouth: 400
+//        case .faceHoldShock: 400
+//        }
         return ZStack {
-            ZStack {
+            // 手
+            Group {
                 // 手の甲
                 Image(systemName: "hand.raised.fingers.spread.fill")
                     .resizable()
@@ -161,16 +162,30 @@ private extension YuyuGestureView {
                 .degrees(side == .left ? 180 : 0),
                 axis: (x: 0, y: 1, z: 0)
             )
-            .rotationEffect(.degrees(side.unit * handAngle))
-            .offset(x: side.unit * handPosition.x, y: handPosition.y)
-            // 着物
-            Image(systemName: side == .left ? "button.angledtop.vertical.left.fill" : "button.angledtop.vertical.right.fill")
-                .resizable()
-                .foregroundStyle(kimonoColor)
-                .rotationEffect(.degrees(side.unit * kimonoAngle))
-                .frame(width: kimonoWidth, height: kimonoHeight)
-                .offset(x: side.unit * kimonoPosition.x, y: kimonoPosition.y)
+            .offset(y: -200)
+            // 袖
+            Capsule()
+                .fill(.brown)
+                .frame(width: 150, height: 300)
+                .offset(y: 80)
+            Group {
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(.brown)
+                    .frame(width: 120, height: 100)
+                Capsule()
+                    .fill(.red)
+                    .frame(width: 125, height: 10)
+                    .offset(y: -20)
+                Capsule()
+                    .fill(.red)
+                    .frame(width: 125, height: 10)
+                    .offset(y: 0)
+            }
+            .offset(y: -80)
         }
+        .rotationEffect(.degrees(side.unit * -90), anchor: .bottom)
+        .frame(width: 170, height: 550)
+        .offset(x: side.unit * 230, y: 300)
     }
 
     func thumbIndexUp(_ type: GestureType.ThumbIndexUpType, side: Side) -> some View {
