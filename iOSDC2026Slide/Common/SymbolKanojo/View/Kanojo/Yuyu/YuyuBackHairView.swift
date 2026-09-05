@@ -45,7 +45,7 @@ struct YuyuBackHairView: BackHairView {
             ForEach(Side.allCases, id: \.self) { side in
                 Image(systemName: "infinity")
                     .resizable()
-                    .foregroundStyle(.pink)
+                    .foregroundStyle(.yuyuHeadRibbon)
                     .frame(width: 80, height: 30)
                     .rotationEffect(.degrees(45))
                     .rotation3DEffect(

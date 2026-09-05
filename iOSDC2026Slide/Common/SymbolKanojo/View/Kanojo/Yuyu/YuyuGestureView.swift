@@ -165,27 +165,27 @@ private extension YuyuGestureView {
             .offset(y: -200)
             // 袖
             Capsule()
-                .fill(.brown)
+                .fill(.sailorWhiteLight)
                 .frame(width: 150, height: 300)
                 .offset(y: 80)
             Group {
                 RoundedRectangle(cornerRadius: 4)
-                    .fill(.brown)
-                    .frame(width: 120, height: 100)
+                    .fill(.sailorPinkLight)
+                    .frame(width: 120, height: 80)
                 Capsule()
-                    .fill(.red)
+                    .fill(.sailorWhite)
                     .frame(width: 125, height: 10)
-                    .offset(y: -20)
+                    .offset(y: -10)
                 Capsule()
-                    .fill(.red)
+                    .fill(.sailorWhite)
                     .frame(width: 125, height: 10)
-                    .offset(y: 0)
+                    .offset(y: 10)
             }
-            .offset(y: -80)
+            .offset(y: -90)
         }
         .rotationEffect(.degrees(side.unit * -90), anchor: .bottom)
         .frame(width: 170, height: 550)
-        .offset(x: side.unit * 230, y: 300)
+        .offset(x: side.unit * 220, y: 300)
     }
 
     func thumbIndexUp(_ type: GestureType.ThumbIndexUpType, side: Side) -> some View {

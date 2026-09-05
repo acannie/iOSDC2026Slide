@@ -15,7 +15,7 @@ struct YuyuCostumeView: CostumeView {
         ZStack {
             // 首の後ろに見える襟
             RoundedRectangle(cornerRadius: 4)
-                .foregroundStyle(.green)
+                .foregroundStyle(.sailorPinkLight)
                 .frame(width: 170, height: 50)
                 .offset(y: 125)
             neck
@@ -28,54 +28,54 @@ struct YuyuCostumeView: CostumeView {
 }
 
 private extension YuyuCostumeView {
-    func sailorCollarColor(_ type: CostumeType.NormalCostumeType) -> Color {
-        switch type {
-        case .normal:
-            Color("sailor_collar")
-        case .devil:
-            Color("devilSailor_collar")
-        }
-    }
-    func sailorColor(_ type: CostumeType.NormalCostumeType) -> Color {
-        switch type {
-        case .normal:
-            Color("sailor_sailor")
-        case .devil:
-            Color("devilSailor_sailor")
-        }
-    }
-    func sailorObiColor(_ type: CostumeType.NormalCostumeType) -> Color {
-        switch type {
-        case .normal:
-            Color("sailor_obi")
-        case .devil:
-            Color("devilSailor_obi")
-        }
-    }
-    func sailorObiageColor(_ type: CostumeType.NormalCostumeType) -> Color {
-        switch type {
-        case .normal:
-            Color("sailor_obiage")
-        case .devil:
-            Color("devilSailor_obiage")
-        }
-    }
-    func sailorObijimeColor1(_ type: CostumeType.NormalCostumeType) -> Color {
-        switch type {
-        case .normal:
-            Color("sailor_obijime1")
-        case .devil:
-            Color("devilSailor_obiage")
-        }
-    }
-    func sailorObijimeColor2(_ type: CostumeType.NormalCostumeType) -> Color {
-        switch type {
-        case .normal:
-            Color("sailor_obijime2")
-        case .devil:
-            Color("devilSailor_obijime2")
-        }
-    }
+//    func sailorCollarColor(_ type: CostumeType.NormalCostumeType) -> Color {
+//        switch type {
+//        case .normal:
+//            Color("sailor_collar")
+//        case .devil:
+//            Color("devilSailor_collar")
+//        }
+//    }
+//    func sailorColor(_ type: CostumeType.NormalCostumeType) -> Color {
+//        switch type {
+//        case .normal:
+//            Color("sailor_sailor")
+//        case .devil:
+//            Color("devilSailor_sailor")
+//        }
+//    }
+//    func sailorObiColor(_ type: CostumeType.NormalCostumeType) -> Color {
+//        switch type {
+//        case .normal:
+//            Color("sailor_obi")
+//        case .devil:
+//            Color("devilSailor_obi")
+//        }
+//    }
+//    func sailorObiageColor(_ type: CostumeType.NormalCostumeType) -> Color {
+//        switch type {
+//        case .normal:
+//            Color("sailor_obiage")
+//        case .devil:
+//            Color("devilSailor_obiage")
+//        }
+//    }
+//    func sailorObijimeColor1(_ type: CostumeType.NormalCostumeType) -> Color {
+//        switch type {
+//        case .normal:
+//            Color("sailor_obijime1")
+//        case .devil:
+//            Color("devilSailor_obiage")
+//        }
+//    }
+//    func sailorObijimeColor2(_ type: CostumeType.NormalCostumeType) -> Color {
+//        switch type {
+//        case .normal:
+//            Color("sailor_obijime2")
+//        case .devil:
+//            Color("devilSailor_obijime2")
+//        }
+//    }
 
     var neck: some View {
         ZStack {
@@ -138,15 +138,10 @@ private extension YuyuCostumeView {
 
     func sailor(_ type: CostumeType.NormalCostumeType) -> some View {
         ZStack {
-            // 胴体
-            RoundedRectangle(cornerRadius: 16)
-                .fill(.red)
-                .frame(width: 390, height: 300)
-                .offset(y: 330)
             // 腕
             ForEach(Side.allCases, id: \.self) { side in
                 Ellipse()
-                    .foregroundStyle(.purple)
+                    .foregroundStyle(.sailorWhiteLight)
                     .rotationEffect(.degrees(75))
                     .rotation3DEffect(
                         .degrees(side == .left ? 180 : 0),
@@ -155,10 +150,15 @@ private extension YuyuCostumeView {
                     .frame(width: 400, height: 150)
                     .offset(x: side.unit * 210, y: 340)
             }
+            // 胴体
+            RoundedRectangle(cornerRadius: 16)
+                .fill(.sailorWhiteLight)
+                .frame(width: 300, height: 300)
+                .offset(y: 330)
             // リボン
             ForEach(Side.allCases, id: \.self) { side in
                 Ellipse()
-                    .foregroundStyle(.green)
+                    .foregroundStyle(.sailorPinkDark)
                     .rotationEffect(.degrees(45))
                     .rotation3DEffect(
                         .degrees(side == .left ? 180 : 0),
@@ -168,18 +168,18 @@ private extension YuyuCostumeView {
                     .offset(x: side.unit * -80, y: 260)
             }
             Ellipse()
-                .foregroundStyle(.green)
+                .foregroundStyle(.sailorPinkDark)
                 .frame(width: 80, height: 300)
                 .offset(y: 470)
             RoundedRectangle(cornerRadius: 4)
-                .fill(.gray)
+                .fill(.sailorPinkLight)
                 .frame(width: 70, height: 40)
                 .offset(y: 350)
             // 襟
             Group {
                 Image(systemName: "field.of.view.ultrawide.fill")
                     .resizable()
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(.sailorWhiteLight)
                     .frame(width: 200, height: 150)
                 crest
                     .frame(width: 200, height: 150)
@@ -190,7 +190,7 @@ private extension YuyuCostumeView {
                 ZStack {
                     Image(systemName: "righttriangle.fill")
                         .resizable()
-                        .foregroundStyle(.yellow)
+                        .foregroundStyle(.sailorPinkLight)
                         .frame(width: 150, height: 250)
                         .rotationEffect(.degrees(200))
                         .rotation3DEffect(
@@ -200,7 +200,7 @@ private extension YuyuCostumeView {
                         .offset(x: side.unit * 100, y: 230)
                     // 上側の線
                     Capsule()
-                        .fill(.red)
+                        .fill(.sailorWhite)
                         .frame(width: 10, height: 250)
                         .rotationEffect(.degrees(230))
                         .rotation3DEffect(
@@ -210,7 +210,7 @@ private extension YuyuCostumeView {
                         .offset(x: side.unit * 95, y: 210)
                     // 下側の線
                     Capsule()
-                        .fill(.red)
+                        .fill(.sailorWhite)
                         .frame(width: 10, height: 280)
                         .rotationEffect(.degrees(230))
                         .rotation3DEffect(
@@ -228,15 +228,15 @@ private extension YuyuCostumeView {
             Group {
                 Ellipse()
                     .trim(from: 0.0, to: 0.5)
-                    .fill(.black)
+                    .fill(.sailorPinkDark)
                 Ellipse()
-                    .stroke(.black, lineWidth: 1)
+                    .stroke(.sailorPinkDark, lineWidth: 1)
             }
             .frame(width: 35, height: 40)
             ForEach(Side.allCases, id: \.self) { side in
                 Image(systemName: "crown.fill")
                     .resizable()
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.sailorPinkDark)
                     .frame(width: 15, height: 5)
                     .rotationEffect(.degrees(side.unit * 15))
                     .offset(x: side.unit * 5)
@@ -246,39 +246,28 @@ private extension YuyuCostumeView {
                 Image(systemName: side.isLeft ? "laurel.leading" : "laurel.trailing")
                     .resizable()
                     .fontWeight(.black)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.sailorPinkDark)
                     .frame(width: 10, height: 30)
                     .rotationEffect(.degrees(side.unit * 20))
                     .offset(x: side.unit * 20, y: 10)
             }
             Group {
-                Image(systemName: "book.fill")
+                Image(systemName: "teddybear.fill")
                     .resizable()
-                    .foregroundStyle(.blue)
-                    .frame(width: 20, height: 15)
-                Image(systemName: "book")
+                    .foregroundStyle(.sailorWhiteLight)
+                    .frame(width: 18, height: 20)
+                Image(systemName: "teddybear")
                     .resizable()
-                    .foregroundStyle(.black)
-                    .frame(width: 19, height: 14)
+                    .foregroundStyle(.sailorPinkDark)
+                    .frame(width: 18, height: 20)
             }
-            .offset(x: -4, y: 0)
-            Group {
-                Image(systemName: "magnifyingglass")
-                    .resizable()
-                    .fontWeight(.black)
-                    .foregroundStyle(.blue)
-                    .frame(width: 16, height: 16)
-                Image(systemName: "magnifyingglass")
-                    .resizable()
-                    .foregroundStyle(.black)
-                    .frame(width: 14, height: 14)
-            }
-            .offset(x: 7, y: 7)
-            Image(systemName: "questionmark")
+            .offset(y: 4)
+            Image(systemName: "heart")
                 .resizable()
-                .foregroundStyle(.black)
-                .frame(width: 5, height: 8)
-                .offset(y: -13)
+                .fontWeight(.bold)
+                .foregroundStyle(.sailorPinkDark)
+                .frame(width: 8, height: 8)
+                .offset(y: -12)
         }
     }
 }
