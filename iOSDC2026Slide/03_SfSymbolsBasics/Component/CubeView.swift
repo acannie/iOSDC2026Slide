@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CubeView: View {
+    @State private var isRotating: Bool = false
     @State private var count: Int = 0
     let perspective = 0.5
     let vertexLength: CGFloat = 300
@@ -29,10 +30,18 @@ struct CubeView: View {
             }
         }
         .frame(width: 450, height: 460)
-        .task {
-            while true {
-                try? await Task.sleep(for: .seconds(0.1))
-                count += 1
+        .onTapGesture {
+            isRotating.toggle()
+        }
+        .task(id: isRotating) {
+            if isRotating {
+                while !Task.isCancelled {
+                    try? await Task.sleep(for: .seconds(0.1))
+                    if Task.isCancelled { break }
+                    count += 1
+                }
+            } else {
+                count = 0
             }
         }
     }

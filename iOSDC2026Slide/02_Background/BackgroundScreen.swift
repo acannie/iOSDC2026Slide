@@ -13,7 +13,7 @@ struct BackgroundScreen: View {
 
     enum Page: Int, CaseIterable {
         case question
-        case suggestion
+        case appleDesignResource
         case guidelines
         case finalImage
     }
@@ -55,8 +55,8 @@ private extension BackgroundScreen {
         switch page {
         case .question:
             Question()
-        case .suggestion:
-            Suggestion()
+        case .appleDesignResource:
+            AppleDesignResource()
         case .guidelines:
             Guidelines()
         case .finalImage:

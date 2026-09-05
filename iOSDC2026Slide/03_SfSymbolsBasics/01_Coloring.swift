@@ -10,6 +10,22 @@ import SwiftUI
 struct Coloring: View {
     @State private var count: Int = 0
     @State private var isAnimated: Bool = false
+    @State private var sunColor: Color = .yellow
+    @State private var cloudColor: Color = .cyan
+
+    private static let sunAndCloudColors: [Color] = [
+        .red,
+        .orange,
+        .yellow,
+        .green,
+        .cyan,
+        .blue,
+        .indigo,
+        .purple,
+        .pink,
+        .brown,
+        .gray,
+    ]
 
     var body: some View {
         VStack {
@@ -29,6 +45,18 @@ struct Coloring: View {
             while true {
                 try? await Task.sleep(for: .seconds(1))
                 count += 1
+
+                // 雲と太陽の色を決める
+                var cloudColor: Color?
+                var sunColor: Color?
+                while sunColor == nil || sunColor == self.sunColor {
+                    sunColor = Self.sunAndCloudColors.randomElement()
+                }
+                while cloudColor == nil || cloudColor == self.cloudColor || cloudColor == sunColor {
+                    cloudColor = Self.sunAndCloudColors.randomElement()
+                }
+                self.sunColor = sunColor ?? .red
+                self.cloudColor = cloudColor ?? .blue
             }
         }
         .onAppear {
@@ -42,35 +70,20 @@ struct Coloring: View {
     var title: some View {
         Text("着色する")
             .font(.system(size: 80, weight: .bold, design: .rounded))
-            .foregroundStyle(.introductionText)
+            .foregroundStyle(.commonText)
     }
 
     var rainbow: some View {
         VStack(spacing: 32) {
-            Image(systemName: "rainbow")
+            Image(systemName: "cloud.sun.fill")
                 .resizable()
-                .symbolRenderingMode(rainbowRenderingMode(for: count))
-                .foregroundStyle(rainbowColor(for: count))
-                .frame(width: 400, height: 200)
-                .animation(.easeInOut, value: rainbowColor(for: count))
-            Text("rainbow")
-                .font(.system(size: 50, weight: .bold))
-        }
-    }
-
-    func rainbowRenderingMode(for index: Int) -> SymbolRenderingMode {
-        switch count % 2 {
-        case 0: .multicolor
-        case 1: .palette
-        default: .palette
-        }
-    }
-
-    func rainbowColor(for index: Int) -> Color {
-        switch count % 2 {
-        case 0: .clear
-        case 1: .gray
-        default: .clear
+                .symbolRenderingMode(.palette)
+                .foregroundStyle(sunColor, cloudColor)
+                .scaledToFit()
+                .frame(width: 500, height: 300)
+                .animation(.easeInOut, value: count)
+            Text("cloud.sun.fill")
+                .font(.system(size: 50, weight: .bold, design: .rounded))
         }
     }
 
@@ -97,8 +110,9 @@ struct Coloring: View {
                     }
                 Image(systemName: "teddybear")
                     .resizable()
+                    .fontWeight(.heavy)
                     .foregroundStyle(.teddybearOutline)
-                    .frame(width: teddybearOutlineWidth, height: 240)
+                    .frame(width: teddybearOutlineWidth, height: 245)
                     .keyframeAnimator(initialValue: 0.0, repeating: true) { content, offsetValue in
                         content
                             .offset(x: -offsetValue)
@@ -112,9 +126,11 @@ struct Coloring: View {
             }
             VStack(spacing: 12) {
                 Text("teddybear.fill")
-                    .font(.system(size: 50, weight: .bold))
+                    .font(.system(size: 50, weight: .bold, design: .rounded))
+                    .foregroundStyle(.commonText)
                 Text("teddybear")
-                    .font(.system(size: 50, weight: .bold))
+                    .font(.system(size: 50, weight: .bold, design: .rounded))
+                    .foregroundStyle(.commonText)
             }
         }
     }

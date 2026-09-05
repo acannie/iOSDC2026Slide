@@ -10,7 +10,6 @@ import Combine
 
 struct FontsAndGlowing: View {
     let isActive: Bool
-    @State private var count: Int = 0
     @State private var isDay: Bool = true
 
     var body: some View {
@@ -37,12 +36,6 @@ struct FontsAndGlowing: View {
                     toggleDayAndNightButton
                     Spacer()
                 }
-            }
-        }
-        .task {
-            while true {
-                try? await Task.sleep(for: .seconds(1))
-                count += 1
             }
         }
     }
