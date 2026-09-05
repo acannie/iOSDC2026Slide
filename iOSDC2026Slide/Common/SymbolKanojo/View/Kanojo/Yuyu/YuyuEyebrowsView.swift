@@ -31,7 +31,7 @@ private extension YuyuEyebrowsView {
             .frame(width: 5, height: 70)
             .offset(
                 x: side.unit * -70,
-                y: eyebrowOffsetY(-110, side: side)
+                y: eyebrowOffsetY(-120, side: side)
             )
     }
 }

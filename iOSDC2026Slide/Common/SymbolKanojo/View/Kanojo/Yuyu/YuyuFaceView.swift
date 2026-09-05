@@ -14,12 +14,9 @@ struct YuyuFaceView: FaceView {
 
     private var cheekColor: Color {
         switch vm.faceType {
-        case .hot:
-            .yuyuCheekHot
-        case .neutral, .melting:
-            .yuyuCheekHot
-        case .cold:
-            .clear
+        case .hot: .yuyuCheekHot
+        case .neutral, .melting: .yuyuCheekHot
+        case .cold: .clear
         }
     }
 
@@ -43,40 +40,55 @@ struct YuyuFaceView: FaceView {
 private extension YuyuFaceView {
     var face: some View {
         ZStack {
-            // 頭蓋
-            Image(systemName: "circle.fill")
-                .resizable()
-                .foregroundStyle(.yuyuSkin)
-                .frame(width: 280, height: 300)
-                .offset(x: 0, y: -105)
-            // 顎
-            Image(systemName: "triangle.fill")
-                .resizable()
-                .foregroundColor(.yuyuSkin)
-                .rotationEffect(.degrees(180))
-                .frame(width: 212, height: 65)
-                .offset(x: 0, y: 50)
-            // 頬
+            // 耳
             ForEach(Side.allCases, id: \.self) { side in
-                Image(systemName: "righttriangle.fill")
-                    .resizable()
-                    .foregroundColor(.yuyuSkin)
-                    .rotationEffect(.degrees(-50))
+                Ellipse()
+                    .foregroundColor(.yuyuSkinDark)
+                    .rotationEffect(.degrees(-30))
                     .rotation3DEffect(
                         .degrees(side == .left ? 0 : 180),
                         axis: (x: 0, y: 1, z: 0)
                     )
-                    .frame(width: 60, height: 90)
-                    .offset(x: side.unit * 110, y: -15)
+                    .frame(width: 50, height: 70)
+                    .offset(x: side.unit * 105, y: -30)
             }
-            // 頬の穴埋め
+            // はみ出た髪
             ForEach(Side.allCases, id: \.self) { side in
-                Image(systemName: "circle.fill")
+                Image(systemName: "moon.fill")
                     .resizable()
-                    .foregroundStyle(.yuyuSkin)
-                    .frame(width: 30, height: 30)
-                    .offset(x: side.unit * 80, y: 20)
+                    .foregroundStyle(.yuyuFrontHair)
+                    .frame(width: 20, height: 60)
+                    .rotationEffect(.degrees(45))
+                    .rotation3DEffect(
+                        .degrees(side == .left ? 180 : 0),
+                        axis: (x: 0, y: 1, z: 0)
+                    )
+                    .shadow(color: .white.opacity(0.6), radius: 2)
+                    .offset(x: side.unit * -125, y: -20)
             }
+            // 頭蓋
+            Ellipse()
+                .fill(.yuyuSkin)
+                .frame(width: 260, height: 300)
+                .offset(x: 0, y: -105)
+            // 顎・頬
+            ForEach(Side.allCases, id: \.self) { side in
+                Capsule()
+                    .foregroundColor(.yuyuSkin)
+                    .rotationEffect(.degrees(75))
+                    .rotation3DEffect(
+                        .degrees(side == .left ? 0 : 180),
+                        axis: (x: 0, y: 1, z: 0)
+                    )
+                    .frame(width: 100, height: 50)
+                    .offset(x: side.unit * 85, y: -30)
+            }
+            Image(systemName: "triangle.fill")
+                .resizable()
+                .foregroundColor(.yuyuSkin)
+                .frame(width: 190, height: 60)
+                .rotationEffect(.degrees(180))
+                .offset(y: 35)
         }
     }
 
@@ -100,7 +112,7 @@ private extension YuyuFaceView {
             Image(systemName: "lightspectrum.horizontal")
                 .resizable()
                 .foregroundStyle(color)
-                .frame(width: 50, height: 40)
+                .frame(width: 50, height: 20)
                 .offset(x: side.unit * 80, y: -5)
         }
     }
@@ -109,7 +121,7 @@ private extension YuyuFaceView {
         Image(systemName: "text.alignleft")
             .resizable()
             .rotationEffect(.degrees(90))
-            .foregroundStyle(.yuyuShadingLines)
+            .foregroundStyle(.fumiShadingLines)
             .frame(width: 40, height: 30)
             .offset(x: 75, y: -10)
     }

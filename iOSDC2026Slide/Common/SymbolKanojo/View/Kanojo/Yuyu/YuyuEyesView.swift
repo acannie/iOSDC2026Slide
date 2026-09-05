@@ -73,7 +73,7 @@ private extension YuyuEyesView {
                     Angle(degrees: side.unit * 95) + expressionType.eyeAngle(side: side)
                 )
                 .frame(width: 15, height: 25)
-                .offset(x: side.unit * 90, y: -85 + expressionType.upperEyelashesOffsetY)
+                .offset(x: side.unit * 100, y: -85 + expressionType.upperEyelashesOffsetY)
             // 下まつ毛
             Image(systemName: "line.3.horizontal.decrease")
                 .resizable()

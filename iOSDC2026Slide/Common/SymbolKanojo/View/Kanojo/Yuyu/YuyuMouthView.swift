@@ -106,9 +106,9 @@ private extension YuyuMouthView {
         case .large: .init(width: 80, height: 25)
         }
         let mouthOffsetY: CGFloat = switch size {
-        case .small: 35
-        case .medium: 30
-        case .large: 25
+        case .small: 30
+        case .medium: 25
+        case .large: 20
         }
         return ZStack {
             Image(systemName: "chevron.compact.down")

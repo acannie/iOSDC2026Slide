@@ -10,106 +10,82 @@ import SwiftUI
 struct YuyuBangsView: BangsView {
     var body: some View {
         ZStack {
-            // 横髪
+            // エアインテーク
             ForEach(Side.allCases, id: \.self) { side in
                 Image(systemName: "moon.fill")
                     .resizable()
                     .foregroundStyle(.yuyuFrontHair)
+                    .frame(width: 100, height: 240)
+                    .rotationEffect(.degrees(160))
                     .rotation3DEffect(
-                        .degrees(side == .left ? 180 : 0), axis: (x: 0, y: 90, z: 0)
+                        .degrees(side == .left ? 180 : 0),
+                        axis: (x: 0, y: 1, z: 0)
                     )
-                    .rotationEffect(.degrees(side.unit * 30))
-                    .frame(width: 60, height: 200)
-                    .offset(x: side.unit * -115, y: -140)
-            }
-            ForEach(Side.allCases, id: \.self) { side in
-                Image(systemName: "circle.fill")
-                    .resizable()
-                    .foregroundStyle(.yuyuFrontHair)
-                    .frame(width: 90, height: 60)
-                    .offset(x: side.unit * 80, y: -220)
-            }
-            // ケモミミ
-            ForEach(Side.allCases, id: \.self) { side in
-                animalEars(side: side)
-            }
-            // 前髪サイド
-            ForEach(Side.allCases, id: \.self) { side in
-                Image(systemName: "moon.fill")
-                    .resizable()
-                    .foregroundStyle(.yuyuFrontHair)
-                    .rotation3DEffect(
-                        .degrees(side == .left ? 180 : 0), axis: (x: 0, y: 90, z: 0)
-                    )
-                    .rotationEffect(.degrees(side.unit * -20))
-                    .frame(width: 60, height: 300)
-                    .offset(x: side.unit * 110, y: -150)
+                    .shadow(color: .white.opacity(0.6), radius: 2)
+                    .offset(x: side.unit * 70, y: -160)
             }
             // 触覚
-            ForEach(Side.allCases, id: \.self) { side in
-                Image(systemName: "moon.fill")
-                    .resizable()
-                    .foregroundStyle(.yuyuFrontHair)
-                    .rotation3DEffect(
-                        .degrees(side == .left ? 180 : 0), axis: (x: 0, y: 90, z: 0)
-                    )
-                    .frame(width: 60, height: 300)
-                    .offset(x: side.unit * -110, y: 80)
-            }
+//            ForEach(Side.allCases, id: \.self) { side in
+//                Image(systemName: "moon.fill")
+//                    .resizable()
+//                    .foregroundStyle(.yuyuFrontHair)
+//                    .rotationEffect(.degrees(5))
+//                    .rotation3DEffect(
+//                        .degrees(side == .left ? 180 : 0),
+//                        axis: (x: 0, y: 1, z: 0)
+//                    )
+//                    .frame(width: 60, height: 300)
+//                    .offset(x: side.unit * -105, y: 30)
+//            }
             // 前髪
             Image(systemName: "moon.fill")
                 .resizable()
                 .foregroundStyle(.yuyuFrontHair)
-                .rotationEffect(.degrees(200))
-                .frame(width: 60, height: 200)
-                .offset(x: -70, y: -180)
+                .rotationEffect(.degrees(210))
+                .frame(width: 60, height: 160)
+                .offset(x: -100, y: -140)
             Image(systemName: "moon.fill")
                 .resizable()
                 .foregroundStyle(.yuyuFrontHair)
                 .rotationEffect(.degrees(190))
-                .frame(width: 60, height: 200)
-                .offset(x: -50, y: -180)
+                .frame(width: 60, height: 180)
+                .offset(x: -70, y: -170)
             Image(systemName: "moon.fill")
                 .resizable()
                 .foregroundStyle(.yuyuFrontHair)
-                .rotationEffect(.degrees(180))
-                .frame(width: 60, height: 200)
-                .offset(x: -30, y: -180)
+                .rotationEffect(.degrees(185))
+                .frame(width: 60, height: 180)
+                .offset(x: -50, y: -170)
             Image(systemName: "moon.fill")
                 .resizable()
                 .foregroundStyle(.yuyuFrontHair)
-                .rotationEffect(.degrees(180))
+                .rotationEffect(.degrees(185))
                 .frame(width: 60, height: 200)
-                .offset(x: 0, y: -180)
+                .offset(x: -30, y: -160)
+            Image(systemName: "moon.fill")
+                .resizable()
+                .foregroundStyle(.yuyuFrontHair)
+                .rotationEffect(.degrees(185))
+                .frame(width: 60, height: 220)
+                .offset(x: -5, y: -165)
+            Image(systemName: "moon.fill")
+                .resizable()
+                .foregroundStyle(.yuyuFrontHair)
+                .rotationEffect(.degrees(-175))
+                .frame(width: 60, height: 200)
+                .offset(x: 20, y: -160)
             Image(systemName: "moon.fill")
                 .resizable()
                 .foregroundStyle(.yuyuFrontHair)
                 .rotationEffect(.degrees(-180))
-                .frame(width: 60, height: 200)
-                .offset(x: 30, y: -180)
+                .frame(width: 60, height: 180)
+                .offset(x: 50, y: -155)
             Image(systemName: "moon.fill")
                 .resizable()
                 .foregroundStyle(.yuyuFrontHair)
-                .rotationEffect(.degrees(-190))
-                .frame(width: 60, height: 200)
-                .offset(x: 50, y: -160)
-        }
-    }
-
-    func animalEars(side: Side) -> some View {
-        ZStack {
-            Image(systemName: "triangle.fill")
-                .resizable()
-                .foregroundStyle(.fumiAnimalEarGray)
-                .rotationEffect(.degrees(side.unit * 55))
-                .frame(width: 150, height: 80)
-                .offset(x: side.unit * 130, y: -190)
-            Image(systemName: "triangle.fill")
-                .resizable()
-                .foregroundStyle(.fumiAnimalEarPink)
-                .rotationEffect(.degrees(side.unit * 55))
-                .frame(width: 100, height: 60)
-                .offset(x: side.unit * 120, y: -185)
+                .rotationEffect(.degrees(-195))
+                .frame(width: 60, height: 160)
+                .offset(x: 70, y: -140)
         }
     }
 }
