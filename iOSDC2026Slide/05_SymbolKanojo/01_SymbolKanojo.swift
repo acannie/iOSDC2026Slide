@@ -280,19 +280,21 @@ private extension SymbolKanojo {
                     .resizable()
                     .foregroundStyle(.wallClockWoodDark)
                     .frame(width: 130, height: 360)
-                VStack(spacing: 0) {
+                VStack(spacing: -2) {
                     Rectangle()
-                        .foregroundStyle(.wallClockDisc)
-                        .frame(width: 20)
+                        .foregroundStyle(.wallClockDiscDark)
+                        .frame(width: 30)
                         .frame(maxHeight: .infinity)
-                    ZStack {
-                        Circle()
-                            .fill(.wallClockDisc)
-                        Image(systemName: "opticaldisc")
-                            .resizable()
-                            .foregroundStyle(.wallClockDiscDark)
-                    }
-                .frame(width: 70, height: 70)
+                    Circle()
+                        .fill(
+                            AngularGradient(
+                                colors: [.wallClockDisc, .wallClockDiscDark, .wallClockDisc, .wallClockDiscDark, .wallClockDisc],
+                                center: .center,
+                                startAngle: .degrees(45),
+                                endAngle: .degrees(405)
+                            )
+                        )
+                        .frame(width: 70, height: 70)
                 }
                 .frame(height: 200)
                 .rotationEffect(
