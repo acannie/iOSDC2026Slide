@@ -54,17 +54,30 @@ private extension YuyuFaceView {
             }
             // はみ出た髪
             ForEach(Side.allCases, id: \.self) { side in
-                Image(systemName: "moon.fill")
-                    .resizable()
-                    .foregroundStyle(.yuyuFrontHair)
-                    .frame(width: 20, height: 60)
-                    .rotationEffect(.degrees(45))
-                    .rotation3DEffect(
-                        .degrees(side == .left ? 180 : 0),
-                        axis: (x: 0, y: 1, z: 0)
-                    )
+                Color.yuyuFrontHair
+                    .mask {
+                        ZStack {
+                            Image(systemName: "moon.fill")
+                                .resizable()
+                                .frame(width: 20, height: 60)
+                                .rotationEffect(.degrees(45))
+                                .rotation3DEffect(
+                                    .degrees(side == .left ? 180 : 0),
+                                    axis: (x: 0, y: 1, z: 0)
+                                )
+                                .offset(x: side.unit * -125, y: -20)
+                            Image(systemName: "moon.fill")
+                                .resizable()
+                                .frame(width: 10, height: 20)
+                                .rotationEffect(.degrees(35))
+                                .rotation3DEffect(
+                                    .degrees(side == .left ? 180 : 0),
+                                    axis: (x: 0, y: 1, z: 0)
+                                )
+                                .offset(x: side.unit * -125, y: 0)
+                        }
+                    }
                     .shadow(color: .white.opacity(0.6), radius: 2)
-                    .offset(x: side.unit * -125, y: -20)
             }
             // 頭蓋
             Ellipse()
