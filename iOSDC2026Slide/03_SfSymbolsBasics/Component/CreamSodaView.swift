@@ -11,9 +11,17 @@ struct CreamSodaView: View {
     let isShowingGraphic: Bool
     @State private var count: Int = 0
 
-    @State private var isShowingCreamSoda: Bool = false
+    @State private var isShowingCreamSoda: Bool
 
     @Namespace private var namespace
+
+    init(
+        isShowingGraphic: Bool,
+        isShowingCreamSoda: Bool = false
+    ) {
+        self.isShowingGraphic = isShowingGraphic
+        self.isShowingCreamSoda = isShowingCreamSoda
+    }
 
     var body: some View {
         ZStack {
