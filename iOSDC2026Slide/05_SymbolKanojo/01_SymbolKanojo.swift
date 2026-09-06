@@ -153,7 +153,6 @@ private extension SymbolKanojo {
                             .padding(.leading, 64)
                         Spacer()
                         window
-                            .padding(.top, 32)
                     }
                     Spacer()
                 }
@@ -439,7 +438,7 @@ private extension SymbolKanojo {
                         endPoint: .trailing
                     )
                 )
-                .frame(width: 100, height: 560)
+                .frame(width: 100, height: 600)
         }
         var rose: some View {
             var petal: some View {
@@ -518,11 +517,12 @@ private extension SymbolKanojo {
             }
         }
         return ZStack {
-            VStack(spacing: 4) {
-                Capsule()
+            VStack(spacing: 0) {
+                // カーテンレール
+                Rectangle()
                     .fill(.curtainRail)
                     .frame(maxWidth: .infinity)
-                    .frame(height: 16)
+                    .frame(height: 40)
                 ZStack {
                     VStack(spacing: 16) {
                         ForEach(0..<2) { _ in
@@ -530,7 +530,6 @@ private extension SymbolKanojo {
                                 ForEach(0..<2) { _ in
                                     Rectangle()
                                         .fill(.windowGlass)
-                                        .shadow(color: .white, radius: 4)
                                 }
                             }
                         }
@@ -609,7 +608,7 @@ private extension SymbolKanojo {
                 curtain
             }
         }
-        .frame(width: 600, height: 520)
+        .frame(width: 600, height: 600)
     }
 
     var rightWall: some View {
