@@ -19,6 +19,8 @@ struct SymbolKanojo: View {
             backgroundLayer
             yuyuLayer
             tableLayer
+            yuyuArmLayer
+            creamSodaLayer
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .task {
@@ -54,17 +56,91 @@ private extension SymbolKanojo {
                     .padding(.trailing, 260)
                     .offset(x: -12, y: 12)
             }
-            VStack {
+        }
+    }
+
+    var creamSodaLayer: some View {
+        VStack {
+            Spacer()
+            HStack {
+                CreamSodaView(isShowingGraphic: true, isShowingCreamSoda: true)
+                    .scaleEffect(0.65)
+                    .padding(.leading, 720)
+                    .offset(y: 120)
                 Spacer()
-                HStack {
-                    CreamSodaView(isShowingGraphic: true, isShowingCreamSoda: true)
-                        .scaleEffect(0.65)
-                        .padding(.leading, 60)
-                        .offset(y: 120)
-                    Spacer()
-                }
             }
         }
+    }
+
+    var yuyuArmLayer: some View {
+        var nail: some View {
+            Image(systemName: "capsule.portrait.fill")
+                .resizable()
+                .foregroundStyle(.yuyuNail)
+        }
+        return ZStack {
+            ForEach(Side.allCases, id: \.self) { side in
+                ZStack {
+                    // 手
+                    Group {
+                        // 手の甲
+                        Image(systemName: "hand.raised.fingers.spread.fill")
+                            .resizable()
+                            .foregroundStyle(.yuyuSkinMiddle)
+                            .frame(width: 140, height: 190)
+                        // 爪
+                        nail
+                            .rotationEffect(.degrees(16))
+                            .frame(width: 15, height: 21)
+                            .offset(x: 62, y: -4)
+                        nail
+                            .rotationEffect(.degrees(5))
+                            .frame(width: 16, height: 24)
+                            .offset(x: 33, y: -70)
+                        nail
+                            .rotationEffect(.degrees(-1))
+                            .frame(width: 16, height: 24)
+                            .offset(x: -1, y: -83)
+                        nail
+                            .rotationEffect(.degrees(-10))
+                            .frame(width: 16, height: 24)
+                            .offset(x: -34, y: -70)
+                        nail
+                            .rotationEffect(.degrees(-10))
+                            .frame(width: 14, height: 24)
+                            .offset(x: -62, y: -52)
+                    }
+                    .rotation3DEffect(
+                        .degrees(side == .left ? 180 : 0),
+                        axis: (x: 0, y: 1, z: 0)
+                    )
+                    .offset(y: -200)
+                    // 袖
+                    Capsule()
+                        .fill(.sailorPinkLight)
+                        .frame(width: 150, height: 300)
+                        .offset(y: 80)
+                    Group {
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(.sailorPurpleLight)
+                            .frame(width: 120, height: 80)
+                        Capsule()
+                            .fill(.sailorWhite)
+                            .frame(width: 125, height: 10)
+                            .offset(y: -10)
+                        Capsule()
+                            .fill(.sailorWhite)
+                            .frame(width: 125, height: 10)
+                            .offset(y: 10)
+                    }
+                    .offset(y: -90)
+                }
+                .rotationEffect(.degrees(side == .left ? 25 : -95), anchor: .bottom)
+                .frame(width: 170, height: 550)
+                .offset(x: side.unit * 220, y: 305)
+            }
+        }
+        .offset(x: -150, y: -100)
     }
 
     var backgroundLayer: some View {
