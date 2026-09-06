@@ -63,10 +63,14 @@ private extension SymbolKanojo {
         VStack {
             Spacer()
             HStack {
-                CreamSodaView(isShowingGraphic: true, isShowingCreamSoda: true)
-                    .scaleEffect(0.65)
-                    .padding(.leading, 670)
-                    .offset(y: 120)
+                CreamSodaView(
+                    isShowingGraphic: true,
+                    isShowingCreamSoda: true,
+                    isMovingSpoon: false
+                )
+                .scaleEffect(0.65)
+                .padding(.leading, 670)
+                .offset(y: 120)
                 Spacer()
             }
         }
