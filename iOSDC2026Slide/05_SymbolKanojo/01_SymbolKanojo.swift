@@ -361,19 +361,20 @@ private extension SymbolKanojo {
                 .foregroundStyle(.plantTrunk)
         }
         return ZStack {
-            trunk
-                .scaleEffect(y: 4.0)
-                .rotationEffect(.degrees(-20))
-                .offset(x: 20, y: 80)
-            trunk
-                .scaleEffect(y: 3.0)
-                .rotationEffect(.degrees(-30))
-                .offset(x: -30, y: 100)
+            leaf
+                .frame(width: 100, height: 100)
+                .rotationEffect(.degrees(-5))
+                .offset(x: 20, y: -290)
             trunk
                 .scaleEffect(y: 2.0)
                 .rotation3DEffect(.degrees(180), axis: (0, 1, 0))
                 .rotationEffect(.degrees(35))
                 .offset(x: 40, y: -130)
+            leaf
+                .frame(width: 120, height: 120)
+                .rotationEffect(.degrees(-5))
+                .rotation3DEffect(.degrees(180), axis: (0, 1, 0))
+                .offset(x: 50, y: -180)
             trunk
                 .scaleEffect(y: 1.0)
                 .rotation3DEffect(.degrees(180), axis: (0, 1, 0))
@@ -384,24 +385,23 @@ private extension SymbolKanojo {
                 .rotation3DEffect(.degrees(180), axis: (0, 1, 0))
                 .rotationEffect(.degrees(35))
                 .offset(x: 80, y: 130)
+            trunk
+                .scaleEffect(y: 4.0)
+                .rotationEffect(.degrees(-20))
+                .offset(x: 20, y: 80)
+            trunk
+                .scaleEffect(y: 3.0)
+                .rotationEffect(.degrees(-30))
+                .offset(x: -30, y: 100)
             leaf
                 .frame(width: 100, height: 100)
                 .rotationEffect(.degrees(-5))
                 .offset(x: -60, y: -200)
             leaf
-                .frame(width: 100, height: 100)
-                .rotationEffect(.degrees(-5))
-                .offset(x: 20, y: -290)
-            leaf
                 .frame(width: 70, height: 70)
                 .rotationEffect(.degrees(-5))
                 .rotation3DEffect(.degrees(180), axis: (0, 1, 0))
                 .offset(x: 110, y: -300)
-            leaf
-                .frame(width: 120, height: 120)
-                .rotationEffect(.degrees(-5))
-                .rotation3DEffect(.degrees(180), axis: (0, 1, 0))
-                .offset(x: 50, y: -180)
             leaf
                 .frame(width: 120, height: 120)
                 .rotationEffect(.degrees(-45))
@@ -424,6 +424,10 @@ private extension SymbolKanojo {
                 .frame(width: 220, height: 220)
                 .rotationEffect(.degrees(-100))
                 .offset(x: 10, y: 0)
+            leaf
+                .frame(width: 110, height: 110)
+                .rotationEffect(.degrees(-50), anchor: .bottomTrailing)
+                .offset(x: -55, y: -200)
         }
         .frame(width: 340, height: 560)
     }
