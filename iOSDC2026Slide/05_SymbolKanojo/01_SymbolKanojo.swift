@@ -40,7 +40,7 @@ private extension SymbolKanojo {
             scale: 1.0,
             isUpsideDown: yuyuVM.activeAction == .turnUpsideDown
         )
-        .offset(x: -150, y: -100)
+        .offset(x: -200, y: -100)
         .opacity(yuyuVM.activeAction == .fade ? 0.5 : 1.0)
         .offset(x: yuyuVM.activeAction == .shake ? 2 : 0)
     }
@@ -65,7 +65,7 @@ private extension SymbolKanojo {
             HStack {
                 CreamSodaView(isShowingGraphic: true, isShowingCreamSoda: true)
                     .scaleEffect(0.65)
-                    .padding(.leading, 720)
+                    .padding(.leading, 670)
                     .offset(y: 120)
                 Spacer()
             }
@@ -140,7 +140,7 @@ private extension SymbolKanojo {
                 .offset(x: side.unit * 220, y: 305)
             }
         }
-        .offset(x: -150, y: -100)
+        .offset(x: -200, y: -100)
     }
 
     var backgroundLayer: some View {
@@ -150,12 +150,15 @@ private extension SymbolKanojo {
                 VStack {
                     HStack {
                         wallClock
-                            .padding(.leading, 64)
+                            .padding(.leading, 32)
+                            .offset(y: -64)
                         Spacer()
                         window
                     }
                     Spacer()
                 }
+                wallLamp
+                    .offset(y: -450)
             }
             VStack {
                 Spacer()
@@ -181,7 +184,7 @@ private extension SymbolKanojo {
             Rectangle()
                 .foregroundStyle(.wall)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            VStack {
+            VStack(spacing: 0) {
                 HStack {
                     Spacer()
                     // 柱
@@ -197,6 +200,26 @@ private extension SymbolKanojo {
                     .frame(maxWidth: .infinity)
                     .frame(height: 440)
             }
+        }
+    }
+
+    var wallLamp: some View {
+        ZStack {
+            Circle()
+                .fill(.wallLampBulbMain)
+                .frame(width: 40, height: 40)
+                .shadow(color: .wallLampBulbShadow, radius: 10)
+                .offset(y: 40)
+            Image(systemName: "triangleshape.fill")
+                .resizable()
+                .foregroundStyle(
+                    AngularGradient(
+                        colors: [.wallLampCoverDark, .wallLampCover, .wallLampCoverDark],
+                        center: .top,
+                        startAngle: .degrees(0),
+                        endAngle: .degrees(180))
+                )
+                .frame(width: 200, height: 80)
         }
     }
 
