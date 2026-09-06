@@ -9,6 +9,10 @@ import SwiftUI
 
 struct SymbolKanojo: View {
     @ObservedObject private var yuyuVM = YuyuViewModel()
+    @State private var count: Int = 0
+    var second: Int {
+        Int(count / 2)
+    }
 
     var body: some View {
         ZStack {
@@ -17,6 +21,13 @@ struct SymbolKanojo: View {
             tableLayer
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .task {
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(0.5))
+                if Task.isCancelled { break }
+                count += 1
+            }
+        }
     }
 }
 
@@ -62,6 +73,8 @@ private extension SymbolKanojo {
                 wall
                 VStack {
                     HStack {
+                        wallClock
+                            .padding(.leading, 64)
                         Spacer()
                         window
                             .padding(.top, 32)
@@ -109,6 +122,124 @@ private extension SymbolKanojo {
                     .frame(maxWidth: .infinity)
                     .frame(height: 440)
             }
+        }
+    }
+
+    var wallClock: some View {
+        var clockFace: some View {
+            ZStack {
+                Image(systemName: "octagon.fill")
+                    .resizable()
+                    .foregroundStyle(.wallClockWoodDark)
+                    .frame(width: 200, height: 200)
+                Circle()
+                    .fill(.wallClockWood)
+                    .frame(width: 180, height: 180)
+                Circle()
+                    .fill(.wallClockFace)
+                    .frame(width: 160, height: 160)
+                Circle()
+                    .fill(.clear)
+                    .stroke(.wallClockNumber, lineWidth: 1)
+                    .frame(width: 155, height: 155)
+                Circle()
+                    .fill(.clear)
+                    .stroke(.wallClockNumber, lineWidth: 1)
+                    .frame(width: 150, height: 150)
+                // 文字
+                Group {
+                    ForEach(["I", "II", "III", "IV","V", "VI","VII", "VIII","IX", "X","XI", "XII"].enumerated(), id: \.offset) { index, time in
+                        Text(time)
+                            .font(.system(size: 20, weight: .light, design: .serif))
+                            .foregroundStyle(.wallClockNumber)
+                            .scaleEffect(x: 0.6)
+                            .padding(.bottom, 50)
+                            .rotationEffect(.degrees(Double(index + 1) * 30), anchor: .bottom)
+                    }
+                }
+                .offset(y: -40)
+                // 長針
+                Group {
+                    VStack(spacing: -2) {
+                        Image(systemName: "suit.spade.fill")
+                            .resizable()
+                            .foregroundStyle(.wallClockArrow)
+                            .frame(width: 15, height: 30)
+                        Rectangle()
+                            .foregroundStyle(.wallClockArrow)
+                            .frame(width: 5, height: 40)
+                    }
+                }
+                .rotationEffect(.degrees(60), anchor: .bottom)
+                .offset(y: -35)
+                // 短針
+                Group {
+                    VStack(spacing: -2) {
+                        Image(systemName: "suit.spade.fill")
+                            .resizable()
+                            .foregroundStyle(.wallClockArrow)
+                            .frame(width: 15, height: 30)
+                        Rectangle()
+                            .foregroundStyle(.wallClockArrow)
+                            .frame(width: 5, height: 20)
+                    }
+                }
+                .rotationEffect(.degrees(-60), anchor: .bottom)
+                .offset(y: -25)
+                // 秒針
+                Rectangle()
+                    .foregroundStyle(.wallClockArrow)
+                    .frame(width: 2, height: 70)
+                    .rotationEffect(.degrees(CGFloat(second) * 6), anchor: .bottom)
+                    .animation(.easeInOut, value: second)
+                    .offset(y: -35)
+                // 留め具
+                Circle()
+                    .fill(.wallClockPin)
+                    .frame(width: 10, height: 10)
+            }
+        }
+        var clockBody: some View {
+            ZStack {
+                Image(systemName: "shield.fill")
+                    .resizable()
+                    .foregroundStyle(.wallClockWoodDark)
+                    .frame(width: 130, height: 360)
+                VStack(spacing: 0) {
+                    Rectangle()
+                        .foregroundStyle(.wallClockDisc)
+                        .frame(width: 20)
+                        .frame(maxHeight: .infinity)
+                    ZStack {
+                        Circle()
+                            .fill(.wallClockDisc)
+                        Image(systemName: "opticaldisc")
+                            .resizable()
+                            .foregroundStyle(.wallClockDiscDark)
+                    }
+                .frame(width: 70, height: 70)
+                }
+                .frame(height: 200)
+                .rotationEffect(
+                    .degrees(count % 2 == 0 ? -10 : 10),
+                    anchor: .top
+                )
+                .animation(.easeInOut(duration: 0.5), value: count)
+                Image(systemName: "shield")
+                    .resizable()
+                    .foregroundStyle(.wallClockWoodDark)
+                    .frame(width: 150, height: 400)
+                Image(systemName: "shield")
+                    .resizable()
+                    .foregroundStyle(.wallClockWood)
+                    .frame(width: 130, height: 360)
+            }
+        }
+        return ZStack {
+            clockBody
+            clockFace
+                .offset(y: -100)
+                .offset(x: -5, y: -5)
         }
     }
 
