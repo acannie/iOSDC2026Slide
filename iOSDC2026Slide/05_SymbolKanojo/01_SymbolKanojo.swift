@@ -522,6 +522,25 @@ private extension SymbolKanojo {
                     .offset(y: -30)
             }
         }
+        func stainedGlassTriangle(isPlantColor: Bool) -> some View {
+            ZStack {
+                Image(systemName: "triangleshape.fill")
+                    .resizable()
+                    .foregroundStyle(.windowEdge)
+                Group {
+                    Image(systemName: "triangleshape.fill")
+                        .resizable()
+                        .foregroundStyle(isPlantColor ? .outsidePlant : .outsideSky)
+                    Image(systemName: "triangleshape.fill")
+                        .resizable()
+                        .foregroundStyle(.regularMaterial)
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 20)
+            }
+            .frame(width: 120, height: 60)
+            .padding(.bottom, 16)
+        }
         return ZStack {
             VStack(spacing: 0) {
                 // カーテンレール
@@ -531,77 +550,52 @@ private extension SymbolKanojo {
                     .frame(height: 40)
                 ZStack {
                     VStack(spacing: 16) {
-                        ForEach(0..<2) { _ in
+                        ForEach(0..<2) { row in
                             HStack(spacing: 16) {
-                                ForEach(0..<2) { _ in
-                                    Rectangle()
-                                        .fill(.windowGlass)
+                                ForEach(0..<2) { column in
+                                    ZStack(alignment: .bottom) {
+                                        Rectangle()
+                                            .fill(.outsideSky)
+                                        if row == 1 {
+                                            Capsule()
+                                                .fill(.outsidePlant)
+                                                .frame(maxWidth: .infinity)
+                                                .frame(height: 50)
+                                            HStack {
+                                                if column == 1 {
+                                                    Spacer()
+                                                }
+                                                Capsule()
+                                                    .fill(.outsidePlant)
+                                                    .frame(width: 150, height: 150)
+                                                if column == 0 {
+                                                    Spacer()
+                                                }
+                                            }
+                                        }
+                                        Rectangle()
+                                            .fill(.regularMaterial)
+                                    }
                                 }
                             }
                         }
                     }
-                    .padding(24)
+                    .padding(20)
                     .background(.windowEdge)
                     stainedGlass
                     HStack {
-                        ZStack {
-                            Image(systemName: "triangleshape.fill")
-                                .resizable()
-                                .foregroundStyle(.windowEdge)
-                            Image(systemName: "triangleshape.fill")
-                                .resizable()
-                                .foregroundStyle(.windowGlass)
-                                .padding(.horizontal, 20)
-                                .padding(.top, 20)
-                        }
-                        .frame(width: 120, height: 60)
-                        .padding(.bottom, 24)
-                        .rotationEffect(.degrees(90))
+                        stainedGlassTriangle(isPlantColor: false)
+                            .rotationEffect(.degrees(90))
                         Spacer()
                         VStack {
-                            ZStack {
-                                Image(systemName: "triangleshape.fill")
-                                    .resizable()
-                                    .foregroundStyle(.windowEdge)
-                                Image(systemName: "triangleshape.fill")
-                                    .resizable()
-                                    .foregroundStyle(.windowGlass)
-                                    .padding(.horizontal, 20)
-                                    .padding(.top, 20)
-                                    .padding(.bottom, 4)
-                            }
-                            .frame(width: 100, height: 50)
-                            .padding(.bottom, 20)
-                            .rotationEffect(.degrees(180))
+                            stainedGlassTriangle(isPlantColor: false)
+                                .rotationEffect(.degrees(180))
                             Spacer()
-                            ZStack {
-                                Image(systemName: "triangleshape.fill")
-                                    .resizable()
-                                    .foregroundStyle(.windowEdge)
-                                Image(systemName: "triangleshape.fill")
-                                    .resizable()
-                                    .foregroundStyle(.windowGlass)
-                                    .padding(.horizontal, 20)
-                                    .padding(.top, 20)
-                                    .padding(.bottom, 4)
-                            }
-                            .frame(width: 100, height: 50)
-                            .padding(.bottom, 20)
+                            stainedGlassTriangle(isPlantColor: true)
                         }
                         Spacer()
-                        ZStack {
-                            Image(systemName: "triangleshape.fill")
-                                .resizable()
-                                .foregroundStyle(.windowEdge)
-                            Image(systemName: "triangleshape.fill")
-                                .resizable()
-                                .foregroundStyle(.windowGlass)
-                                .padding(.horizontal, 20)
-                                .padding(.top, 20)
-                        }
-                        .frame(width: 120, height: 60)
-                        .padding(.bottom, 24)
-                        .rotationEffect(.degrees(270))
+                        stainedGlassTriangle(isPlantColor: false)
+                            .rotationEffect(.degrees(270))
                     }
                 }
             }
