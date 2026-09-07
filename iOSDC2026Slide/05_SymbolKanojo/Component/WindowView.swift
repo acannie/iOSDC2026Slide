@@ -57,14 +57,14 @@ struct WindowView: View {
                             VStack(spacing: 0) {
                                 Rectangle()
                                     .fill(.windowStainedGlassPink)
-                                    .frame(width: 70, height: 40)
+                                    .frame(width: 60, height: 40)
                                 Rectangle()
                                     .fill(.windowStainedGlassYellow)
-                                    .frame(width: 70)
+                                    .frame(width: 60)
                                     .frame(maxHeight: .infinity)
                                 Rectangle()
                                     .fill(.windowStainedGlassPink)
-                                    .frame(width: 70, height: 40)
+                                    .frame(width: 60, height: 40)
                             }
                             VStack(spacing: 0) {
                                 Rectangle()
@@ -80,14 +80,14 @@ struct WindowView: View {
                             VStack(spacing: 0) {
                                 Rectangle()
                                     .fill(.windowStainedGlassPink)
-                                    .frame(width: 70, height: 40)
+                                    .frame(width: 60, height: 40)
                                 Rectangle()
                                     .fill(.windowStainedGlassYellow)
-                                    .frame(width: 70)
+                                    .frame(width: 60)
                                     .frame(maxHeight: .infinity)
                                 Rectangle()
                                     .fill(.windowStainedGlassPink)
-                                    .frame(width: 70, height: 40)
+                                    .frame(width: 60, height: 40)
                             }
                         }
                     }
@@ -99,13 +99,13 @@ struct WindowView: View {
                                 .fill(.windowEdge)
                                 .frame(width: 6)
                                 .frame(maxHeight: .infinity)
-                                .padding(.leading, 70)
+                                .padding(.leading, 60)
                             Spacer()
                             Rectangle()
                                 .fill(.windowEdge)
                                 .frame(width: 6)
                                 .frame(maxHeight: .infinity)
-                                .padding(.trailing, 70)
+                                .padding(.trailing, 60)
                         }
                         VStack(spacing: 0) {
                             Rectangle()
