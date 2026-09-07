@@ -590,14 +590,14 @@ private extension SymbolKanojo {
                                             Capsule()
                                                 .fill(.outsidePlant)
                                                 .frame(maxWidth: .infinity)
-                                                .frame(height: 50)
+                                                .frame(height: 100)
                                             HStack {
                                                 if column == 1 {
                                                     Spacer()
                                                 }
                                                 Capsule()
                                                     .fill(.outsidePlant)
-                                                    .frame(width: 150, height: 150)
+                                                    .frame(width: 200, height: 200)
                                                 if column == 0 {
                                                     Spacer()
                                                 }
@@ -613,6 +613,77 @@ private extension SymbolKanojo {
                     .padding(20)
                     .background(.windowEdge)
                     stainedGlass
+                    // ステンドグラス上下左右の装飾
+                    Group {
+                        HStack(spacing: 0) {
+                            VStack(spacing: 0) {
+                                Rectangle()
+                                    .fill(.windowStainedGlassPink)
+                                    .frame(width: 70, height: 40)
+                                Rectangle()
+                                    .fill(.windowStainedGlassYellow)
+                                    .frame(width: 70)
+                                    .frame(maxHeight: .infinity)
+                                Rectangle()
+                                    .fill(.windowStainedGlassPink)
+                                    .frame(width: 70, height: 40)
+                            }
+                            VStack(spacing: 0) {
+                                Rectangle()
+                                    .fill(.windowStainedGlassPurple)
+                                    .frame(height: 40)
+                                    .frame(maxWidth: .infinity)
+                                Spacer()
+                                Rectangle()
+                                    .fill(.windowStainedGlassPurple)
+                                    .frame(height: 40)
+                                    .frame(maxWidth: .infinity)
+                            }
+                            VStack(spacing: 0) {
+                                Rectangle()
+                                    .fill(.windowStainedGlassPink)
+                                    .frame(width: 70, height: 40)
+                                Rectangle()
+                                    .fill(.windowStainedGlassYellow)
+                                    .frame(width: 70)
+                                    .frame(maxHeight: .infinity)
+                                Rectangle()
+                                    .fill(.windowStainedGlassPink)
+                                    .frame(width: 70, height: 40)
+                            }
+                        }
+                    }
+                    .padding(20)
+                    // ステンドグラス上下左右装飾の枠線
+                    Group {
+                        HStack(spacing: 0) {
+                            Rectangle()
+                                .fill(.windowEdge)
+                                .frame(width: 6)
+                                .frame(maxHeight: .infinity)
+                                .padding(.leading, 70)
+                            Spacer()
+                            Rectangle()
+                                .fill(.windowEdge)
+                                .frame(width: 6)
+                                .frame(maxHeight: .infinity)
+                                .padding(.trailing, 70)
+                        }
+                        VStack(spacing: 0) {
+                            Rectangle()
+                                .fill(.windowEdge)
+                                .frame(height: 6)
+                                .frame(maxWidth: .infinity)
+                                .padding(.top, 40)
+                            Spacer()
+                            Rectangle()
+                                .fill(.windowEdge)
+                                .frame(height: 6)
+                                .frame(maxWidth: .infinity)
+                                .padding(.bottom, 40)
+                        }
+                    }
+                    .padding(20)
                     HStack {
                         stainedGlassTriangle(isPlantColor: false)
                             .rotationEffect(.degrees(90))
