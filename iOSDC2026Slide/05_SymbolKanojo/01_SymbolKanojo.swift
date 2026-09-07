@@ -180,7 +180,7 @@ private extension SymbolKanojo {
                 .foregroundStyle(.wall)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             VStack(spacing: 0) {
-                HStack {
+                HStack(alignment: .bottom, spacing: 8) {
                     Spacer()
                     // 柱
                     Rectangle()
@@ -191,10 +191,23 @@ private extension SymbolKanojo {
                 }
                 // 腰壁
                 Rectangle()
+                    .foregroundStyle(.wallPillar)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 30)
+                Rectangle()
                     .foregroundStyle(.wallWaistWall)
                     .frame(maxWidth: .infinity)
-                    .frame(height: 440)
+                    .frame(height: 420)
             }
+            HStack(alignment: .bottom) {
+                VStack {
+                    Spacer()
+                    BooksView()
+                }
+                Spacer()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding(.bottom, 450)
         }
     }
 
