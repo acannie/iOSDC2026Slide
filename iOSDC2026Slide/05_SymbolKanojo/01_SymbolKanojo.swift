@@ -303,10 +303,12 @@ private extension SymbolKanojo {
         }
         var clockBody: some View {
             ZStack {
+                // 背景
                 Image(systemName: "shield.fill")
                     .resizable()
                     .foregroundStyle(.wallClockWoodDark)
-                    .frame(width: 130, height: 360)
+                    .frame(width: 130, height: 260)
+                // 振り子
                 VStack(spacing: -2) {
                     Rectangle()
                         .foregroundStyle(.wallClockDiscDark)
@@ -323,27 +325,28 @@ private extension SymbolKanojo {
                         )
                         .frame(width: 70, height: 70)
                 }
-                .frame(height: 200)
+                .frame(height: 160)
                 .rotationEffect(
                     .degrees(count % 2 == 0 ? -10 : 10),
                     anchor: .top
                 )
                 .animation(.easeInOut(duration: 0.5), value: count)
+                // 枠
                 Image(systemName: "shield")
                     .resizable()
                     .foregroundStyle(.wallClockWoodDark)
-                    .frame(width: 150, height: 400)
+                    .frame(width: 150, height: 300)
                 Image(systemName: "shield")
                     .resizable()
                     .foregroundStyle(.wallClockWood)
-                    .frame(width: 130, height: 360)
+                    .frame(width: 130, height: 260)
             }
         }
         return ZStack {
             clockBody
             clockFace
                 .offset(y: -100)
-                .offset(x: -5, y: -5)
+                .offset(y: -5)
         }
     }
 
