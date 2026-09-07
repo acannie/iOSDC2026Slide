@@ -152,6 +152,8 @@ private extension SymbolKanojo {
                 }
                 wallLamp
                     .offset(y: -450)
+//                BlackboardView()
+//                    .offset(x: -650, y: -20)
             }
             VStack {
                 Spacer()
