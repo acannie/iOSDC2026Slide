@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct WindowView: View {
+    @State var isCurtainOpen: Bool = false
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
@@ -21,13 +22,16 @@ struct WindowView: View {
             .padding(.top, 8)
             .padding(.bottom, 32)
             .padding(.horizontal, 40)
-            HStack {
+            HStack(spacing: 0) {
                 curtain
-                Spacer()
+                Spacer(minLength: 0)
                 curtain
             }
         }
         .frame(width: 650, height: 600)
+        .onTapGesture {
+            isCurtainOpen.toggle()
+        }
     }
 }
 
@@ -83,7 +87,8 @@ private extension WindowView {
                     endPoint: .trailing
                 )
             )
-            .frame(width: 100, height: 600)
+            .frame(width: isCurtainOpen ? 100 : 325, height: 600)
+            .animation(.easeInOut, value: isCurtainOpen)
     }
 
     var rose: some View {
