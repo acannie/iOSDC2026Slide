@@ -9,11 +9,21 @@ import SwiftUI
 
 struct CreamSodaView: View {
     let isShowingGraphic: Bool
+    let isMovingSpoon: Bool
     @State private var count: Int = 0
-
-    @State private var isShowingCreamSoda: Bool = false
+    @State private var isShowingCreamSoda: Bool
 
     @Namespace private var namespace
+
+    init(
+        isShowingGraphic: Bool,
+        isShowingCreamSoda: Bool = false,
+        isMovingSpoon: Bool = true
+    ) {
+        self.isShowingGraphic = isShowingGraphic
+        self.isShowingCreamSoda = isShowingCreamSoda
+        self.isMovingSpoon = isMovingSpoon
+    }
 
     var body: some View {
         ZStack {
@@ -162,20 +172,33 @@ private extension CreamSodaView {
                 .fontWeight(.thin)
                 .foregroundStyle(
                     LinearGradient(
-                        colors: [.melonsodaMiddle, .melonsodaDark],
+                        stops: [
+                            .init(color: .melonsodaMiddle, location: 0.1),
+                            .init(color: .melonsodaDark, location: 0.8)
+                        ],
                         startPoint: .top,
                         endPoint: .bottom
                     )
                 )
                 .frame(width: 290, height: 500)
+            // 氷上段
+            Group {
+                iceCube(size: 60, angle: -30, symbolName: .iceCube(0))
+                    .offset(x: -80, y: -130 - iceCubePosition)
+                iceCube(size: 70, angle: -10, symbolName: .iceCube(1))
+                    .offset(y: -170 + iceCubePosition)
+                iceCube(size: 60, angle: 20, symbolName: .iceCube(2))
+                    .offset(x: 70, y: -140 - iceCubePosition)
+            }
+            .animation(.easeInOut(duration: 1.0), value: iceCubePosition)
             // スプーン
             ZStack {
                 Capsule()
                     .fill(.spoon)
                     .matchedGeometryEffect(id: SymbolName.spoon, in: namespace)
-                    .frame(width: 10, height: 200)
+                    .frame(width: 10, height: 300)
                     .rotationEffect(.degrees(170))
-                    .offset(x: -22, y: -130)
+                    .offset(x: -27, y: -160)
                 Image(systemName: "spoon.serving")
                     .resizable()
                     .matchedGeometryEffect(id: SymbolName.spoonHandle, in: namespace)
@@ -184,23 +207,15 @@ private extension CreamSodaView {
                     .frame(width: 30)
                     .rotationEffect(.degrees(170))
             }
-            .rotationEffect(.degrees(count % 2 == 0 ? -5 : 5))
+            .rotationEffect(isMovingSpoon ? .degrees(count % 2 == 0 ? -5 : 5) : .zero)
             .animation(.easeInOut(duration: 1.0), value: count)
-            .offset(x: -55, y: -140)
-            // 氷
+            .offset(x: -55, y: -50)
+            // 氷下段
             Group {
-                // 上段
-                iceCube(size: 60, angle: -30, symbolName: .iceCube(0))
-                    .offset(x: -80, y: -60 - iceCubePosition)
-                iceCube(size: 70, angle: -10, symbolName: .iceCube(1))
-                    .offset(y: -100 + iceCubePosition)
-                iceCube(size: 60, angle: 20, symbolName: .iceCube(2))
-                    .offset(x: 70, y: -70 - iceCubePosition)
-                // 下段
                 iceCube(size: 70, angle: 30, symbolName: .iceCube(3))
-                    .offset(x: -45, y: -35 + iceCubePosition)
+                    .offset(x: -45, y: -115 + iceCubePosition)
                 iceCube(size: 80, angle: -5, symbolName: .iceCube(4))
-                    .offset(x: 35, y: -15 - iceCubePosition)
+                    .offset(x: 35, y: -85 - iceCubePosition)
             }
             .animation(.easeInOut(duration: 1.0), value: iceCubePosition)
             // 泡

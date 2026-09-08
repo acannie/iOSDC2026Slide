@@ -37,7 +37,7 @@ KanojoParts.GestureType: View {
             kanojoParts.bangs
             kanojoParts.accessories
             kanojoParts.emotionalEmission
-            kanojoParts.gesture
+//            kanojoParts.gesture
         }
         .scaleEffect(scale)
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
