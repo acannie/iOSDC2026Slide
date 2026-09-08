@@ -188,14 +188,14 @@ private extension WindowView {
             HStack(spacing: 0) {
                 VStack(spacing: 0) {
                     Rectangle()
-                        .fill(.windowStainedGlassPink)
+                        .fill(.windowStainedGlassYellow)
                         .frame(width: 60, height: 35)
                     Rectangle()
-                        .fill(.windowStainedGlassYellow)
+                        .fill(.windowStainedGlassPink)
                         .frame(width: 60)
                         .frame(maxHeight: .infinity)
                     Rectangle()
-                        .fill(.windowStainedGlassPink)
+                        .fill(.windowStainedGlassYellow)
                         .frame(width: 60, height: 35)
                 }
                 VStack(spacing: 0) {
@@ -211,14 +211,14 @@ private extension WindowView {
                 }
                 VStack(spacing: 0) {
                     Rectangle()
-                        .fill(.windowStainedGlassPink)
+                        .fill(.windowStainedGlassYellow)
                         .frame(width: 60, height: 35)
                     Rectangle()
-                        .fill(.windowStainedGlassYellow)
+                        .fill(.windowStainedGlassPink)
                         .frame(width: 60)
                         .frame(maxHeight: .infinity)
                     Rectangle()
-                        .fill(.windowStainedGlassPink)
+                        .fill(.windowStainedGlassYellow)
                         .frame(width: 60, height: 35)
                 }
             }
