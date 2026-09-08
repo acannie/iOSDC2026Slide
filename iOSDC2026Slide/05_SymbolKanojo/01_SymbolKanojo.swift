@@ -147,6 +147,7 @@ private extension SymbolKanojo {
                             .offset(y: -64)
                         Spacer()
                         WindowView()
+                            .offset(x: 50)
                     }
                     Spacer()
                 }

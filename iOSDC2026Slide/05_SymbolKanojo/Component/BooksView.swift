@@ -191,7 +191,6 @@ private extension BooksView {
         return HStack(spacing: 8) {
             line
                 .padding(.leading, 4)
-            wave
             VStack(alignment: .leading, spacing: 0) {
                 Text("Hello World")
                     .font(.system(size: 12, weight: .bold, design: .serif))
