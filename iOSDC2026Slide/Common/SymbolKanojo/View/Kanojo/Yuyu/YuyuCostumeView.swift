@@ -153,8 +153,8 @@ private extension YuyuCostumeView {
             // 胴体
             RoundedRectangle(cornerRadius: 16)
                 .fill(.sailorPinkLight)
-                .frame(width: 300, height: 300)
-                .offset(y: 330)
+                .frame(width: 400, height: 400)
+                .offset(y: 380)
             // リボン
             ForEach(Side.allCases, id: \.self) { side in
                 Ellipse()

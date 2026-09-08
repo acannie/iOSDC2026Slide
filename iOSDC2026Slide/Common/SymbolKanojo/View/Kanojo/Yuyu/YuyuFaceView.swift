@@ -15,7 +15,7 @@ struct YuyuFaceView: FaceView {
     private var cheekColor: Color {
         switch vm.faceType {
         case .hot: .yuyuCheekHot
-        case .neutral, .melting: .yuyuCheekHot
+        case .neutral, .melting: .yuyuCheekNeutral
         case .cold: .clear
         }
     }

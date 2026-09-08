@@ -189,7 +189,7 @@ private extension YuyuEyesView {
                 .fontWeight(.bold)
                 .foregroundStyle(.yuyuEyelash)
                 .frame(width: 90, height: 50)
-                .offset(x: side.unit * 65, y: -40)
+                .offset(x: side.unit * 70, y: -40)
         }
     }
 

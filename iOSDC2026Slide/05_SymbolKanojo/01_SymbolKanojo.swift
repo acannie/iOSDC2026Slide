@@ -9,6 +9,66 @@ import SwiftUI
 
 struct SymbolKanojo: View {
     @ObservedObject private var yuyuVM = YuyuViewModel()
+    @State private var count: Int = 0
+
+    private var expressionAndGestureIndex: Int {
+        count % expressionAndGestures.count
+    }
+    private var expressionAndGesture: ExpressionAndGesture {
+        expressionAndGestures[expressionAndGestureIndex]
+    }
+    private struct ExpressionAndGesture {
+        let expression: Expression
+        let isLeftHandUp: Bool
+        let isRightHandUp: Bool
+
+        init(expression: Expression, isLeftHandUp: Bool = false, isRightHandUp: Bool = false) {
+            self.expression = expression
+            self.isLeftHandUp = isLeftHandUp
+            self.isRightHandUp = isRightHandUp
+        }
+    }
+    private let expressionAndGestures: [ExpressionAndGesture] = [
+        // ニュートラル
+        .init(
+            expression: .init(faceType: .neutral, eyebrowsType: .neutral, eyesType: .normal(.neutral, .normal, .center), mouthType: .smile(.medium, .none))
+        ),
+        // 驚き
+        .init(
+            expression: .init(faceType: .neutral, eyebrowsType: .surprise, eyesType: .normal(.surprise, .normal, .center), mouthType: .surprise(.medium)),
+            isLeftHandUp: true,
+            isRightHandUp: true
+        ),
+        // てへぺろ
+        .init(
+            expression: .init(faceType: .neutral, eyebrowsType: .neutral, eyesType: .normal(.neutral, .normal, .right), mouthType: .smile(.medium, .licking), emotionalEmissionType: .sweat)
+        ),
+        // がーん
+        .init(
+            expression: .init(faceType: .cold, eyebrowsType: .sadness, eyesType: .normal(.sadness, .normal, .center), mouthType: .wailing(.medium, .none))
+        ),
+        // ねむい
+        .init(
+            expression: .init(faceType: .neutral, eyebrowsType: .neutral, eyesType: .normal(.sleepy, .normal, .center), mouthType: .surprise(.large)),
+            isLeftHandUp: true
+        ),
+        // 微笑み
+        .init(
+            expression: .init(faceType: .hot, eyebrowsType: .neutral, eyesType: .normal(.smile, .normal, .left), mouthType: .smile(.medium, .none))
+        ),
+        // 怒る
+        .init(
+            expression: .init(faceType: .neutral, eyebrowsType: .anger, eyesType: .normal(.anger, .normal, .center), mouthType: .surprise(.medium))
+        ),
+        // 悲しい
+        .init(
+            expression: .init(faceType: .neutral, eyebrowsType: .sadness, eyesType: .normal(.sadness, .teary, .center), mouthType: .defeated, emotionalEmissionType: .tear(.moist))
+        ),
+        // いー
+        .init(
+            expression: .init(faceType: .neutral, eyebrowsType: .neutral, eyesType: .normal(.neutral, .knockout, .center), mouthType: .grittedTeeth)
+        ),
+    ]
 
     var body: some View {
         ZStack {
@@ -19,6 +79,15 @@ struct SymbolKanojo: View {
             creamSodaLayer
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .task {
+            while true {
+                try? await Task.sleep(for: .seconds(2))
+                count += 1
+            }
+        }
+        .onChange(of: expressionAndGestureIndex) {
+            yuyuVM.express(expressionAndGesture.expression)
+        }
     }
 }
 
@@ -73,6 +142,11 @@ private extension SymbolKanojo {
         }
         return ZStack {
             ForEach(Side.allCases, id: \.self) { side in
+                var isHandUp: Bool {
+                    let isLeftHandUp = (side == .left) && expressionAndGesture.isLeftHandUp
+                    let isRightHandUp = (side == .right) && expressionAndGesture.isRightHandUp
+                    return isLeftHandUp || isRightHandUp
+                }
                 ZStack {
                     // 手
                     Group {
@@ -128,9 +202,13 @@ private extension SymbolKanojo {
                     }
                     .offset(y: -90)
                 }
-                .rotationEffect(.degrees(side == .left ? 25 : -95), anchor: .bottom)
+                .rotationEffect(
+                    .degrees(isHandUp ? (side.unit * -25) : (side.unit * -95)),
+                    anchor: .bottom
+                )
                 .frame(width: 170, height: 550)
                 .offset(x: side.unit * 220, y: 305)
+                .animation(.easeInOut(duration: 0.6), value: isHandUp)
             }
         }
         .offset(x: -200, y: -100)

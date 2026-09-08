@@ -52,8 +52,10 @@ private extension YuyuEyebrowsView {
     func eyebrowOffsetY(_ offsetY: CGFloat, side: Side) -> CGFloat {
         let eyebrowType = side == .left ? vm.leftEyebrowType : vm.rightEyebrowType
         return switch eyebrowType {
-        case .neutral, .anger, .sadness:
+        case .neutral, .anger:
             offsetY
+        case .sadness:
+            offsetY + 10.0
         case .surprise:
             offsetY - 10.0
         }

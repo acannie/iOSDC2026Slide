@@ -29,9 +29,9 @@ struct YuyuMouthView: MouthView {
         switch vm.expression {
         case .smile(let size, _):
             let mouthOffsetY: CGFloat = switch size {
-            case .small: 35
-            case .medium: 30
-            case .large: 20
+            case .small: 20
+            case .medium: 15
+            case .large: 5
             }
             return .init(x: 30, y: mouthOffsetY)
         case .happy:
@@ -171,7 +171,7 @@ private extension YuyuMouthView {
             .resizable()
             .foregroundStyle(.yuyuMouth)
             .frame(width: mouthSize.width, height: mouthSize.height)
-            .offset(y: 30)
+            .offset(y: 27)
     }
 
     func happyMouth(size: MouthType.MouthSize, tongueType: MouthType.TongueType?) -> some View {
@@ -185,7 +185,7 @@ private extension YuyuMouthView {
                 .resizable()
                 .foregroundStyle(.yuyuMouth)
                 .frame(width: mouthSize.width, height: mouthSize.height)
-                .offset(y: 30)
+                .offset(y: 25)
         }
     }
 
@@ -262,7 +262,7 @@ private extension YuyuMouthView {
                 .resizable()
                 .foregroundStyle(.yuyuMouth)
                 .frame(width: 60, height: mouthHeight)
-                .offset(y: 30)
+                .offset(y: 25)
         }
     }
 
@@ -273,7 +273,7 @@ private extension YuyuMouthView {
             .foregroundStyle(.yuyuMouth)
             .frame(width: 50, height: 50)
             .rotationEffect(.degrees(45))
-            .offset(y: 35)
+            .offset(y: 30)
     }
 
     var kissingMouth: some View {
@@ -282,14 +282,13 @@ private extension YuyuMouthView {
                 .resizable()
                 .foregroundStyle(.yuyuLip)
                 .frame(width: 40, height: 20)
-                .offset(y: 30)
             Image(systemName: "hockey.puck.fill")
                 .resizable()
                 .rotationEffect(.degrees(180))
                 .foregroundStyle(.yuyuLip)
                 .frame(width: 30, height: 25)
-                .offset(y: 30)
         }
+        .offset(y: 25)
     }
 
     func zipperMouth() -> some View {
@@ -348,16 +347,13 @@ private extension YuyuMouthView {
             Image(systemName: "snowboard.fill")
                 .resizable()
                 .foregroundStyle(.yuyuToothLight)
-                .rotationEffect(.degrees(45))
-                .frame(width: 60, height: 60)
-                .offset(y: 30)
             Image(systemName: "snowboard")
                 .resizable()
                 .foregroundStyle(.yuyuToothDark)
-                .rotationEffect(.degrees(45))
-                .frame(width: 60, height: 60)
-                .offset(y: 30)
         }
+        .rotationEffect(.degrees(45))
+        .frame(width: 60, height: 60)
+        .offset(y: 25)
     }
 }
 
