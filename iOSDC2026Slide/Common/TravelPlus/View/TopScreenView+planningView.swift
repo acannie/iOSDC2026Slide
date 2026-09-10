@@ -101,7 +101,6 @@ extension TopScreenView {
                 Spacer()
             }
             DecorationView(vm: .init(city: $vm.selectedDestination))
-                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
                 .allowsHitTesting(false)
         }
         .background(backgroundColor)

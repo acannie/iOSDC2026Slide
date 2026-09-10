@@ -9,69 +9,66 @@ import SwiftUI
 
 extension TopScreenView {
     var journeyBookView: some View {
-        ZStack {
-//            Image("mock_travel_journey_book_cover")
-//                .resizable()
-//                .ignoresSafeArea()
-//                .aspectRatio(contentMode: .fill)
-//                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 40)
-//                .clipped()
-            VStack {
-                HStack {
-                    dismissButton
-                        .padding(.leading, 12)
-                        .padding(.top, 12)
-                    Spacer()
-                }
-                .padding(.top, 50)
-                Spacer()
-                HStack {
-                    VStack(spacing: 50) {
-                        VStack(spacing: 12) {
-                            Text("Start your new trip\nwith\nvoice guide")
-                                .font(.system(size: 30, weight: .semibold))
-                                .foregroundStyle(.white)
-                                .multilineTextAlignment(.center)
-                            Text("Your Journey, Your Story.")
-                                .font(.system(size: 16, weight: .light))
-                                .foregroundStyle(.white)
+        VStack {
+            Spacer()
+            VStack(spacing: 50) {
+                logo
+                Button(
+                    action: {
+                        withAnimation {
+                            vm.shouldOpenJourneyBook = false
                         }
-                        Button(
-                            action: {},
-                            label: {
-                                Text("DISCOVER BY PAGE")
-                                    .foregroundStyle(Color("taipei_sky"))
-                                    .font(.system(size: 12, weight: .regular))
-                                    .padding(.horizontal, 24)
-                                    .padding(.vertical, 12)
-                                    .background(.white)
-                                    .cornerRadius(12)
-                            }
-                        )
+                    },
+                    label: {
+                        Text("DISCOVER BY PAGE")
+                            .foregroundStyle(.white)
+                            .font(.system(size: 12, weight: .regular))
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 12)
+                            .background(.normalSubTheme)
+                            .cornerRadius(12)
                     }
-                    Spacer()
-                }
-                .padding(.leading, 12)
-                Spacer()
+                )
             }
+            Spacer()
         }
+        .frame(width: 400, height: 850)
+        .background(.backgroundTop)
     }
 }
 
 private extension TopScreenView {
-    var dismissButton: some View {
-        Button(action: {
-            withAnimation {
-                vm.shouldOpenJourneyBook = false
+    var logo: some View {
+        HStack(spacing: 12) {
+            VStack(spacing: -20) {
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(.clear)
+                    .stroke(.normalTheme, lineWidth: 8)
+                    .frame(width: 32, height: 32)
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(.normalTheme)
+                        .frame(width: 80, height: 80)
+                    Rectangle()
+                        .fill(.backgroundTop)
+                        .fontWeight(.ultraLight)
+                        .frame(width: 8, height: 45)
+                        .rotationEffect(.degrees(45))
+                        .offset(x: -20, y: 20)
+                    Image(systemName: "airplane.up.right")
+                        .resizable()
+                        .foregroundStyle(.backgroundTop)
+                        .fontWeight(.ultraLight)
+                        .frame(width: 50, height: 50)
+                }
             }
-        }, label: {
-            Image(systemName: "arrowshape.backward.fill")
-                .resizable()
-                .foregroundStyle(.white)
-                .frame(width: 24, height: 24)
-                .padding(12)
-                .background(.ultraThinMaterial)
-                .cornerRadius(24)
-        })
+            VStack(alignment: .leading, spacing: -8) {
+                ForEach(["Travel", "Plus"], id: \.self) { text in
+                    Text(text)
+                        .foregroundStyle(.normalTheme)
+                        .font(.system(size: 40, weight: .bold))
+                }
+            }
+        }
     }
 }
