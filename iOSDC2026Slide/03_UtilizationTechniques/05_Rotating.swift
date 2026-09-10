@@ -1,5 +1,5 @@
 //
-//  05_RotatingIn3D.swift
+//  05_Rotating.swift
 //  iOSDC2026Slide
 //
 //  Created by SASAOKA Akane on 2026/08/14.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RotatingIn3D: View {
+struct Rotating: View {
     let isActive: Bool
 
     var body: some View {
@@ -25,7 +25,9 @@ struct RotatingIn3D: View {
         .padding(.horizontal, 100)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
+}
 
+private extension Rotating {
     var title: some View {
         Text("まわす")
             .font(.system(size: 80, weight: .bold, design: .rounded))

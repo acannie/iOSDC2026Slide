@@ -16,7 +16,7 @@ struct UtilizationTechniquesSceen: View {
         case reimaginingAndCombining
         case selectingFontsAndGlowing
         case animating
-        case rotatingIn3D
+        case rotating
     }
 
     var body: some View {
@@ -60,8 +60,8 @@ struct UtilizationTechniquesSceen: View {
             Animating(isActive: currentPage == page.rawValue)
         case .selectingFontsAndGlowing:
             SelectingFontsAndGlowing(isActive: currentPage == page.rawValue)
-        case .rotatingIn3D:
-            RotatingIn3D(isActive: currentPage == page.rawValue)
+        case .rotating:
+            Rotating(isActive: currentPage == page.rawValue)
         }
     }
 }
