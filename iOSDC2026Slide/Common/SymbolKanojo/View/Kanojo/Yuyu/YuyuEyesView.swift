@@ -188,8 +188,8 @@ private extension YuyuEyesView {
                 .resizable()
                 .fontWeight(.bold)
                 .foregroundStyle(.yuyuEyelash)
-                .frame(width: 90, height: 50)
-                .offset(x: side.unit * 70, y: -40)
+                .frame(width: 70, height: 40)
+                .offset(x: side.unit * 65, y: -40)
         }
     }
 
