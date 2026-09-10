@@ -41,7 +41,7 @@ struct SymbolKanojo: View {
         ),
         // てへぺろ
         .init(
-            expression: .init(faceType: .neutral, eyebrowsType: .neutral, eyesType: .normal(.neutral, .normal, .right), mouthType: .smile(.medium, .licking), emotionalEmissionType: .sweat)
+            expression: .init(faceType: .hot, eyebrowsType: .neutral, eyesType: .normal(.neutral, .normal, .right), mouthType: .smile(.medium, .licking), emotionalEmissionType: .sweat)
         ),
         // がーん
         .init(
@@ -64,9 +64,9 @@ struct SymbolKanojo: View {
         .init(
             expression: .init(faceType: .neutral, eyebrowsType: .sadness, eyesType: .normal(.sadness, .teary, .center), mouthType: .defeated, emotionalEmissionType: .tear(.moist))
         ),
-        // いー
+        // ウインク
         .init(
-            expression: .init(faceType: .neutral, eyebrowsType: .neutral, eyesType: .normal(.neutral, .knockout, .center), mouthType: .grittedTeeth)
+            expression: .init(faceType: .neutral, eyebrowsType: .anger, leftEyeType: .normal(.neutral, .normal, .center), rightEyeType: .closeTightly, mouthType: .grittedTeeth)
         ),
     ]
 
