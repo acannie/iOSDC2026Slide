@@ -250,7 +250,7 @@ private extension TopScreenView {
                     ZStack {
                         RoundedRectangle(cornerRadius: 8)
                             .foregroundStyle(.white)
-                            .frame(width: 105, height: 30)
+                            .frame(width: 120, height: 30)
                         DatePicker(
                             "from",
                             selection: $vm.periodStartDate,
@@ -271,7 +271,7 @@ private extension TopScreenView {
                     ZStack {
                         RoundedRectangle(cornerRadius: 8)
                             .foregroundStyle(.white)
-                            .frame(width: 105, height: 30)
+                            .frame(width: 120, height: 30)
                         DatePicker(
                             "to",
                             selection: $vm.periodEndDate,
