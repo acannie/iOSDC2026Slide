@@ -11,6 +11,7 @@ enum Country {
     case korea
     case taiwan
     case japan
+    case unitedStates
 
     var emoji: String {
         switch self {
@@ -19,6 +20,7 @@ enum Country {
         case .korea: "🇰🇷"
         case .taiwan: "🇹🇼"
         case .japan: "🇯🇵"
+        case .unitedStates: "🇺🇸"
         }
     }
 }

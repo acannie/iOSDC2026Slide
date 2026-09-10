@@ -13,6 +13,7 @@ enum City: CaseIterable {
     case seoul
     case taipei
     case tokyo
+    case california
 
     var text: String {
         switch self {
@@ -21,6 +22,7 @@ enum City: CaseIterable {
         case .seoul: "Seoul"
         case .taipei: "Taipei"
         case .tokyo: "Tokyo"
+        case .california: "California"
         }
     }
 
@@ -31,6 +33,7 @@ enum City: CaseIterable {
         case .seoul: .korea
         case .taipei: .taiwan
         case .tokyo: .japan
+        case .california: .unitedStates
         }
     }
 
@@ -41,6 +44,7 @@ enum City: CaseIterable {
         case .seoul: Color("seoul_sky")
         case .taipei: Color("taipei_sky")
         case .tokyo: Color("tokyo_sky")
+        case .california: .clear
         }
     }
 
@@ -51,6 +55,7 @@ enum City: CaseIterable {
         case .seoul: Color("seoul_theme")
         case .taipei: Color("taipei_theme")
         case .tokyo: Color("tokyo_theme")
+        case .california: .clear
         }
     }
 
@@ -61,6 +66,7 @@ enum City: CaseIterable {
         case .seoul: Color("seoul_subTheme")
         case .taipei: Color("taipei_subTheme")
         case .tokyo: Color("tokyo_subTheme")
+        case .california: .clear
         }
     }
 }
