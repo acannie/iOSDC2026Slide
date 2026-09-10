@@ -12,6 +12,7 @@ struct SymbolKanojoScreen: View {
     @State var currentPage: Int = 0
 
     enum Page: Int, CaseIterable {
+        case iWannaMakeContent
         case symbolKanojo
     }
 
@@ -26,8 +27,20 @@ struct SymbolKanojoScreen: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .overlay {
             DestinationButtonOverlayView(
-                goPreviousAction: { path.removeLast() },
-                goNextAction: { path.append(Destination.conclusion) }
+                goPreviousAction: {
+                    if currentPage > 0 {
+                        currentPage -= 1
+                    } else {
+                        path.removeLast()
+                    }
+                },
+                goNextAction: {
+                    if currentPage < Page.allCases.count - 1 {
+                        currentPage += 1
+                    } else {
+                        path.append(Destination.conclusion)
+                    }
+                }
             )
         }
         .navigationBarBackButtonHidden(true)
@@ -38,8 +51,10 @@ private extension SymbolKanojoScreen {
     @ViewBuilder
     func pageContent(for page: Page) -> some View {
         switch page {
+        case .iWannaMakeContent:
+            IWannaMakeContent()
         case .symbolKanojo:
-            SymbolKanojo()
+            SymbolKanojo(isActive: currentPage == page.rawValue)
         }
     }
 }

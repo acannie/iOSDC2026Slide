@@ -1,5 +1,5 @@
 //
-//  SymbolKanojo.swift
+//  02_SymbolKanojo.swift
 //  iOSDC2026Slide
 //
 //  Created by SASAOKA Akane on 2026/08/25.
@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct SymbolKanojo: View {
+    let isActive: Bool
     @ObservedObject private var yuyuVM = YuyuViewModel()
     @State private var count: Int = 0
+    @State private var isCurtainsOpened = false
 
     private var expressionAndGestureIndex: Int {
         count % expressionAndGestures.count
@@ -41,7 +43,7 @@ struct SymbolKanojo: View {
         ),
         // てへぺろ
         .init(
-            expression: .init(faceType: .neutral, eyebrowsType: .neutral, eyesType: .normal(.neutral, .normal, .right), mouthType: .smile(.medium, .licking), emotionalEmissionType: .sweat)
+            expression: .init(faceType: .hot, eyebrowsType: .neutral, eyesType: .normal(.neutral, .normal, .right), mouthType: .smile(.medium, .licking), emotionalEmissionType: .sweat)
         ),
         // がーん
         .init(
@@ -64,9 +66,9 @@ struct SymbolKanojo: View {
         .init(
             expression: .init(faceType: .neutral, eyebrowsType: .sadness, eyesType: .normal(.sadness, .teary, .center), mouthType: .defeated, emotionalEmissionType: .tear(.moist))
         ),
-        // いー
+        // ウインク
         .init(
-            expression: .init(faceType: .neutral, eyebrowsType: .neutral, eyesType: .normal(.neutral, .knockout, .center), mouthType: .grittedTeeth)
+            expression: .init(faceType: .neutral, eyebrowsType: .anger, leftEyeType: .normal(.neutral, .normal, .center), rightEyeType: .closeTightly, mouthType: .grittedTeeth)
         ),
     ]
 
@@ -79,10 +81,19 @@ struct SymbolKanojo: View {
             creamSodaLayer
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .task {
-            while true {
-                try? await Task.sleep(for: .seconds(2))
-                count += 1
+        .overlay {
+            Color.black.opacity(isCurtainsOpened ? 0 : 0.2)
+                .ignoresSafeArea()
+        }
+        .animation(.easeInOut, value: isCurtainsOpened)
+        .onChange(of: isActive) {
+            if isActive {
+                Task {
+                    while true {
+                        try? await Task.sleep(for: .seconds(2))
+                        count += 1
+                    }
+                }
             }
         }
         .onChange(of: expressionAndGestureIndex) {
@@ -224,8 +235,10 @@ private extension SymbolKanojo {
                             .padding(.leading, 32)
                             .offset(y: -64)
                         Spacer()
-                        WindowView()
-                            .offset(x: 50)
+                        WindowView(curtainsAction: { isCurtainsOpened in
+                            self.isCurtainsOpened = isCurtainsOpened
+                        })
+                        .offset(x: 50)
                     }
                     Spacer()
                 }
@@ -311,24 +324,42 @@ private extension SymbolKanojo {
     }
 
     var sofa: some View {
-        HStack(spacing: 0) {
-            ForEach(0..<10) { _ in
-                RoundedRectangle(cornerRadius: 20)
-                    .frame(height: 400)
-                    .frame(maxWidth: .infinity)
-                    .foregroundStyle(
-                        LinearGradient(
-                            stops: [
-                                .init(color: .sofaRedDark, location: 0.0),
-                                .init(color: .sofaRed, location: 0.2),
-                                .init(color: .sofaRed, location: 0.8),
-                                .init(color: .sofaRedDark, location: 1.0),
-                            ],
-                            startPoint: .leading,
-                            endPoint: .trailing
+        ZStack {
+            HStack(spacing: 0) {
+                ForEach(0..<10) { _ in
+                    RoundedRectangle(cornerRadius: 20)
+                        .frame(height: 400)
+                        .frame(maxWidth: .infinity)
+                        .foregroundStyle(
+                            LinearGradient(
+                                stops: [
+                                    .init(color: .sofaRedDark, location: 0.0),
+                                    .init(color: .sofaRed, location: 0.2),
+                                    .init(color: .sofaRed, location: 0.8),
+                                    .init(color: .sofaRedDark, location: 1.0),
+                                ],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
                         )
-                    )
+                }
             }
+            HStack(spacing: 0) {
+                Spacer()
+                ForEach(0..<9) { index in
+                    ZStack {
+                        Circle()
+                            .fill(.sofaRedDark)
+                            .frame(width: 50, height: 50)
+                            .blur(radius: 4)
+                        Circle()
+                            .fill(.sofaRed)
+                            .frame(width: 30, height: 30)
+                    }
+                    Spacer()
+                }
+            }
+            .padding(.horizontal, 25)
         }
     }
 
