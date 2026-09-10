@@ -1,5 +1,5 @@
 //
-//  SfSymbolsBasicsScreen.swift
+//  UtilizationTechniquesSceen.swift
 //  iOSDC2026Slide
 //
 //  Created by SASAOKA Akane on 2026/07/25.
@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-struct SfSymbolsBasicsScreen: View {
+struct UtilizationTechniquesSceen: View {
     @Binding var path: NavigationPath
     @State var currentPage: Int = 0
 
     enum Page: Int, CaseIterable {
         case coloring
-        case interpretingAndCombining
+        case reimaginingAndCombining
+        case selectingFontsAndGlowing
         case animating
-        case glowing
-        case rotatingIn3D
+        case rotating
     }
 
     var body: some View {
@@ -54,14 +54,14 @@ struct SfSymbolsBasicsScreen: View {
         switch page {
         case .coloring:
             Coloring()
-        case .interpretingAndCombining:
-            InterpretingAndCombining(isActive: currentPage == page.rawValue)
+        case .reimaginingAndCombining:
+            ReimaginingAndCombining(isActive: currentPage == page.rawValue)
         case .animating:
             Animating(isActive: currentPage == page.rawValue)
-        case .glowing:
-            FontsAndGlowing(isActive: currentPage == page.rawValue)
-        case .rotatingIn3D:
-            RotatingIn3D(isActive: currentPage == page.rawValue)
+        case .selectingFontsAndGlowing:
+            SelectingFontsAndGlowing(isActive: currentPage == page.rawValue)
+        case .rotating:
+            Rotating(isActive: currentPage == page.rawValue)
         }
     }
 }

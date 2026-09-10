@@ -1,5 +1,5 @@
 //
-//  02_InterpretingAndCombining.swift
+//  02_ReimaginingAndCombining.swift
 //  iOSDC2026Slide
 //
 //  Created by SASAOKA Akane on 2026/08/14.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InterpretingAndCombining: View {
+struct ReimaginingAndCombining: View {
     let isActive: Bool
     @State private var isShowingWholeLotus: Bool = false
     @State private var isShowingWholeElephant: Bool = false
@@ -49,9 +49,11 @@ struct InterpretingAndCombining: View {
             isShowingWholeElephant = false
         }
     }
+}
 
+private extension ReimaginingAndCombining {
     var title: some View {
-        Text("解釈する／組み合わせる")
+        Text("見立てる・組み合わせる")
             .font(.system(size: 80, weight: .bold, design: .rounded))
             .foregroundStyle(.introductionText)
     }

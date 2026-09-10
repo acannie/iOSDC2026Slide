@@ -1,5 +1,5 @@
 //
-//  04_FontsAndGlowing.swift
+//  03_SelectingFontsAndGlowing.swift
 //  iOSDC2026Slide
 //
 //  Created by SASAOKA Akane on 2026/08/14.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-struct FontsAndGlowing: View {
+struct SelectingFontsAndGlowing: View {
     let isActive: Bool
     @State private var isDay: Bool = true
 
