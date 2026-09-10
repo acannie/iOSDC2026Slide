@@ -1,5 +1,5 @@
 //
-//  SfSymbolsBasicsScreen.swift
+//  UtilizationTechniquesSceen.swift
 //  iOSDC2026Slide
 //
 //  Created by SASAOKA Akane on 2026/07/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SfSymbolsBasicsScreen: View {
+struct UtilizationTechniquesSceen: View {
     @Binding var path: NavigationPath
     @State var currentPage: Int = 0
 
