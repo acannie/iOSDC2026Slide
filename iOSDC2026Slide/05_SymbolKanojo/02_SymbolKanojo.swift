@@ -1,5 +1,5 @@
 //
-//  SymbolKanojo.swift
+//  02_SymbolKanojo.swift
 //  iOSDC2026Slide
 //
 //  Created by SASAOKA Akane on 2026/08/25.
@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SymbolKanojo: View {
+    let isActive: Bool
     @ObservedObject private var yuyuVM = YuyuViewModel()
     @State private var count: Int = 0
     @State private var isCurtainsOpened = false
@@ -85,10 +86,14 @@ struct SymbolKanojo: View {
                 .ignoresSafeArea()
         }
         .animation(.easeInOut, value: isCurtainsOpened)
-        .task {
-            while true {
-                try? await Task.sleep(for: .seconds(2))
-                count += 1
+        .onChange(of: isActive) {
+            if isActive {
+                Task {
+                    while true {
+                        try? await Task.sleep(for: .seconds(2))
+                        count += 1
+                    }
+                }
             }
         }
         .onChange(of: expressionAndGestureIndex) {
