@@ -13,7 +13,7 @@ struct UtilizationTechniquesSceen: View {
 
     enum Page: Int, CaseIterable {
         case coloring
-        case interpretingAndCombining
+        case reimaginingAndCombining
         case selectingFontsAndGlowing
         case animating
         case rotatingIn3D
@@ -54,8 +54,8 @@ struct UtilizationTechniquesSceen: View {
         switch page {
         case .coloring:
             Coloring()
-        case .interpretingAndCombining:
-            InterpretingAndCombining(isActive: currentPage == page.rawValue)
+        case .reimaginingAndCombining:
+            ReimaginingAndCombining(isActive: currentPage == page.rawValue)
         case .animating:
             Animating(isActive: currentPage == page.rawValue)
         case .selectingFontsAndGlowing:
