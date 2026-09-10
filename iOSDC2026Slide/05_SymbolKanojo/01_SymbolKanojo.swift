@@ -319,24 +319,42 @@ private extension SymbolKanojo {
     }
 
     var sofa: some View {
-        HStack(spacing: 0) {
-            ForEach(0..<10) { _ in
-                RoundedRectangle(cornerRadius: 20)
-                    .frame(height: 400)
-                    .frame(maxWidth: .infinity)
-                    .foregroundStyle(
-                        LinearGradient(
-                            stops: [
-                                .init(color: .sofaRedDark, location: 0.0),
-                                .init(color: .sofaRed, location: 0.2),
-                                .init(color: .sofaRed, location: 0.8),
-                                .init(color: .sofaRedDark, location: 1.0),
-                            ],
-                            startPoint: .leading,
-                            endPoint: .trailing
+        ZStack {
+            HStack(spacing: 0) {
+                ForEach(0..<10) { _ in
+                    RoundedRectangle(cornerRadius: 20)
+                        .frame(height: 400)
+                        .frame(maxWidth: .infinity)
+                        .foregroundStyle(
+                            LinearGradient(
+                                stops: [
+                                    .init(color: .sofaRedDark, location: 0.0),
+                                    .init(color: .sofaRed, location: 0.2),
+                                    .init(color: .sofaRed, location: 0.8),
+                                    .init(color: .sofaRedDark, location: 1.0),
+                                ],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
                         )
-                    )
+                }
             }
+            HStack(spacing: 0) {
+                Spacer()
+                ForEach(0..<9) { index in
+                    ZStack {
+                        Circle()
+                            .fill(.sofaRedDark)
+                            .frame(width: 50, height: 50)
+                            .blur(radius: 4)
+                        Circle()
+                            .fill(.sofaRed)
+                            .frame(width: 30, height: 30)
+                    }
+                    Spacer()
+                }
+            }
+            .padding(.horizontal, 25)
         }
     }
 
