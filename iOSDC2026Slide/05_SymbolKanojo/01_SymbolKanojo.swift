@@ -10,6 +10,7 @@ import SwiftUI
 struct SymbolKanojo: View {
     @ObservedObject private var yuyuVM = YuyuViewModel()
     @State private var count: Int = 0
+    @State private var isCurtainsOpened = false
 
     private var expressionAndGestureIndex: Int {
         count % expressionAndGestures.count
@@ -79,6 +80,11 @@ struct SymbolKanojo: View {
             creamSodaLayer
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .overlay {
+            Color.black.opacity(isCurtainsOpened ? 0 : 0.2)
+                .ignoresSafeArea()
+        }
+        .animation(.easeInOut, value: isCurtainsOpened)
         .task {
             while true {
                 try? await Task.sleep(for: .seconds(2))
@@ -224,8 +230,10 @@ private extension SymbolKanojo {
                             .padding(.leading, 32)
                             .offset(y: -64)
                         Spacer()
-                        WindowView()
-                            .offset(x: 50)
+                        WindowView(curtainsAction: { isCurtainsOpened in
+                            self.isCurtainsOpened = isCurtainsOpened
+                        })
+                        .offset(x: 50)
                     }
                     Spacer()
                 }

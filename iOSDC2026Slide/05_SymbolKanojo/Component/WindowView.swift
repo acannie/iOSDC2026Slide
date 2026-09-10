@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct WindowView: View {
+    let curtainsAction: (Bool) -> Void
     @State var isCurtainOpen: Bool = false
+
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
@@ -31,6 +33,7 @@ struct WindowView: View {
         .frame(width: 650, height: 600)
         .onTapGesture {
             isCurtainOpen.toggle()
+            curtainsAction(isCurtainOpen)
         }
     }
 }
