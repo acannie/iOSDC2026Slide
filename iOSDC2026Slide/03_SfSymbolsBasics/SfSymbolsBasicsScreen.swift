@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SfSymbolsBasicsScreen: View {
     @Binding var path: NavigationPath
-    @State var currentPage: Int = 2
+    @State var currentPage: Int = 0
 
     enum Page: Int, CaseIterable {
         case coloring

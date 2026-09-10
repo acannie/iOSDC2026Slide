@@ -9,12 +9,9 @@ import SwiftUI
 
 struct AppleDesignResource: View {
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                title
-                Spacer()
-            }
-            .padding(.leading, 32)
+        VStack(spacing: 32) {
+            Spacer(minLength: 0)
+            title
             HStack(spacing: 16) {
                 sfSymbols
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -25,9 +22,9 @@ struct AppleDesignResource: View {
                 shape
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
+            Spacer(minLength: 0)
         }
         .padding(.horizontal, 32)
-        .padding(.vertical, 64)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

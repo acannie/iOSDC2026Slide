@@ -13,13 +13,10 @@ struct InterpretingAndCombining: View {
     @State private var isShowingWholeElephant: Bool = false
 
     var body: some View {
-        VStack {
-            HStack {
-                title
-                Spacer()
-            }
-            .padding(.leading, 64)
-            .padding(.top, 64)
+        VStack(spacing: 0) {
+            title
+                .padding(.top, 64)
+            Spacer()
             HStack(spacing: 50) {
                 ZStack {
                     lotus
@@ -44,8 +41,9 @@ struct InterpretingAndCombining: View {
                 }
                 .frame(width: 600, height: 600)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            Spacer()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onChange(of: isActive) {
             isShowingWholeLotus = false
             isShowingWholeElephant = false

@@ -13,19 +13,17 @@ struct FontsAndGlowing: View {
     @State private var isDay: Bool = true
 
     var body: some View {
-        VStack {
-            HStack {
-                title
-                Spacer()
-            }
-            .padding(.leading, 64)
-            .padding(.top, 64)
+        VStack(spacing: 0) {
+            title
+                .padding(.top, 64)
+            Spacer()
             HStack(spacing: 100) {
                 NeonSignView(isDay: isDay)
                 MarqueeSignView(isDay: isDay)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            Spacer()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(isDay ? .white : .black)
         .animation(.easeInOut, value: isDay)
         .overlay {
