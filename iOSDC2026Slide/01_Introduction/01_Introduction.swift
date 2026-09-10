@@ -21,10 +21,9 @@ struct Introduction: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 80) {
+        VStack(spacing: 80) {
+            Spacer()
             title
-                .padding(.leading, 64)
-                .padding(.top, 64)
                 .opacity(slideType == .onlyImage ? 0 : 1)
             HStack(spacing: 20) {
                 image

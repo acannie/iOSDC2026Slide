@@ -9,10 +9,9 @@ import SwiftUI
 
 struct Guidelines: View {
     var body: some View {
-        VStack {
-            title
-                .padding(.top, 64)
+        VStack(spacing: 64) {
             Spacer()
+            title
             HStack(alignment: .top, spacing: 32) {
                 ForEach(Array(SectionType.allCases.enumerated()), id: \.offset) { index, sectionType in
                     section(for: sectionType)
