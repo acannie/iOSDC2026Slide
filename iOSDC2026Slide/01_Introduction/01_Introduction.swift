@@ -21,27 +21,28 @@ struct Introduction: View {
     }
 
     var body: some View {
-        VStack(spacing: 80) {
-            Spacer()
+        VStack(spacing: 0) {
             title
                 .opacity(slideType == .onlyImage ? 0 : 1)
+            Spacer()
             HStack(spacing: 20) {
                 image
                     .overlay {
                         decoration
-                            .opacity(slideType == .onlyImage ? 0 : 1)
+                            .opacity(slideType == .introductionScreen ? 1 : 0)
                     }
                 VStack(spacing: 20) {
                     ForEach(Profile.allCases, id: \.self) { profile in
                         profileCard(profile)
                     }
                 }
-                .padding(.trailing, 64)
                 .opacity(slideType == .onlyImage ? 0 : 1)
             }
-            .padding(.vertical, 64)
+            .padding(.leading, 32)
+            .padding(.trailing, 64)
             Spacer()
         }
+        .padding(.vertical, 64)
         .background(slideType == .onlyImage ? .clear : .introductionBackground)
     }
 }
