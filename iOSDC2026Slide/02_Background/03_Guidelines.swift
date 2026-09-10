@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Guidelines: View {
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             title
                 .padding(.top, 64)
             Spacer()

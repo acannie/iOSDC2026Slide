@@ -40,7 +40,7 @@ struct BackgroundScreen: View {
                     if currentPage < Page.allCases.count - 1 {
                         currentPage += 1
                     } else {
-                        path.append(Destination.sfSymbolBasics)
+                        path.append(Destination.utilizationTechniques)
                     }
                 }
             )
