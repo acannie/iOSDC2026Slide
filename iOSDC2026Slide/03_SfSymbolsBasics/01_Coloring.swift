@@ -28,19 +28,17 @@ struct Coloring: View {
     ]
 
     var body: some View {
-        VStack {
-            HStack {
-                title
-                Spacer()
-            }
-            .padding(.leading, 64)
-            .padding(.top, 64)
+        VStack(spacing: 0) {
+            title
+                .padding(.top, 64)
+            Spacer()
             HStack(spacing: 200) {
                 rainbow
                 teddybear
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            Spacer()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .task {
             while true {
                 try? await Task.sleep(for: .seconds(1))

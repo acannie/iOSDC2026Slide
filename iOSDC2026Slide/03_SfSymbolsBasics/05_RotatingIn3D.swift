@@ -13,12 +13,8 @@ struct RotatingIn3D: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                HStack {
-                    title
-                    Spacer()
-                }
-                .padding(.leading, 64)
-                .padding(.top, 64)
+                title
+                    .padding(.top, 64)
                 Spacer()
                 CubeView()
                 Spacer()
