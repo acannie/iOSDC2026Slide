@@ -16,7 +16,7 @@ struct IWannaMakeContent: View {
                 .font(.system(size: 60, weight: .bold))
                 .foregroundStyle(.white)
             (
-                Text("コンテンツ")
+                Text("キャラクター")
                     .foregroundStyle(.red)
                 + Text("をつくりたい")
                     .foregroundStyle(.white)

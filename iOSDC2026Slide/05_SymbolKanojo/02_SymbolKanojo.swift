@@ -11,6 +11,12 @@ struct SymbolKanojo: View {
     let isActive: Bool
     @ObservedObject private var yuyuVM = YuyuViewModel()
     @State private var count: Int = 0
+    @State private var isShowingBooks = false
+    @State private var isShowingClock = false
+    @State private var isShowingLight = false
+    @State private var isShowingPlant = false
+    @State private var isShowingYuyu = false
+    @State private var isShowingCreamSoda = false
     @State private var isCurtainsOpened = false
 
     private var expressionAndGestureIndex: Int {
@@ -76,9 +82,15 @@ struct SymbolKanojo: View {
         ZStack {
             backgroundLayer
             yuyuLayer
+                .opacity(isShowingYuyu ? 1 : 0)
+                .animation(.easeInOut, value: isShowingYuyu)
             tableLayer
             yuyuArmLayer
+                .opacity(isShowingYuyu ? 1 : 0)
+                .animation(.easeInOut, value: isShowingYuyu)
             creamSodaLayer
+                .opacity(isShowingCreamSoda ? 1 : 0)
+                .animation(.easeInOut, value: isShowingCreamSoda)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .overlay {
@@ -86,12 +98,29 @@ struct SymbolKanojo: View {
                 .ignoresSafeArea()
         }
         .animation(.easeInOut, value: isCurtainsOpened)
+        .animation(.easeInOut, value: isShowingYuyu)
+        .animation(.easeInOut, value: isShowingCreamSoda)
         .onChange(of: isActive) {
             if isActive {
                 Task {
+                    try? await Task.sleep(for: .seconds(0.6))
+                    isShowingBooks = true
+                    try? await Task.sleep(for: .seconds(0.3))
+                    isShowingLight = true
+                    try? await Task.sleep(for: .seconds(0.3))
+                    isShowingPlant = true
+                    try? await Task.sleep(for: .seconds(0.3))
+                    isShowingClock = true
+                    try? await Task.sleep(for: .seconds(0.3))
+                    isShowingCreamSoda = true
+                    try? await Task.sleep(for: .seconds(0.3))
+                    isShowingYuyu = true
+                    try? await Task.sleep(for: .seconds(1.0))
+                    isCurtainsOpened = true
+                    try? await Task.sleep(for: .seconds(1.0))
                     while true {
-                        try? await Task.sleep(for: .seconds(2))
                         count += 1
+                        try? await Task.sleep(for: .seconds(2))
                     }
                 }
             }
@@ -232,17 +261,19 @@ private extension SymbolKanojo {
                 VStack {
                     HStack {
                         WallClockView()
+                            .opacity(isShowingClock ? 1 : 0)
+                            .animation(.easeInOut, value: isShowingClock)
                             .padding(.leading, 32)
                             .offset(y: -64)
                         Spacer()
-                        WindowView(curtainsAction: { isCurtainsOpened in
-                            self.isCurtainsOpened = isCurtainsOpened
-                        })
-                        .offset(x: 50)
+                        WindowView(isCurtainsClosed: !isCurtainsOpened)
+                            .offset(x: 50)
                     }
                     Spacer()
                 }
                 wallLamp
+                    .opacity(isShowingLight ? 1 : 0)
+                    .animation(.easeInOut, value: isShowingLight)
                     .offset(y: -450)
 //                BlackboardView()
 //                    .offset(x: -650, y: -20)
@@ -257,6 +288,8 @@ private extension SymbolKanojo {
                 HStack {
                     Spacer()
                     plant
+                        .opacity(isShowingPlant ? 1 : 0)
+                        .animation(.easeInOut, value: isShowingPlant)
                 }
             }
         }
@@ -295,6 +328,8 @@ private extension SymbolKanojo {
                 VStack {
                     Spacer()
                     BooksView()
+                        .opacity(isShowingBooks ? 1 : 0)
+                        .animation(.easeInOut, value: isShowingBooks)
                 }
                 Spacer()
             }
