@@ -20,7 +20,8 @@ struct SymbolKanojoScreen: View {
         ZStack {
             ForEach(Page.allCases, id: \.self) { page in
                 pageContent(for: page)
-                    .opacity(currentPage == page.rawValue ? 1 : 0)
+                    .opacity(page.rawValue >= currentPage ? 1 : 0)
+                    .zIndex(Double(Page.allCases.count - page.rawValue))
                     .animation(.easeInOut, value: currentPage)
             }
         }
