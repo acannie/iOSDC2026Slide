@@ -1,18 +1,18 @@
 //
-//  IntroductionScreen.swift
+//  TitleScreen.swift
 //  iOSDC2026Slide
 //
-//  Created by SASAOKA Akane on 2026/07/25.
+//  Created by SASAOKA Akane on 2026/09/12.
 //
 
 import SwiftUI
 
-struct IntroductionScreen: View {
+struct TitleScreen: View {
     @Binding var path: NavigationPath
     @State var currentPage: Int = 0
 
     enum Page: Int, CaseIterable {
-        case introduction
+        case title
     }
 
     var body: some View {
@@ -26,20 +26,20 @@ struct IntroductionScreen: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .overlay {
             DestinationButtonOverlayView(
-                goPreviousAction: { path.removeLast() },
-                goNextAction: { path.append(Destination.background) }
+                goPreviousAction: {},
+                goNextAction: { path.append(Destination.introduction) }
             )
         }
         .navigationBarBackButtonHidden(true)
     }
 }
 
-private extension IntroductionScreen {
+private extension TitleScreen {
     @ViewBuilder
     func pageContent(for page: Page) -> some View {
         switch page {
-        case .introduction:
-            Introduction()
+        case .title:
+            Title()
         }
     }
 }
