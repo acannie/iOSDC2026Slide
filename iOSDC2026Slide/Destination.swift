@@ -6,6 +6,7 @@
 //
 
 enum Destination: Hashable {
+    case title
     case introduction
     case background
     case utilizationTechniques
