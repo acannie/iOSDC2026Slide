@@ -10,43 +10,127 @@ import CoreImage.CIFilterBuiltins
 
 struct Conclusion: View {
     @State private var isCrackerPoping: Bool = false
+    @State private var isYuyuLookingAbove: Bool = false
+    @ObservedObject private var yuyuVM = YuyuViewModel()
 
     var body: some View {
-        VStack(spacing: 80) {
-            thankYouForListening
-            HStack(alignment: .top, spacing: 128) {
-                profile
-                VStack(alignment: .center, spacing: 64) {
+        ZStack {
+            VStack(spacing: 0) {
+                thankYouForListening
+                    .padding(.top, 64)
+                Spacer()
+                HStack(alignment: .top, spacing: 200) {
+                    xProfile
                     sourceCodeQr
-                    symbolKanojoApp
+                        .offset(y: -50)
                 }
+                Spacer()
+                Spacer()
+                Spacer()
             }
+            KanojoView(
+                kanojoParts: yuyuVM.parts,
+                scale: 1.0,
+                isUpsideDown: yuyuVM.activeAction == .turnUpsideDown
+            )
+            .offset(y: 300)
+            yuyuArms
         }
         .onAppear {
+            isYuyuLookingAbove = true
             isCrackerPoping = true
+        }
+        .onChange(of: isYuyuLookingAbove) {
+            if isYuyuLookingAbove {
+                withAnimation(.easeInOut) {
+                    yuyuVM.express(.init(faceType: .neutral, eyebrowsType: .neutral, eyesType: .normal(.surprise, .normal, .top), mouthType: .smile(.medium, .licking)))
+                }
+            }
         }
     }
 }
 
 private extension Conclusion {
+    var yuyuArms: some View {
+        var nail: some View {
+            Image(systemName: "capsule.portrait.fill")
+                .resizable()
+                .foregroundStyle(.yuyuNail)
+        }
+        return ZStack {
+            ForEach(Side.allCases, id: \.self) { side in
+                Group {
+                    Group {
+                        // 手
+                        Image(systemName: "hand.point.up.fill")
+                            .resizable()
+                            .foregroundStyle(.yuyuSkinMiddle)
+                            .frame(width: 140, height: 190)
+                        // 爪
+                        nail
+                            .rotationEffect(.degrees(side.unit * -15))
+                            .frame(width: 16, height: 24)
+                            .offset(x: 5, y: 38)
+                        nail
+                            .rotationEffect(.degrees(side.unit * -10))
+                            .frame(width: 16, height: 24)
+                            .offset(x: 30, y: 40)
+                        nail
+                            .rotationEffect(.degrees(side.unit * -10))
+                            .frame(width: 14, height: 24)
+                            .offset(x: 55, y: 35)
+                    }
+                    .offset(y: -200)
+                    // 袖
+                    Capsule()
+                        .fill(.sailorPinkLight)
+                        .frame(width: 150, height: 300)
+                        .offset(y: 80)
+                    Group {
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(.sailorPurpleLight)
+                            .frame(width: 120, height: 80)
+                        Capsule()
+                            .fill(.sailorWhite)
+                            .frame(width: 125, height: 10)
+                            .offset(y: -10)
+                        Capsule()
+                            .fill(.sailorWhite)
+                            .frame(width: 125, height: 10)
+                            .offset(y: 10)
+                    }
+                    .offset(y: -90)
+                }
+                .rotation3DEffect(
+                    .degrees(side == .left ? 180 : 0),
+                    axis: (x: 0, y: 90, z: 0)
+                )
+                .rotationEffect(.degrees(side.unit * 5))
+                .offset(x: side.unit * 360, y: 430)
+            }
+        }
+    }
+
     var thankYouForListening: some View {
         HStack(spacing: 20) {
-            Image(systemName: "party.popper")
+            Image("acannie")
                 .resizable()
-                .symbolRenderingMode(.palette)
-                .foregroundStyle(isCrackerPoping ? .conclusionCrackerBlue : .clear, .conclusionCrackerPink)
-                .rotation3DEffect((.degrees(180)), axis: (0, 1, 0))
-                .scaledToFit()
-                .frame(width: 60, height: 60)
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 100, height: 100)
+                .clipShape(Circle())
+                .overlay(
+                    Circle()
+                        .stroke(.conclusionThumbnailBorder, lineWidth: 8)
+                )
             Text("ご清聴ありがとうございました")
-                .font(.system(size: 70, weight: .heavy, design: .rounded))
+                .font(.system(size: 80, weight: .heavy, design: .rounded))
                 .foregroundStyle(.conclusionTitle)
             Image(systemName: "party.popper")
                 .resizable()
                 .symbolRenderingMode(.palette)
                 .foregroundStyle(isCrackerPoping ? .conclusionCrackerBlue : .clear, .conclusionCrackerPink)
                 .scaledToFit()
-                .frame(width: 60, height: 60)
+                .frame(width: 70, height: 70)
         }
         .animation(
             .easeInOut.repeatForever(autoreverses: true),
@@ -54,111 +138,30 @@ private extension Conclusion {
         )
     }
 
-    var profile: some View {
+    var xProfile: some View {
         VStack {
-            sectionTitle("発表者")
-            Image("acannie")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 300, height: 300)
-                .clipShape(Circle())
-                .overlay(
-                    Circle()
-                        .stroke(.conclusionThumbnailBorder, lineWidth: 2)
-                )
-            VStack(spacing: 4) {
-                Text("ささおか あかね")
-                    .font(.system(size: 40, weight: .semibold, design: .rounded))
-                    .foregroundStyle(.commonText)
-                HStack {
-                    Text("𝕏")
-                        .foregroundStyle(.white)
-                        .font(.system(size: 40))
-                        .padding(16)
-                        .background(
-                            Circle()
-                                .fill(.black)
-                        )
-                    Text("@sasaoka_akane")
-                        .font(.system(size: 30, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.commonText)
-                }
-            }
+            Text("フォローしてね♪")
+                .foregroundStyle(.gray)
+                .font(.system(size: 50, weight: .bold))
+            Text("@sasaoka_akane")
+                .foregroundStyle(.black)
+                .font(.system(size: 80, weight: .bold))
         }
+        .rotationEffect(.degrees(-5))
     }
 
     var sourceCodeQr: some View {
         VStack(spacing: 16) {
-            sectionTitle("スライドのソースコード")
             Image(uiImage: generateQRCode(from: "https://github.com/acannie/iOSDC2026Slide"))
                 .interpolation(.none)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 200, height: 200)
+            Text("スライドのソースコード")
+                .font(.system(size: 40, weight: .semibold, design: .rounded))
+                .foregroundStyle(.commonText)
         }
-    }
-
-    var symbolKanojoApp: some View {
-        VStack(alignment: .center, spacing: 16) {
-            sectionTitle("配信中アプリのご案内")
-            HStack(spacing: 32) {
-                BustUpKanojoView(
-                    kanojoParts: Fumi(
-                        faceViewModel: .init(),
-                        eyebrowsViewModel: .init(),
-                        eyesViewModel: .init(),
-                        mouthViewModel: .init(),
-                        costumeViewModel: .init(),
-                        faceMaskViewModel: .init(),
-                        accessoriesViewModel: .init(),
-                        emotionalEmissionViewModel: .init(),
-                        gestureViewModel: .init()
-                    ),
-                    scale: 1.0,
-                    isUpsideDown: false
-                )
-                .scaleEffect(0.2)
-                .frame(width: 120, height: 120)
-                .background(
-                    RoundedRectangle(cornerRadius: 20)
-                        .foregroundStyle(
-                            LinearGradient(
-                                colors: [
-                                    .conclusionSymbolKanojoAppBackgroundBlue,
-                                    .conclusionSymbolKanojoAppBackgroundPink,
-                                    .conclusionSymbolKanojoAppBackgroundYellow,
-                                    .conclusionSymbolKanojoAppBackgroundGreen
-                                ],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        )
-                )
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("App Store にて配信中！")
-                        .font(.system(size: 30, weight: .bold, design: .rounded))
-                        .foregroundStyle(.commonText)
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .resizable()
-                            .fontWeight(.bold)
-                            .foregroundStyle(.gray)
-                            .scaledToFit()
-                            .frame(width: 50, height: 50)
-                        Text("シンボルカノジョ。")
-                            .font(.system(size: 50, weight: .bold, design: .rounded))
-                            .foregroundStyle(.commonText)
-                    }
-                }
-            }
-            .padding(.leading, 24)
-        }
-    }
-
-    func sectionTitle(_ text: String) -> some View {
-        Text("【\(text)】")
-            .font(.system(size: 40, weight: .semibold, design: .rounded))
-            .foregroundStyle(.commonText)
+        .rotationEffect(.degrees(5))
     }
 }
 
