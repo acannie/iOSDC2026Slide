@@ -36,7 +36,7 @@ struct CreamSodaView: View {
         }
         .frame(width: 300, height: 600)
         .onTapGesture {
-              withAnimation(.easeOut(duration: 2)) {
+              withAnimation(.easeOut(duration: 1)) {
                   isShowingCreamSoda.toggle()
               }
         }

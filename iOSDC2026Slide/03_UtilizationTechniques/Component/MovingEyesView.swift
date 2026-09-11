@@ -154,7 +154,7 @@ struct MovingEyesView: View {
         }
         .frame(width: 1600 * scale + 100, height: 1000 * scale + 100)
         .onTapGesture {
-              withAnimation(.easeOut(duration: 2)) {
+              withAnimation(.easeOut(duration: 1)) {
                   isShowingEyes.toggle()
               }
         }
